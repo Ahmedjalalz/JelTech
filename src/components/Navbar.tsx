@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logoIcon from "@/assets/jt-logo-icon.png";
 
 const navLinks = [
-  { name: "Services", href: "#services" },
-  { name: "Work", href: "#work" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Services", href: "/#services", isHash: true },
+  { name: "Work", href: "/#work", isHash: true },
+  { name: "About", href: "/about", isHash: false },
+  { name: "Contact", href: "/contact", isHash: false },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +25,41 @@ export const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Handle hash scrolling when navigating
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
+  const handleNavClick = (href: string, isHash: boolean) => {
+    setIsMobileMenuOpen(false);
+    
+    if (isHash) {
+      const hash = href.split("#")[1];
+      if (location.pathname === "/") {
+        // Already on home, just scroll
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // Navigate to home with hash
+        navigate(href);
+      }
+    }
+  };
+
+  const isActive = (href: string, isHash: boolean) => {
+    if (isHash) return false;
+    return location.pathname === href;
+  };
 
   return (
     <motion.nav
@@ -34,7 +72,7 @@ export const Navbar = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group">
           <img
             src={logoIcon}
             alt="Jeltech"
@@ -43,26 +81,43 @@ export const Navbar = () => {
           <span className="text-xl font-bold tracking-tight text-foreground">
             Jel<span className="text-primary">Tech</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-            </a>
+            link.isHash ? (
+              <button
+                key={link.name}
+                onClick={() => handleNavClick(link.href, link.isHash)}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+              </button>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`text-sm font-medium transition-colors relative group ${
+                  isActive(link.href, link.isHash)
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {link.name}
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  isActive(link.href, link.isHash) ? "w-full" : "w-0 group-hover:w-full"
+                }`} />
+              </Link>
+            )
           ))}
         </div>
 
         {/* CTA Button */}
         <div className="hidden md:block">
           <Button variant="hero" size="default" asChild>
-            <a href="#contact">Start a Project</a>
+            <Link to="/contact">Start a Project</Link>
           </Button>
         </div>
 
@@ -86,19 +141,33 @@ export const Navbar = () => {
           >
             <div className="flex flex-col p-6 gap-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.isHash ? (
+                  <button
+                    key={link.name}
+                    onClick={() => handleNavClick(link.href, link.isHash)}
+                    className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2 text-left"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`text-base font-medium transition-colors py-2 ${
+                      isActive(link.href, link.isHash)
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
               <Button variant="hero" size="lg" className="mt-2" asChild>
-                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                   Start a Project
-                </a>
+                </Link>
               </Button>
             </div>
           </motion.div>

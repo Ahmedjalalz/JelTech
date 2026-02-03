@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Particle = ({ delay, x, y }: { delay: number; x: string; y: string }) => (
@@ -114,13 +115,13 @@ export const HeroSection = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button variant="hero" size="xl" asChild>
-              <a href="#contact" className="group">
+              <Link to="/contact" className="group">
                 Start a Project
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
+              </Link>
             </Button>
             <Button variant="heroOutline" size="xl" asChild>
-              <a href="#work">View Our Work</a>
+              <Link to="/#work">View Our Work</Link>
             </Button>
           </motion.div>
 

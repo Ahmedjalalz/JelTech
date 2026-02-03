@@ -1,17 +1,17 @@
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import logoIcon from "@/assets/jt-logo-icon.png";
 
 const footerLinks = {
   services: [
-    { name: "Web Development", href: "#services" },
-    { name: "UI/UX Design", href: "#services" },
-    { name: "Web Apps", href: "#services" },
-    { name: "Performance", href: "#services" },
+    { name: "Web Development", href: "/#services", isHash: true },
+    { name: "UI/UX Design", href: "/#services", isHash: true },
+    { name: "Web Apps", href: "/#services", isHash: true },
+    { name: "Performance", href: "/#services", isHash: true },
   ],
   company: [
-    { name: "About", href: "#about" },
-    { name: "Work", href: "#work" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about", isHash: false },
+    { name: "Work", href: "/#work", isHash: true },
+    { name: "Contact", href: "/contact", isHash: false },
   ],
   social: [
     { name: "Twitter", href: "#" },
@@ -21,18 +21,28 @@ const footerLinks = {
 };
 
 export const Footer = () => {
+  const handleHashClick = (href: string) => {
+    if (window.location.pathname === "/") {
+      const hash = href.split("#")[1];
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <footer className="border-t border-border py-16 relative">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <a href="#" className="flex items-center gap-2 mb-4">
+            <Link to="/" className="flex items-center gap-2 mb-4">
               <img src={logoIcon} alt="Jeltech" className="h-8 w-auto" />
               <span className="text-xl font-bold text-foreground">
                 Jel<span className="text-primary">Tech</span>
               </span>
-            </a>
+            </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Building modern, high-performance web experiences for businesses
               that want to stand out.
@@ -45,12 +55,22 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </a>
+                  {link.isHash ? (
+                    <Link
+                      to={link.href}
+                      onClick={() => handleHashClick(link.href)}
+                      className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -62,12 +82,22 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </a>
+                  {link.isHash ? (
+                    <Link
+                      to={link.href}
+                      onClick={() => handleHashClick(link.href)}
+                      className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
