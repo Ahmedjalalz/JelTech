@@ -1,5 +1,5 @@
-import { motion, useSpring, useTransform, useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import { Calendar, FolderCheck, Heart, Cpu } from "lucide-react";
 
 const stats = [
@@ -42,19 +42,37 @@ const AnimatedCounter = ({
   suffix: string;
   isInView: boolean;
 }) => {
-  const spring = useSpring(0, { duration: 2000 });
+  const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
-    if (isInView) {
-      spring.set(value);
-    }
-  }, [isInView, spring, value]);
+    if (!isInView) return;
+    
+    const duration = 2000;
+    const startTime = Date.now();
+    
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = Math.round(easeOutQuart * value);
+      
+      setDisplayValue(current);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, [isInView, value]);
 
   return (
-    <motion.span className="text-4xl sm:text-5xl font-bold text-foreground">
-      <motion.span>{spring}</motion.span>
+    <span className="text-4xl sm:text-5xl font-bold text-foreground">
+      <span>{displayValue}</span>
       <span className="text-primary">{suffix}</span>
-    </motion.span>
+    </span>
   );
 };
 

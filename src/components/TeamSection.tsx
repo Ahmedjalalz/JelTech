@@ -4,34 +4,34 @@ import { useRef } from "react";
 
 const teamMembers = [
   {
-    name: "Alex Johnson",
-    role: "Frontend Developer",
+    name: "Ahmed Jalal",
+    role: "Founder & President",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
   },
   {
-    name: "Sarah Chen",
-    role: "UI/UX Designer",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face",
-  },
-  {
-    name: "Michael Okonkwo",
+    name: "Abdul Rehman",
     role: "Backend Developer",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face",
   },
   {
-    name: "Emily Rodriguez",
-    role: "Mobile Developer",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face",
+    name: "Sara Chaudary",
+    role: "Frontend Developer",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face",
   },
   {
-    name: "David Kim",
-    role: "Full Stack Developer",
+    name: "Abdullah Asif",
+    role: "Shopify Developer",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face",
   },
   {
-    name: "Olivia Thompson",
+    name: "Umer Nadeem",
+    role: "UI/UX Designer",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
+  },
+  {
+    name: "Awais Jamil",
     role: "Business Developer",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face",
   },
 ];
 
