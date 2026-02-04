@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoIcon from "@/assets/jt-logo-icon.png";
+import logoLetters from "@/assets/jt-logo-letters.png";
 
 const footerLinks = {
   services: [
@@ -38,7 +38,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={logoIcon} alt="Jeltech" className="h-8 w-auto" />
+              <img src={logoLetters} alt="Jeltech" className="h-8 w-auto" />
               <span className="text-xl font-bold text-foreground">
                 Jel<span className="text-primary">Tech</span>
               </span>
