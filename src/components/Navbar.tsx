@@ -77,6 +77,9 @@ export const Navbar = () => {
             alt="Jeltech"
             className="h-9 w-auto transition-transform duration-300 group-hover:scale-105"
           />
+          <span className="text-xl font-bold tracking-tight text-foreground">
+            Jel<span className="text-primary">Tech</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
