@@ -3,11 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import logoIcon from "@/assets/jt-logo-icon.png";
+import logoLetters from "@/assets/jt-logo-letters.png";
 
 const navLinks = [
-  { name: "Services", href: "/#services", isHash: true },
-  { name: "Work", href: "/#work", isHash: true },
+  { name: "Home", href: "/", isHash: false },
   { name: "About", href: "/about", isHash: false },
   { name: "Contact", href: "/contact", isHash: false },
 ];
@@ -74,13 +73,10 @@ export const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
           <img
-            src={logoIcon}
+            src={logoLetters}
             alt="Jeltech"
             className="h-9 w-auto transition-transform duration-300 group-hover:scale-105"
           />
-          <span className="text-xl font-bold tracking-tight text-foreground">
-            Jel<span className="text-primary">Tech</span>
-          </span>
         </Link>
 
         {/* Desktop Navigation */}
