@@ -7,7 +7,10 @@ import {
   Server,
   Gauge,
   Palette,
-  LayoutDashboard,
+  Smartphone,
+  ShoppingBag,
+  RefreshCcw,
+  Search,
 } from "lucide-react";
 
 const services = [
@@ -16,6 +19,18 @@ const services = [
     title: "Custom Websites",
     description:
       "Tailored websites built from the ground up to match your brand and goals perfectly.",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile Apps",
+    description:
+      "Native and cross-platform mobile applications for iOS and Android that engage users on the go.",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Shopify Stores",
+    description:
+      "Custom Shopify stores with optimized themes, seamless checkout, and powerful e-commerce features.",
   },
   {
     icon: Code2,
@@ -30,22 +45,28 @@ const services = [
       "Robust server-side solutions and API integrations that power your applications.",
   },
   {
-    icon: Gauge,
-    title: "Performance",
+    icon: RefreshCcw,
+    title: "Website Redesign",
     description:
-      "Optimized code and infrastructure for lightning-fast load times and smooth UX.",
+      "Transform your existing website with a fresh, modern look and improved user experience.",
+  },
+  {
+    icon: Gauge,
+    title: "Performance Optimization",
+    description:
+      "Optimize your website for lightning-fast load times, better Core Web Vitals, and smooth UX.",
+  },
+  {
+    icon: Search,
+    title: "SEO",
+    description:
+      "Search engine optimization strategies to boost your visibility and drive organic traffic.",
   },
   {
     icon: Palette,
     title: "UI/UX Design",
     description:
       "Beautiful, intuitive interfaces designed to delight users and drive conversions.",
-  },
-  {
-    icon: LayoutDashboard,
-    title: "Web Apps",
-    description:
-      "Full-featured web applications and dashboards built for scale and reliability.",
   },
 ];
 
@@ -67,7 +88,6 @@ const ServiceCard = ({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group relative p-6 rounded-2xl bg-card border border-border hover-glow hover-lift cursor-default"
     >
-      {/* Glow effect on hover */}
       <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       <div className="relative z-10">
@@ -84,7 +104,6 @@ const ServiceCard = ({
         </p>
       </div>
 
-      {/* Corner accent */}
       <div className="absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-primary/30 rounded-tr-lg" />
       </div>
@@ -99,7 +118,6 @@ export const ServicesSection = () => {
   return (
     <section id="services" className="py-24 relative">
       <div className="container mx-auto px-6">
-        {/* Section header */}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 30 }}
@@ -114,12 +132,11 @@ export const ServicesSection = () => {
             Services Built for Success
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            From concept to launch, we deliver end-to-end web solutions that
+            From concept to launch, we deliver end-to-end web & mobile solutions that
             help businesses thrive in the digital age.
           </p>
         </motion.div>
 
-        {/* Services grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />

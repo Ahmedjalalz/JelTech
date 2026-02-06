@@ -5,28 +5,32 @@ import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
-    title: "E-Commerce Platform",
-    category: "Web App",
-    description: "A full-featured online store with seamless checkout experience",
+    title: "Battlex Online Store",
+    category: "E-commerce Platform",
+    description: "A full-featured online store with seamless checkout experience and modern design.",
     gradient: "from-emerald-500/20 to-cyan-500/20",
+    link: "https://battlex.store/",
   },
   {
-    title: "SaaS Dashboard",
-    category: "Dashboard",
-    description: "Analytics dashboard for a fintech startup with real-time data",
+    title: "Glammzi Online Store",
+    category: "E-commerce Store",
+    description: "A stylish e-commerce store delivering beauty and lifestyle products with elegance.",
     gradient: "from-violet-500/20 to-purple-500/20",
+    link: "https://glammzi.com/",
   },
   {
-    title: "Portfolio Website",
-    category: "Website",
-    description: "A creative agency portfolio with stunning animations",
+    title: "RentNGo Car Rentals",
+    category: "Car Rental Platform",
+    description: "A sleek car rental platform with easy booking, vehicle browsing, and a smooth user experience.",
     gradient: "from-orange-500/20 to-rose-500/20",
+    link: "https://rentngofrontend.netlify.app/",
   },
   {
-    title: "Mobile Banking App",
-    category: "Web App",
-    description: "Secure and intuitive banking interface for modern users",
+    title: "Infinity Build Agency",
+    category: "Agency Website",
+    description: "A modern agency website showcasing web development services with a bold, professional look.",
     gradient: "from-blue-500/20 to-indigo-500/20",
+    link: "https://www.infinitybuild.fr/",
   },
 ];
 
@@ -41,18 +45,20 @@ const ProjectCard = ({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <motion.div
+    <motion.a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="group relative rounded-2xl overflow-hidden bg-card border border-border hover-glow cursor-pointer"
+      className="group relative rounded-2xl overflow-hidden bg-card border border-border hover-glow cursor-pointer block"
     >
       {/* Project image area */}
       <div
         className={`aspect-[4/3] bg-gradient-to-br ${project.gradient} relative overflow-hidden`}
       >
-        {/* Placeholder grid pattern */}
         <div
           className="absolute inset-0 opacity-30"
           style={{
@@ -61,10 +67,9 @@ const ProjectCard = ({
           }}
         />
 
-        {/* Hover overlay */}
         <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
           <div className="flex items-center gap-2 text-primary font-medium">
-            View Project
+            Visit Project
             <ArrowUpRight className="w-5 h-5" />
           </div>
         </div>
@@ -83,7 +88,7 @@ const ProjectCard = ({
         </h3>
         <p className="text-muted-foreground text-sm">{project.description}</p>
       </div>
-    </motion.div>
+    </motion.a>
   );
 };
 
