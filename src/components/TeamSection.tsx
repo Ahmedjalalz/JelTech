@@ -5,7 +5,7 @@ import { useRef } from "react";
 const teamMembers = [
   {
     name: "Ahmed Jalal",
-    role: "Founder & President",
+    role: "Founder & CEO",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
   },
   {

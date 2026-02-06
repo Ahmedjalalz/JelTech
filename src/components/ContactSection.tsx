@@ -1,33 +1,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Send, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import { useRef } from "react";
+import { Mail, Phone, Instagram, Twitter, Linkedin } from "lucide-react";
+
+const socialLinks = [
+  { name: "Instagram", href: "https://www.instagram.com/jeltech.official", icon: Instagram },
+  { name: "Twitter", href: "https://x.com/jeltechofficial", icon: Twitter },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/jeltech-group", icon: Linkedin },
+];
 
 export const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
-
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
-  };
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
@@ -52,8 +36,8 @@ export const ContactSection = () => {
             <span className="text-gradient-green">Great Together</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Have a project in mind? We'd love to hear about it. Drop us a
-            message and let's discuss how we can help bring your vision to life.
+            Have a question or want to learn more about our services? Reach out
+            to us through any of the channels below.
           </p>
         </motion.div>
 
@@ -61,99 +45,55 @@ export const ContactSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-xl mx-auto"
+          className="max-w-2xl mx-auto"
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  placeholder="John Doe"
-                  required
-                  className="bg-secondary/50 border-border focus:border-primary h-12"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="john@example.com"
-                  required
-                  className="bg-secondary/50 border-border focus:border-primary h-12"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="project"
-                className="block text-sm font-medium text-foreground mb-2"
-              >
-                Project Type
-              </label>
-              <Input
-                id="project"
-                name="project"
-                placeholder="e.g., E-commerce website, SaaS app, etc."
-                className="bg-secondary/50 border-border focus:border-primary h-12"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-foreground mb-2"
-              >
-                Message
-              </label>
-              <Textarea
-                id="message"
-                name="message"
-                placeholder="Tell us about your project..."
-                rows={5}
-                required
-                className="bg-secondary/50 border-border focus:border-primary resize-none"
-              />
-            </div>
-
-            <Button
-              type="submit"
-              variant="hero"
-              size="xl"
-              className="w-full group"
-              disabled={isSubmitting}
+          {/* Contact Cards */}
+          <div className="grid sm:grid-cols-2 gap-6 mb-10">
+            <a
+              href="mailto:Support@jeltech.net"
+              className="group p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 flex items-center gap-4"
             >
-              {isSubmitting ? (
-                <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full"
-                  />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  Send Message
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </>
-              )}
-            </Button>
-          </form>
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Mail className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Email Us</p>
+                <p className="text-foreground font-medium">Support@jeltech.net</p>
+              </div>
+            </a>
+
+            <a
+              href="tel:+923143394966"
+              className="group p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 flex items-center gap-4"
+            >
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Phone className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Call Us</p>
+                <p className="text-foreground font-medium">+92 314 3394966</p>
+              </div>
+            </a>
+          </div>
+
+          {/* Social Links */}
+          <div className="text-center">
+            <p className="text-muted-foreground text-sm mb-4">Follow us on social media</p>
+            <div className="flex items-center justify-center gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-xl bg-secondary/50 border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
+                  aria-label={link.name}
+                >
+                  <link.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
