@@ -2,34 +2,38 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import battlexImg from "@/assets/projects/battlex.png";
+import glammziImg from "@/assets/projects/glammzi.png";
+import rentngoImg from "@/assets/projects/rentngo.png";
+import infinitybuildImg from "@/assets/projects/infinitybuild.png";
 
 const projects = [
   {
     title: "Battlex Online Store",
     category: "E-commerce Platform",
     description: "A full-featured online store with seamless checkout experience and modern design.",
-    gradient: "from-emerald-500/20 to-cyan-500/20",
+    image: battlexImg,
     link: "https://battlex.store/",
   },
   {
     title: "Glammzi Online Store",
     category: "E-commerce Store",
     description: "A stylish e-commerce store delivering beauty and lifestyle products with elegance.",
-    gradient: "from-violet-500/20 to-purple-500/20",
+    image: glammziImg,
     link: "https://glammzi.com/",
   },
   {
     title: "RentNGo Car Rentals",
     category: "Car Rental Platform",
     description: "A sleek car rental platform with easy booking, vehicle browsing, and a smooth user experience.",
-    gradient: "from-orange-500/20 to-rose-500/20",
+    image: rentngoImg,
     link: "https://rentngofrontend.netlify.app/",
   },
   {
     title: "Infinity Build Agency",
     category: "Agency Website",
     description: "A modern agency website showcasing web development services with a bold, professional look.",
-    gradient: "from-blue-500/20 to-indigo-500/20",
+    image: infinitybuildImg,
     link: "https://www.infinitybuild.fr/",
   },
 ];
@@ -56,15 +60,11 @@ const ProjectCard = ({
       className="group relative rounded-2xl overflow-hidden bg-card border border-border hover-glow cursor-pointer block"
     >
       {/* Project image area */}
-      <div
-        className={`aspect-[4/3] bg-gradient-to-br ${project.gradient} relative overflow-hidden`}
-      >
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.15) 1px, transparent 0)`,
-            backgroundSize: "24px 24px",
-          }}
+      <div className="aspect-[4/3] relative overflow-hidden bg-muted">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
 
         <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

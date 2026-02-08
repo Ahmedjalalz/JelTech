@@ -2,11 +2,14 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
+import ahmedImg from "@/assets/team/ahmed-jalal.png";
+import saraImg from "@/assets/team/sara.jpeg";
+
 const teamMembers = [
   {
     name: "Ahmed Jalal",
     role: "Founder & CEO",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
+    image: ahmedImg,
   },
   {
     name: "Abdul Rehman",
@@ -16,7 +19,7 @@ const teamMembers = [
   {
     name: "Sara Chaudary",
     role: "Mobile Developer",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face",
+    image: saraImg,
   },
   {
     name: "Abdullah Asif",
