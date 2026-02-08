@@ -4,6 +4,10 @@ import { useRef } from "react";
 
 import ahmedImg from "@/assets/team/ahmed-jalal.png";
 import saraImg from "@/assets/team/sara.jpeg";
+import abdulRehmanImg from "@/assets/team/abdul-rehman.jpeg";
+import abdullahImg from "@/assets/team/abdullah.jpeg";
+import umerImg from "@/assets/team/umer-nadeem.jpeg";
+import awaisImg from "@/assets/team/awais.jpeg";
 
 const teamMembers = [
   {
@@ -14,7 +18,7 @@ const teamMembers = [
   {
     name: "Abdul Rehman",
     role: "Backend Developer",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face",
+    image: abdulRehmanImg,
   },
   {
     name: "Sara Chaudary",
@@ -24,17 +28,17 @@ const teamMembers = [
   {
     name: "Abdullah Asif",
     role: "Shopify Developer",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face",
+    image: abdullahImg,
   },
   {
     name: "Umer Nadeem",
     role: "UI/UX Designer",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
+    image: umerImg,
   },
   {
     name: "Awais Jamil",
     role: "Business Developer",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face",
+    image: awaisImg,
   },
 ];
 
