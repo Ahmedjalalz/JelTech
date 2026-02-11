@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useMotionReady } from "../hooks/useMotionReady";
 
 const projects = [
   {
@@ -36,7 +37,7 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = ({ project, index, motionReady }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -46,7 +47,7 @@ const ProjectCard = ({ project, index }) => {
       target="_blank"
       rel="noopener noreferrer"
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
+      initial={motionReady ? { opacity: 0, y: 50 } : false}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.15 }}
       className="group relative rounded-2xl overflow-hidden bg-card border border-border hover-glow cursor-pointer block"
@@ -87,13 +88,16 @@ const ProjectCard = ({ project, index }) => {
 export const ProjectsSection = () => {
   const headerRef = useRef(null);
   const isInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const motionReady = useMotionReady();
+  const motionKey = motionReady ? "motion" : "static";
 
   return (
     <section id="work" className="py-24 relative">
       <div className="container mx-auto px-6">
         <motion.div
           ref={headerRef}
-          initial={{ opacity: 0, y: 30 }}
+          key={`projects-header-${motionKey}`}
+          initial={motionReady ? { opacity: 0, y: 30 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -112,7 +116,12 @@ export const ProjectsSection = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+            <ProjectCard
+              key={`${motionKey}-${project.title}`}
+              project={project}
+              index={index}
+              motionReady={motionReady}
+            />
           ))}
         </div>
       </div>

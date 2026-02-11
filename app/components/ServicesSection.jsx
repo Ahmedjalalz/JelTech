@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useMotionReady } from "../hooks/useMotionReady";
 import {
   Globe,
   Code2,
@@ -72,14 +73,14 @@ const services = [
   },
 ];
 
-const ServiceCard = ({ service, index }) => {
+const ServiceCard = ({ service, index, motionReady }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={motionReady ? { opacity: 0, y: 40 } : false}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group relative p-6 rounded-2xl bg-card border border-border hover-glow hover-lift cursor-default"
@@ -110,13 +111,16 @@ const ServiceCard = ({ service, index }) => {
 export const ServicesSection = () => {
   const headerRef = useRef(null);
   const isInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const motionReady = useMotionReady();
+  const motionKey = motionReady ? "motion" : "static";
 
   return (
     <section id="services" className="py-24 relative">
       <div className="container mx-auto px-6">
         <motion.div
           ref={headerRef}
-          initial={{ opacity: 0, y: 30 }}
+          key={`services-header-${motionKey}`}
+          initial={motionReady ? { opacity: 0, y: 30 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -135,7 +139,12 @@ export const ServicesSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
+            <ServiceCard
+              key={`${motionKey}-${service.title}`}
+              service={service}
+              index={index}
+              motionReady={motionReady}
+            />
           ))}
         </div>
       </div>

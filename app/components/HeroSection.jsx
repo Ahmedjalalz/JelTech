@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useMotionReady } from "../hooks/useMotionReady";
 
 const Particle = ({ delay, x, y }) => (
   <motion.div
@@ -45,6 +46,8 @@ const GridBackground = () => (
 );
 
 export const HeroSection = () => {
+  const motionReady = useMotionReady();
+  const motionKey = motionReady ? "motion" : "static";
   const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     delay: Math.random() * 4,
@@ -65,7 +68,8 @@ export const HeroSection = () => {
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            key={`hero-badge-${motionKey}`}
+            initial={motionReady ? { opacity: 0, y: 20 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 mb-8"
@@ -78,7 +82,8 @@ export const HeroSection = () => {
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            key={`hero-title-${motionKey}`}
+            initial={motionReady ? { opacity: 0, y: 30 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6"
@@ -90,7 +95,8 @@ export const HeroSection = () => {
               Web Experiences
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-primary rounded-full"
-                initial={{ scaleX: 0 }}
+                key={`hero-underline-${motionKey}`}
+                initial={motionReady ? { scaleX: 0 } : false}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
               />
@@ -99,7 +105,8 @@ export const HeroSection = () => {
 
           {/* Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            key={`hero-subtitle-${motionKey}`}
+            initial={motionReady ? { opacity: 0, y: 30 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
@@ -111,7 +118,8 @@ export const HeroSection = () => {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            key={`hero-cta-${motionKey}`}
+            initial={motionReady ? { opacity: 0, y: 30 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
@@ -129,7 +137,8 @@ export const HeroSection = () => {
 
           {/* Stats */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            key={`hero-stats-${motionKey}`}
+            initial={motionReady ? { opacity: 0, y: 40 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="grid grid-cols-3 gap-8 mt-20 max-w-lg mx-auto"

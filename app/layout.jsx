@@ -6,8 +6,8 @@ export const metadata = {
   title: 'JelTech - Digital Canvas',
   description: 'Transform your ideas into digital reality with our innovative web solutions.',
   icons: {
-    icon: '/assets/jt-logo-icon.png',
-    apple: '/assets/jt-logo-icon.png',
+    icon: '/assets/jt-logo-letters.png',
+    apple: '/assets/jt-logo-letters.png',
   },
   openGraph: {
     title: 'JelTech - Digital Canvas',
@@ -16,7 +16,7 @@ export const metadata = {
     url: 'https://jeltech.com',
     images: [
       {
-        url: '/assets/jt-logo-full.png',
+        url: '/assets/jt-logo-letters.png',
       },
     ],
   },
@@ -24,7 +24,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'JelTech - Digital Canvas',
     description: 'Transform your ideas into digital reality with our innovative web solutions.',
-    images: ['/assets/jt-logo-full.png'],
+    images: ['/assets/jt-logo-letters.png'],
   },
 };
 
