@@ -50,7 +50,7 @@ export const ContactSection = () => {
           {/* Contact Cards */}
           <div className="grid sm:grid-cols-2 gap-6 mb-10">
             <a
-              href="mailto:Support@jeltech.net"
+              href="mailto:Contact@jeltech.net"
               className="group p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 flex items-center gap-4"
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -58,7 +58,7 @@ export const ContactSection = () => {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Email Us</p>
-                <p className="text-foreground font-medium">Support@jeltech.net</p>
+                <p className="text-foreground font-medium">Contact@jeltech.net</p>
               </div>
             </a>
 

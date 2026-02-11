@@ -111,11 +111,11 @@ export const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:Support@jeltech.net"
+                  href="mailto:Contact@jeltech.net"
                   className="text-muted-foreground text-sm hover:text-primary transition-colors flex items-center gap-2"
                 >
                   <Mail className="w-4 h-4" />
-                  Support@jeltech.net
+                  Contact@jeltech.net
                 </a>
               </li>
               <li>
