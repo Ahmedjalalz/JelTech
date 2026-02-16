@@ -92,7 +92,7 @@ export const ProjectsSection = () => {
   const motionKey = motionReady ? "motion" : "static";
 
   return (
-    <section id="work" className="py-24 relative">
+    <section id="work" className="py-20 relative">
       <div className="container mx-auto px-6">
         <motion.div
           ref={headerRef}

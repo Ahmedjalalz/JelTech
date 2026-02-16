@@ -6,70 +6,49 @@ import { useRef } from "react";
 import { useMotionReady } from "../hooks/useMotionReady";
 import {
   Globe,
-  Code2,
   Server,
-  Gauge,
   Palette,
   Smartphone,
   ShoppingBag,
-  RefreshCcw,
   Search,
 } from "lucide-react";
 
 const services = [
   {
     icon: Globe,
-    title: "Custom Websites",
+    title: "Custom Websites & Redesigns",
     description:
-      "Tailored websites built from the ground up to match your brand and goals perfectly.",
+      "Tailored websites built from scratch or redesigned to modern standards - fast, responsive, and aligned perfectly with your brand and goals.",
   },
   {
     icon: Smartphone,
-    title: "Mobile Apps",
+    title: "Mobile Apps (iOS and Android)",
     description:
-      "Native and cross-platform mobile applications for iOS and Android that engage users on the go.",
+      "High-performance native and cross-platform mobile apps designed to deliver seamless user experiences across iOS and Android devices.",
   },
   {
     icon: ShoppingBag,
-    title: "Shopify Stores",
+    title: "Shopify E-commerce Stores",
     description:
-      "Custom Shopify stores with optimized themes, seamless checkout, and powerful e-commerce features.",
-  },
-  {
-    icon: Code2,
-    title: "React & Next.js",
-    description:
-      "Modern frontend development with React and Next.js for fast, interactive experiences.",
+      "Shopify stores with optimized themes, smooth checkout flows, and scalable e-commerce functionality.",
   },
   {
     icon: Server,
     title: "Backend & APIs",
     description:
-      "Robust server-side solutions and API integrations that power your applications.",
-  },
-  {
-    icon: RefreshCcw,
-    title: "Website Redesign",
-    description:
-      "Transform your existing website with a fresh, modern look and improved user experience.",
-  },
-  {
-    icon: Gauge,
-    title: "Performance Optimization",
-    description:
-      "Optimize your website for lightning-fast load times, better Core Web Vitals, and smooth UX.",
+      "Secure, scalable backend systems and API integrations that power your applications reliably behind the scenes.",
   },
   {
     icon: Search,
-    title: "SEO",
+    title: "SEO Optimization",
     description:
-      "Search engine optimization strategies to boost your visibility and drive organic traffic.",
+      "Data-driven SEO strategies that improve visibility, boost rankings, and bring consistent organic traffic to your business.",
   },
   {
     icon: Palette,
-    title: "UI/UX Design",
+    title: "Professional UI/UX Design",
     description:
-      "Beautiful, intuitive interfaces designed to delight users and drive conversions.",
+      "Clean, intuitive interface designs crafted to enhance user experience, build trust, and drive meaningful engagement.",
   },
 ];
 
@@ -115,7 +94,7 @@ export const ServicesSection = () => {
   const motionKey = motionReady ? "motion" : "static";
 
   return (
-    <section id="services" className="py-24 relative">
+    <section id="services" className="py-20 relative">
       <div className="container mx-auto px-6">
         <motion.div
           ref={headerRef}

@@ -11,15 +11,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/start-project/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/start-project/page.js"
+      "static/chunks/app/page.js"
     ],
-    "/api/start-project/route": [
+    "/about/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/start-project/route.js"
+      "static/chunks/app/about/page.js"
     ]
   }
 }

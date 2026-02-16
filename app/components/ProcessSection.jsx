@@ -89,7 +89,7 @@ export const ProcessSection = () => {
   const motionKey = motionReady ? "motion" : "static";
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/[0.02] to-background" />
 
