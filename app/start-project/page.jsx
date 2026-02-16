@@ -44,6 +44,7 @@ export default function StartProject() {
     timeline: '',
     description: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { toast } = useToast();
   const containerRef = useRef(null);
@@ -61,27 +62,47 @@ export default function StartProject() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Here you would typically send the form data to a backend service
-    console.log('Form submitted:', formData);
-    
-    toast({
-      title: 'Success!',
-      description: 'We received your project details. We\'ll contact you soon!',
-    });
+    setIsSubmitting(true);
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      projectType: '',
-      budget: '',
-      timeline: '',
-      description: '',
-    });
+    try {
+      const response = await fetch('/api/start-project', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData?.error || 'Failed to submit form.');
+      }
+
+      toast({
+        title: 'Success!',
+        description: 'We received your project details. We\'ll contact you soon!',
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        projectType: '',
+        budget: '',
+        timeline: '',
+        description: '',
+      });
+    } catch (error) {
+      toast({
+        title: 'Something went wrong',
+        description: error?.message || 'Please try again later.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -176,20 +197,14 @@ export default function StartProject() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium mb-2">Project Type</label>
-                    <select
+                    <Input
+                      type="text"
                       name="projectType"
                       value={formData.projectType}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="Website, Mobile App, E-commerce..."
                       required
-                    >
-                      <option value="">Select type...</option>
-                      <option value="website">Website</option>
-                      <option value="web-app">Web Application</option>
-                      <option value="mobile">Mobile App</option>
-                      <option value="ecommerce">E-commerce</option>
-                      <option value="other">Other</option>
-                    </select>
+                    />
                   </div>
 
                   <div>
@@ -212,20 +227,20 @@ export default function StartProject() {
 
                 <div>
                   <label className="block text-sm font-medium mb-2">Budget Range</label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    required
-                  >
-                    <option value="">Select budget...</option>
-                    <option value="under-5k">Under $5,000</option>
-                    <option value="5k-10k">$5,000 - $10,000</option>
-                    <option value="10k-25k">$10,000 - $25,000</option>
-                    <option value="25k-50k">$25,000 - $50,000</option>
-                    <option value="50k-plus">$50,000+</option>
-                  </select>
+                  <div className="relative">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      $
+                    </span>
+                    <Input
+                      type="text"
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      placeholder="5,000 - 10,000"
+                      required
+                      className="pl-7"
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -248,9 +263,10 @@ export default function StartProject() {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full bg-gradient-to-r from-primary to-primary/80 hover:to-primary text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-primary to-primary/80 hover:to-primary text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-70"
                   >
-                    Send Project Details
+                    {isSubmitting ? 'Sending...' : 'Send Project Details'}
                     <Send className="w-5 h-5" />
                   </Button>
                 </motion.div>
