@@ -147,12 +147,9 @@ export const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">
+        <div className="pt-8 border-t border-border flex items-center justify-center">
+          <p className="text-muted-foreground text-sm text-center">
             © {new Date().getFullYear()} JelTech. All rights reserved.
-          </p>
-          <p className="text-muted-foreground text-sm">
-            Built with <span className="text-primary">♥</span> and clean code
           </p>
         </div>
       </div>
