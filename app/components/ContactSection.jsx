@@ -31,7 +31,7 @@ export const ContactSection = () => {
             Get In Touch
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Let's Build Something
+            Let&apos;s Build Something
             <br />
             <span className="text-gradient-green">Great Together</span>
           </h2>

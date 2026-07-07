@@ -1,27 +1,24 @@
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
+const { FlatCompat } = require("@eslint/eslintrc");
+const js = require("@eslint/js");
+const globals = require("globals");
 
-export default [
-  { ignores: ["dist"] },
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+});
+
+module.exports = [
   {
-    files: ["**/*.{js,jsx}"],
+    ignores: ["dist", ".next", "node_modules"],
+  },
+  ...compat.extends("next/core-web-vitals"),
+  {
+    files: ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaFeatures: { jsx: true },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
       },
-    },
-    plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
-    rules: {
-      ...js.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     },
   },
 ];

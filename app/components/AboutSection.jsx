@@ -32,14 +32,14 @@ export const AboutSection = () => {
               About Us
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              We're Passionate About
+              We&apos;re Passionate About
               <br />
               <span className="text-gradient-green">Building Great Software</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
               At JelTech, we believe that exceptional software is built on a
               foundation of clean code, thoughtful design, and genuine
-              partnership with our clients. We're not just developers—we're
+              partnership with our clients. We&apos;re not just developers—we&apos;re
               problem solvers who care deeply about the success of every project
               we touch.
             </p>

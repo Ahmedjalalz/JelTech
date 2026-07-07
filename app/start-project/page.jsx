@@ -82,7 +82,7 @@ export default function StartProject() {
 
       toast({
         title: 'Success!',
-        description: 'We received your project details. We\'ll contact you soon!',
+        description: 'We received your project details. We&apos;ll contact you soon!',
       });
 
       setFormData({
@@ -122,7 +122,7 @@ export default function StartProject() {
                 Start Your Project
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Tell us about your vision and let's build something amazing together
+                Tell us about your vision and let&apos;s build something amazing together
               </p>
             </motion.div>
 
