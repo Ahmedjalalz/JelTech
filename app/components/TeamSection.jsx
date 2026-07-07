@@ -14,9 +14,9 @@ const teamMembers = [
     image: "/assets/team/abdul-rehman.jpeg",
   },
   {
-    name: "Sara Chaudary",
+    name: "Ahmed Shahid",
     role: "Mobile Developer",
-    image: "/assets/team/sara.jpeg",
+    image: "/assets/team/ahmed-shahid.png",
   },
   {
     name: "Abdullah Asif",
