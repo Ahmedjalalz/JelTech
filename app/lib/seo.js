@@ -25,6 +25,7 @@ const buildSocialImage = () => ({
   url: defaultOgImage,
   width: 1080,
   height: 1080,
+  type: 'image/png',
   alt: `${SITE_NAME} logo`,
 });
 
