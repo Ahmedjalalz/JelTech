@@ -147,10 +147,25 @@ export const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-border flex items-center justify-center">
-          <p className="text-muted-foreground text-sm text-center">
+        <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-muted-foreground text-xs sm:text-sm text-center sm:text-left">
             © {new Date().getFullYear()} JelTech. All rights reserved.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-primary transition-colors underline-offset-4 hover:underline"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-border select-none" aria-hidden="true">•</span>
+            <Link
+              href="/terms-and-conditions"
+              className="hover:text-primary transition-colors underline-offset-4 hover:underline"
+            >
+              Terms & Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

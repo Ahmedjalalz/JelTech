@@ -21,6 +21,16 @@ const routes = [
     changeFrequency: 'monthly',
     priority: 0.9,
   },
+  {
+    path: '/privacy-policy',
+    changeFrequency: 'yearly',
+    priority: 0.5,
+  },
+  {
+    path: '/terms-and-conditions',
+    changeFrequency: 'yearly',
+    priority: 0.5,
+  },
 ];
 
 export default function sitemap() {
