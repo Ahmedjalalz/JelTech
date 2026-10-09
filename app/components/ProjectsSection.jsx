@@ -106,14 +106,14 @@ export const ProjectsSection = () => {
           className="text-center mb-16 max-w-3xl mx-auto"
         >
           <span className="text-primary text-xs sm:text-sm font-semibold tracking-wider uppercase mb-3 block">
-            Selected Client Work
+            Client Projects · Commercial Software &amp; Web Engineering
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Websites Built to <span className="text-gradient-green">Stand Out</span>
+            Production Software &amp; <span className="text-gradient-green">Digital Experiences</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            Every project is tailored from the ground up: purposeful interactions, performant engineering,
-            and business communication that serves a real purpose.
+            Engineered for external client businesses: demonstrating our execution capability, tactile interaction
+            design, and reliable production standards across web apps and digital platforms.
           </p>
         </motion.div>
 

@@ -15,8 +15,9 @@ const footerLinks = {
   ],
   company: [
     { name: "About", href: "/about", isHash: false },
-    { name: "Work", href: "/#work", isHash: true },
-    { name: "Products", href: "/products", isHash: false },
+    { name: "Client Work", href: "/#work", isHash: true },
+    { name: "Products Overview", href: "/products", isHash: false },
+    { name: "GrowthPilot AI", href: "/products/growthpilot", isHash: false },
     { name: "Contact", href: "/contact", isHash: false },
     { name: "Start a Project", href: "/start-project", isHash: false },
   ],

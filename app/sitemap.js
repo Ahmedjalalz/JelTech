@@ -22,6 +22,11 @@ const routes = [
     priority: 0.85,
   },
   {
+    path: '/products/growthpilot',
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  },
+  {
     path: '/start-project',
     changeFrequency: 'monthly',
     priority: 0.9,

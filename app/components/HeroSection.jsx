@@ -76,7 +76,7 @@ export const HeroSection = () => {
           >
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-foreground/90">
-              DIGITAL CANVAS · SOFTWARE &amp; AI
+              DIGITAL CANVAS · SOFTWARE &amp; AI PRODUCTS
             </span>
           </motion.div>
 
@@ -88,10 +88,10 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6"
           >
-            Technology that does{" "}
+            Building intelligent software for{" "}
             <br className="hidden sm:inline" />
             <span className="relative inline-block">
-              <span className="text-gradient-green">more than look good</span>
+              <span className="text-gradient-green">real-world business problems</span>
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-primary rounded-full"
                 key={`hero-underline-${motionKey}`}
@@ -109,9 +109,10 @@ export const HeroSection = () => {
             initial={motionReady ? { opacity: 0, y: 30 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
-            We build distinctive digital experiences for businesses and develop intelligent software designed to solve real-world problems.
+            We engineer bespoke digital solutions for commercial clients and develop AI-powered software products
+            designed to make complex workflows simpler, faster, and more actionable.
           </motion.p>
 
           {/* CTAs */}
@@ -123,17 +124,17 @@ export const HeroSection = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button variant="hero" size="xl" asChild>
-              <Link href="/#work" className="group">
-                Explore Our Work
+              <Link href="/#growthpilot" className="group">
+                Explore GrowthPilot AI
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button variant="heroOutline" size="xl" asChild>
-              <Link href="/#products">Discover Our Products</Link>
+              <Link href="/#work">Explore Client Work</Link>
             </Button>
           </motion.div>
 
-          {/* Grounded Value Pillars (Replacing unverified numbers) */}
+          {/* Grounded Value Pillars */}
           <motion.div
             key={`hero-pillars-${motionKey}`}
             initial={motionReady ? { opacity: 0, y: 40 } : false}
@@ -143,16 +144,16 @@ export const HeroSection = () => {
           >
             {[
               {
-                title: "Interactive Web Experiences",
-                description: "Immersive, memorable websites designed around genuine user interactions.",
+                title: "Flagship AI Initiative",
+                description: "Engineering GrowthPilot AI—bringing SEO intelligence, ad evaluation, and lead workflows to small businesses.",
               },
               {
-                title: "Reliable Modern Code",
-                description: "Clean architecture, fast load times, and maintainable software standards.",
+                title: "Production Client Engineering",
+                description: "Interactive web applications, custom platforms, and e-commerce built for commercial clients.",
               },
               {
-                title: "In-House AI Software",
-                description: "Active product development solving real operational and marketing workflows.",
+                title: "Transparent Product Roadmap",
+                description: "Grounded engineering from UX prototypes to structured LLM reasoning, with clear development milestones.",
               },
             ].map((pillar, i) => (
               <div

@@ -3,24 +3,26 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Cpu, ExternalLink, Sparkles, CheckCircle2, Clock, Users, BarChart3, ShieldCheck } from "lucide-react";
+import { Cpu, ExternalLink, Sparkles, CheckCircle2, Clock, Users, BarChart3, ShieldCheck, ChevronRight } from "lucide-react";
 import { useMotionReady } from "../hooks/useMotionReady";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export const products = [
   {
     name: "GrowthPilot AI",
-    category: "AI Marketing Assistant",
+    category: "AI Marketing Intelligence · Flagship Initiative",
     statusBadge: "IN DEVELOPMENT · INTERACTIVE PROTOTYPE",
     statusVariant: "warning", // yellow/amber accent
     targetAudience: "Small businesses, local service businesses & e-commerce brands",
     description:
-      "An AI-powered marketing assistant in development, designed to bring marketing insights, campaign assistance, and lead workflows into one workspace.",
+      "Our flagship AI-powered marketing intelligence platform in development, designed to turn fragmented search, ad, and web analytics into prioritized, actionable business execution.",
     previewImage: "/assets/products/growthpilot_preview.svg",
     previewAlt: "GrowthPilot AI interactive prototype workspace preview",
     link: "https://portal.jeltech.net/",
-    ctaLabel: "Explore the Prototype",
+    deepDiveUrl: "/products/growthpilot",
+    ctaLabel: "Test Interactive Prototype",
     disclaimer: "Prototype displays sample metrics & simulated workflows to test user experience. Real-time advertising sync & analytics are planned capabilities.",
     plannedFeatures: [
       "SEO intelligence and automated website health auditing (In Prototype)",
@@ -180,8 +182,8 @@ export const ProductsSection = () => {
                     </div>
                   </div>
 
-                  {/* CTA Button */}
-                  <div>
+                  {/* CTA Buttons */}
+                  <div className="flex flex-wrap items-center gap-3">
                     <Button variant="hero" size="lg" className="w-full sm:w-auto gap-2 group/btn" asChild>
                       <a
                         href={product.link}
@@ -193,6 +195,14 @@ export const ProductsSection = () => {
                         <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                       </a>
                     </Button>
+                    {product.deepDiveUrl && (
+                      <Button variant="heroOutline" size="lg" className="w-full sm:w-auto gap-2" asChild>
+                        <Link href={product.deepDiveUrl}>
+                          Deep Dive Overview
+                          <ChevronRight className="w-4 h-4" />
+                        </Link>
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>

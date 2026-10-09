@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { ProductsSection } from '@/components/ProductsSection';
+import { ProductJourneySection } from '@/components/ProductJourneySection';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Cpu, ArrowRight, Sparkles } from 'lucide-react';
@@ -37,6 +38,9 @@ export default function ProductsPage() {
 
         {/* Core Products Section */}
         <ProductsSection />
+
+        {/* Product Engineering Framework */}
+        <ProductJourneySection />
 
         {/* CTA Banner */}
         <section className="py-20 bg-background relative overflow-hidden">
