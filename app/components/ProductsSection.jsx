@@ -1,10 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { Cpu, ExternalLink, Sparkles, CheckCircle2, Clock, Users, BarChart3, ShieldCheck, ChevronRight } from "lucide-react";
-import { useMotionReady } from "../hooks/useMotionReady";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -55,11 +52,6 @@ export const products = [
 ];
 
 export const ProductsSection = () => {
-  const headerRef = useRef(null);
-  const isInView = useInView(headerRef, { once: true, margin: "-100px" });
-  const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
-
   return (
     <section id="products" className="py-24 relative overflow-hidden bg-secondary/15 border-y border-border/60">
       {/* Background accents */}
@@ -69,11 +61,10 @@ export const ProductsSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
-          ref={headerRef}
-          key={`products-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16 max-w-3xl mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
@@ -96,10 +87,10 @@ export const ProductsSection = () => {
           {products.map((product, index) => (
             <motion.div
               key={product.name}
-              initial={motionReady ? { opacity: 0, y: 40 } : false}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, delay: index * 0.15 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               className="rounded-3xl bg-card border border-border/80 hover:border-primary/40 transition-all duration-300 overflow-hidden shadow-xl"
             >
               <div className="grid lg:grid-cols-12 gap-0 items-stretch">

@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -42,9 +40,6 @@ const faqs = [
 ];
 
 export const FAQSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
@@ -52,10 +47,10 @@ export const FAQSection = () => {
 
       <div className="container mx-auto px-6 relative">
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block">

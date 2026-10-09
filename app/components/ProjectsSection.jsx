@@ -1,10 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { ArrowUpRight, ExternalLink, Sparkles, PhoneCall, CheckCircle2 } from "lucide-react";
-import { useMotionReady } from "../hooks/useMotionReady";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -85,11 +82,6 @@ export const standardProjects = [
 ];
 
 export const ProjectsSection = () => {
-  const headerRef = useRef(null);
-  const isInView = useInView(headerRef, { once: true, margin: "-100px" });
-  const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
-
   return (
     <section id="work" className="py-24 relative overflow-hidden">
       {/* Background decoration */}
@@ -98,11 +90,10 @@ export const ProjectsSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
-          ref={headerRef}
-          key={`projects-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16 max-w-3xl mx-auto"
         >
           <span className="text-primary text-xs sm:text-sm font-semibold tracking-wider uppercase mb-3 block">
@@ -120,10 +111,10 @@ export const ProjectsSection = () => {
         {/* 1. FEATURED PROJECT SHOWCASE: KyteLine */}
         <div className="mb-14">
           <motion.div
-            initial={motionReady ? { opacity: 0, y: 40 } : false}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7 }}
+            viewport={{ once: true, amount: 0.05 }}
+            transition={{ duration: 0.6 }}
             className="group rounded-3xl bg-card border-2 border-primary/30 hover:border-primary/60 transition-all duration-500 overflow-hidden shadow-2xl relative"
           >
             <div className="grid lg:grid-cols-12 gap-0 items-stretch">
@@ -207,10 +198,10 @@ export const ProjectsSection = () => {
           {standardProjects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={motionReady ? { opacity: 0, y: 40 } : false}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
               className="group rounded-2xl overflow-hidden bg-card border border-border hover:border-primary/40 transition-all duration-300 flex flex-col justify-between hover-lift shadow-lg"
             >
               <div>

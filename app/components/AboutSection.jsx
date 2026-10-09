@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { CheckCircle2, Sparkles, Layers, Terminal, Cpu, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
@@ -14,9 +12,6 @@ const principles = [
 ];
 
 export const AboutSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       {/* Background decoration */}
@@ -26,10 +21,10 @@ export const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           {/* Left: Content */}
           <motion.div
-            ref={ref}
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5 }}
           >
             <span className="text-primary text-xs sm:text-sm font-semibold tracking-wider uppercase mb-3 block">
               About JelTech
@@ -61,25 +56,23 @@ export const AboutSection = () => {
             {/* Principles list */}
             <ul className="space-y-3.5 mb-8">
               {principles.map((principle, index) => (
-                <motion.li
+                <li
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                   className="flex items-center gap-3 text-sm text-foreground/90 font-medium"
                 >
                   <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                   <span>{principle}</span>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </motion.div>
 
           {/* Right: Studio & Product Direction Card (Replaces obsolete decorative code snippet) */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="relative"
           >
             <div className="rounded-3xl bg-card border border-border p-8 sm:p-10 shadow-2xl relative overflow-hidden">

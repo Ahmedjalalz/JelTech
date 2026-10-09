@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Sparkles,
@@ -19,16 +18,10 @@ import {
   ShieldAlert,
   Zap,
 } from "lucide-react";
-import { useMotionReady } from "../hooks/useMotionReady";
 import { Button } from "@/components/ui/button";
 import { EarlyAccessForm } from "./EarlyAccessForm";
 
 export const GrowthPilotShowcase = () => {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
-  const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
-
   const [activeTab, setActiveTab] = useState("seo");
 
   return (
@@ -39,11 +32,10 @@ export const GrowthPilotShowcase = () => {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Eyebrow & Title */}
         <motion.div
-          ref={sectionRef}
-          key={`gp-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-4xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
@@ -65,10 +57,10 @@ export const GrowthPilotShowcase = () => {
         <div className="grid lg:grid-cols-12 gap-8 items-start max-w-6xl mx-auto">
           {/* Left: Problem, Capabilities & Honest Status (7 Cols) */}
           <motion.div
-            key={`gp-left-${motionKey}`}
-            initial={motionReady ? { opacity: 0, x: -30 } : false}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.05 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="lg:col-span-7 space-y-8"
           >
             {/* The Problem We Are Solving */}
@@ -272,10 +264,10 @@ export const GrowthPilotShowcase = () => {
 
           {/* Right: Realistic SaaS Concept & Grounded Dashboard Preview (5 Cols) */}
           <motion.div
-            key={`gp-right-${motionKey}`}
-            initial={motionReady ? { opacity: 0, x: 30 } : false}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.05 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="lg:col-span-5"
           >
             {/* Dashboard Mockup Card */}

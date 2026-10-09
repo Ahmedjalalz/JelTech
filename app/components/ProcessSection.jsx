@@ -1,10 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { Search, Palette, Code, TestTube, Rocket } from "lucide-react";
-import { useMotionReady } from "../hooks/useMotionReady";
 
 const steps = [
   {
@@ -39,15 +36,15 @@ const steps = [
   },
 ];
 
-const ProcessStep = ({ step, index, isLast, motionReady }) => {
+const ProcessStep = ({ step, index, isLast }) => {
   const Icon = step.icon;
 
   return (
     <motion.div
-      initial={motionReady ? { opacity: 0, y: 30 } : false}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
       className="relative flex flex-col items-center text-center group"
     >
       {/* Connector line - desktop */}
@@ -83,11 +80,6 @@ const ProcessStep = ({ step, index, isLast, motionReady }) => {
 };
 
 export const ProcessSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
-
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Background */}
@@ -95,11 +87,10 @@ export const ProcessSection = () => {
 
       <div className="container mx-auto px-6 relative">
         <motion.div
-          ref={ref}
-          key={`process-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block">
@@ -117,11 +108,10 @@ export const ProcessSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4">
           {steps.map((step, index) => (
             <ProcessStep
-              key={`${motionKey}-${step.number}`}
+              key={step.number}
               step={step}
               index={index}
               isLast={index === steps.length - 1}
-              motionReady={motionReady}
             />
           ))}
         </div>

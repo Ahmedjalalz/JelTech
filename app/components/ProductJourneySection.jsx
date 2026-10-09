@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import {
   Lightbulb,
   Palette,
@@ -15,7 +13,6 @@ import {
   Workflow,
   Sparkles,
 } from "lucide-react";
-import { useMotionReady } from "../hooks/useMotionReady";
 
 const steps = [
   {
@@ -71,21 +68,15 @@ const steps = [
 ];
 
 export const ProductJourneySection = () => {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
-  const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
-
   return (
     <section className="py-24 relative overflow-hidden bg-secondary/10 border-b border-border/70">
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
-          ref={sectionRef}
-          key={`journey-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
@@ -110,10 +101,10 @@ export const ProductJourneySection = () => {
             return (
               <motion.div
                 key={item.step}
-                initial={motionReady ? { opacity: 0, y: 30 } : false}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
                 className="p-5 rounded-2xl bg-card border border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors shadow-sm"
               >
                 <div>
@@ -155,11 +146,10 @@ export const ProductJourneySection = () => {
 
         {/* Credible AI Architecture Callout */}
         <motion.div
-          key={`journey-callout-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto p-8 rounded-3xl bg-card border border-border/90 shadow-lg relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
