@@ -152,7 +152,7 @@ export default function GrowthPilotPage() {
                 </a>
               </Button>
               <Button variant="heroOutline" size="xl" asChild>
-                <a href="#early-access">Join Pilot Cohort</a>
+                <a href="#early-access">Apply for Wave 1 Access</a>
               </Button>
             </div>
 
@@ -752,21 +752,100 @@ export default function GrowthPilotPage() {
           </div>
         </section>
 
-        {/* 8. Early Access / Inquiry Form */}
+        {/* 8. Rollout in Waves: Early Access & Priority Queue */}
         <section id="early-access" className="py-24">
-          <div className="container mx-auto px-6 max-w-3xl">
+          <div className="container mx-auto px-6 max-w-4xl">
+            {/* Wave Rollout Architecture Overview */}
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+                <Sparkles className="w-3.5 h-3.5" />
+                Rollout in Waves · Priority Access Queue
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mb-4">
+                We Are Releasing in Waves. <br className="hidden sm:inline" />
+                <span className="text-gradient-green">Sign Up to Be Part of Wave 1.</span>
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                To guarantee hands-on engineering support and seamless onboarding for every business, GrowthPilot AI
+                is being released in structured rollout waves. Apply below to join the priority queue and be part of the first wave.
+              </p>
+            </div>
+
+            {/* 3-Wave Progression Cards */}
+            <div className="grid md:grid-cols-3 gap-4 mb-12">
+              <div className="p-5 rounded-2xl bg-card border-2 border-primary/40 shadow-lg relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">
+                      Wave 1 · Initial Release
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/30">
+                      Enrolling Now
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-foreground text-base">Priority Pilot Cohort</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Our 5–7 signed commercial pilot clients plus accepted priority queue applicants.
+                    Access to SEO Intelligence, Meta Creative Hook Scoring, and Omnichannel Inbound Leads.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-border/60 mt-4 text-[11px] text-emerald-400 font-semibold flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Priority Queue Active
+                </div>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-card border border-border shadow-sm flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">
+                      Wave 2 · Expanded Capabilities
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30">
+                      Planned
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-foreground text-base">Feature Extension Cohort</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Rollout of automated Meta ad campaign synchronization, budget auto-shifting, and
+                    modular booking and quote-capture engines.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-border/60 mt-4 text-[11px] text-muted-foreground flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-amber-400" /> Queued after Wave 1 rollout
+                </div>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-card border border-border shadow-sm flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-sky-400 uppercase tracking-wider">
+                      Wave 3 · Public Release
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 font-bold border border-sky-500/30">
+                      General Access
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-foreground text-base">Self-Serve &amp; Public API</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Open self-serve onboarding, public Developer API gateway for custom website integrations,
+                    and expanded e-commerce platform connectors.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-border/60 mt-4 text-[11px] text-muted-foreground flex items-center gap-1.5">
+                  <Layers className="w-3.5 h-3.5 text-sky-400" /> General Availability
+                </div>
+              </div>
+            </div>
+
+            {/* Application Queue Form Container */}
             <div className="p-8 sm:p-12 rounded-3xl bg-card border border-border shadow-2xl relative overflow-hidden">
               <div className="text-center max-w-xl mx-auto mb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  Follow Development &amp; Join Pilot Cohort
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">
-                  Interested in GrowthPilot AI?
-                </h2>
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">
+                  Apply for Wave 1 Priority Placement
+                </h3>
                 <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
-                  Join our growing cohort of pilot businesses. Leave your details below to receive transparent engineering updates
-                  and early access onboarding as we roll out new modules.
+                  Fill in your business details to join the queue. Applications are processed in submission order,
+                  and we will notify you as soon as your Wave 1 onboarding slot opens.
                 </p>
               </div>
 

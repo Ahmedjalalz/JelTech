@@ -20,7 +20,7 @@ export const products = [
     link: "https://portal.jeltech.net/",
     deepDiveUrl: "/products/growthpilot",
     ctaLabel: "Test Interactive Prototype",
-    disclaimer: "Pre-validated demand: Signed agreements from 5–7 commercial pilot clients. Prototype live at portal.jeltech.net; Meta & WhatsApp API connectors in active engineering.",
+    disclaimer: "Releasing in waves: Signed agreements from 5–7 commercial pilot clients. Interactive prototype live at portal.jeltech.net; Wave 1 priority queue is now open.",
     plannedFeatures: [
       "Module 1: SEO Intelligence with AI article generation & automated page-head code injection",
       "Module 2: Smart Ads Manager with 1-10 AI creative hook scoring & automated budget rebalancing",

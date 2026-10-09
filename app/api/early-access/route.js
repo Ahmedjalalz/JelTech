@@ -7,8 +7,10 @@ export async function POST(request) {
     const data = await request.json();
     const email = String(data?.email || '').trim().toLowerCase();
     const name = String(data?.name || '').trim();
-    const interest = String(data?.interest || 'GrowthPilot AI Early Access').trim();
-    const role = String(data?.role || 'Small Business Owner / Operator').trim();
+    const website = String(data?.website || '').trim();
+    const businessType = String(data?.businessType || '').trim();
+    const interest = String(data?.interest || 'GrowthPilot AI Wave 1 Early Access').trim();
+    const wave = String(data?.wave || 'Wave 1 Priority Queue').trim();
 
     if (!email || !EMAIL_REGEX.test(email)) {
       return new Response(
@@ -27,25 +29,29 @@ export async function POST(request) {
         await resend.emails.send({
           from,
           to,
-          subject: `Early Access Request: ${interest} (${email})`,
+          subject: `Early Access Application [${wave}]: ${interest} (${email})`,
           text: [
-            `New Early Access & Development Update Request`,
+            `New Wave 1 Early Access Application`,
             `-------------------------------------------`,
+            `Queue: ${wave}`,
+            `Product: ${interest}`,
             `Email: ${email}`,
             `Name: ${name || 'Not provided'}`,
-            `Interest: ${interest}`,
-            `Role: ${role}`,
+            `Website / URL: ${website || 'Not provided'}`,
+            `Business Type: ${businessType || 'Not specified'}`,
             `Submitted At: ${new Date().toISOString()}`,
           ].join('\n'),
           html: `
             <div style="font-family: Arial, sans-serif; color: #0f172a; max-width: 600px; padding: 20px;">
-              <h2 style="color: #45BE43; margin-top: 0;">New Early Access Request</h2>
-              <p>Someone has requested to follow development or join the early access list for <strong>${interest}</strong>.</p>
+              <h2 style="color: #45BE43; margin-top: 0;">New Early Access Application (${wave})</h2>
+              <p>A new applicant has joined the priority queue for <strong>${interest}</strong>.</p>
               <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
-                <tr><td style="padding: 8px 0; font-weight: bold; width: 140px;">Email:</td><td>${email}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold; width: 140px;">Queue:</td><td><strong>${wave}</strong></td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold;">Email:</td><td>${email}</td></tr>
                 <tr><td style="padding: 8px 0; font-weight: bold;">Name:</td><td>${name || 'Not provided'}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold;">Website:</td><td>${website || 'Not provided'}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold;">Business Type:</td><td>${businessType || 'Not specified'}</td></tr>
                 <tr><td style="padding: 8px 0; font-weight: bold;">Product:</td><td>${interest}</td></tr>
-                <tr><td style="padding: 8px 0; font-weight: bold;">Role:</td><td>${role}</td></tr>
                 <tr><td style="padding: 8px 0; font-weight: bold;">Timestamp:</td><td>${new Date().toLocaleString()}</td></tr>
               </table>
             </div>
@@ -54,23 +60,24 @@ export async function POST(request) {
         });
       } catch (emailError) {
         console.error('Failed to send early access email via Resend:', emailError);
-        // Continue and return success to the user so client does not break if mail service is temporarily down
+        // Continue and return success so client flow is unblocked
       }
     } else {
-      console.log(`[EARLY ACCESS REQUEST] Email: ${email}, Name: ${name}, Interest: ${interest}, Role: ${role}`);
+      console.log(`[EARLY ACCESS APPLICATION] Queue: ${wave}, Email: ${email}, Name: ${name}, Website: ${website}, Type: ${businessType}`);
     }
 
     return new Response(
       JSON.stringify({
         ok: true,
-        message: 'Thank you for your interest! You have been added to our development update list.',
+        queue: wave,
+        message: 'You have been added to the Wave 1 priority queue! We will notify you as onboarding slots open.',
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     console.error('Early access route error:', error);
     return new Response(
-      JSON.stringify({ error: error?.message || 'Failed to submit request.' }),
+      JSON.stringify({ error: error?.message || 'Failed to submit application.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

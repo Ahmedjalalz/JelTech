@@ -465,11 +465,20 @@ export const GrowthPilotShowcase = () => {
                 </Button>
               </div>
 
-              {/* Inline Early Access Input */}
-              <div className="p-4 rounded-2xl bg-card border border-border/80 mt-4">
-                <span className="text-xs font-bold text-foreground block mb-2">
-                  Join Pilot Client Cohort &amp; Follow Development Updates
-                </span>
+              {/* Wave-Based Rollout Priority Queue Callout */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-card border border-primary/30 mt-4 relative overflow-hidden">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    Releasing in Waves · Wave 1 Priority Queue
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/30">
+                    Queue Open
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+                  We are releasing GrowthPilot AI in structured rollout waves to ensure close onboarding support. Sign up to join the priority queue and be part of the first wave.
+                </p>
                 <EarlyAccessForm compact productName="GrowthPilot AI" />
               </div>
             </div>
