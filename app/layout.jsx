@@ -21,12 +21,19 @@ const organizationSchema = {
   name: SITE_NAME,
   url: siteUrl,
   logo: `${siteUrl}/assets/jt-logo-letters.png`,
+  description: SITE_DESCRIPTION,
   email: 'Contact@jeltech.net',
   telephone: '+92 314 3394966',
   sameAs: [
     'https://www.instagram.com/jeltech.official',
     'https://x.com/jeltechofficial',
     'https://www.linkedin.com/company/jeltech-group',
+  ],
+  knowsAbout: [
+    'Custom Software Development',
+    'AI-Powered Web Applications',
+    'Marketing Intelligence Systems',
+    'Full-Stack Engineering',
   ],
 };
 
@@ -36,6 +43,12 @@ const websiteSchema = {
   name: SITE_NAME,
   url: siteUrl,
   description: SITE_DESCRIPTION,
+  publisher: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: siteUrl,
+    logo: `${siteUrl}/assets/jt-logo-letters.png`,
+  },
 };
 
 export const metadata = {
@@ -48,11 +61,13 @@ export const metadata = {
   applicationName: SITE_NAME,
   keywords: [
     'JelTech',
-    'web development',
-    'mobile app development',
+    'software development',
+    'AI products',
+    'GrowthPilot AI',
     'custom software',
-    'UI UX design',
-    'SEO services',
+    'web applications',
+    'marketing intelligence',
+    'digital canvas',
   ],
   authors: [{ name: SITE_NAME, url: siteUrl }],
   creator: SITE_NAME,

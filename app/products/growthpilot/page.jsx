@@ -142,7 +142,7 @@ export default function GrowthPilotPage() {
             <div className="flex flex-wrap items-center gap-4">
               <Button variant="hero" size="xl" asChild>
                 <a
-                  href="https://portal.jeltech.net/"
+                  href="https://growth.jeltech.net/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="gap-2"
@@ -170,7 +170,7 @@ export default function GrowthPilotPage() {
                 <ShieldCheck className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-foreground block font-bold mb-0.5">Development Transparency:</strong>
-                  Interactive prototype workspace is live at portal.jeltech.net. Live Meta Marketing &amp; WhatsApp Business connectors are in active engineering.
+                  Interactive prototype workspace is live at growth.jeltech.net. Live Meta Marketing &amp; WhatsApp Business connectors are in active engineering.
                 </div>
               </div>
             </div>
@@ -350,7 +350,7 @@ export default function GrowthPilotPage() {
                     <div className="text-[11px] text-primary font-semibold">Generated 1,200-word article ready for 1-click head snippet injection.</div>
                   </div>
                   <div className="text-[10px] text-muted-foreground text-right italic font-sans">
-                    Live prototype workflow at portal.jeltech.net
+                    Live prototype workflow at growth.jeltech.net
                   </div>
                 </div>
               </div>
@@ -680,7 +680,7 @@ export default function GrowthPilotPage() {
                 {
                   phase: 'Milestone 1 · Completed',
                   title: 'UX Architecture & Interactive Prototype Workspace',
-                  status: 'Live at portal.jeltech.net',
+                  status: 'Live at growth.jeltech.net',
                   color: 'emerald',
                   details:
                     'Designed complete portal navigation, metric visualization components, sample business workflows, and interactive prototype ergonomics to validate usability.',
@@ -853,7 +853,7 @@ export default function GrowthPilotPage() {
 
               <div className="mt-8 pt-6 border-t border-border/60 text-center flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-muted-foreground">
                 <a
-                  href="https://portal.jeltech.net/"
+                  href="https://growth.jeltech.net/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors flex items-center gap-1 font-semibold"

@@ -29,7 +29,7 @@ const steps = [
     step: "02",
     title: "UX Architecture & Rapid Prototyping",
     icon: Palette,
-    badge: "Live at portal.jeltech.net",
+    badge: "Live at growth.jeltech.net",
     badgeColor: "emerald",
     description:
       "Before engineering complex model pipelines, we design and deploy interactive prototypes to test ergonomics, layout clarity, and workflow ergonomics with real user inputs.",

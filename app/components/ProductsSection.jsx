@@ -17,10 +17,10 @@ export const products = [
       "Our flagship AI-powered marketing platform handling SEO, Meta advertising, and customer conversations across WhatsApp, Instagram, and Facebook—with signed early-access purchase agreements from 5–7 commercial pilot businesses.",
     previewImage: "/assets/products/growthpilot_preview.svg",
     previewAlt: "GrowthPilot AI interactive prototype workspace preview",
-    link: "https://portal.jeltech.net/",
+    link: "https://growth.jeltech.net/",
     deepDiveUrl: "/products/growthpilot",
     ctaLabel: "Test Interactive Prototype",
-    disclaimer: "Releasing in waves: Signed agreements from 5–7 commercial pilot clients. Interactive prototype live at portal.jeltech.net; Wave 1 priority queue is now open.",
+    disclaimer: "Releasing in waves: Signed agreements from 5–7 commercial pilot clients. Interactive prototype live at growth.jeltech.net; Wave 1 priority queue is now open.",
     plannedFeatures: [
       "Module 1: SEO Intelligence with AI article generation & automated page-head code injection",
       "Module 2: Smart Ads Manager with 1-10 AI creative hook scoring & automated budget rebalancing",

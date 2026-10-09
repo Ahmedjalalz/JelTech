@@ -3,7 +3,7 @@ import { buildPageMetadata } from '@/lib/seo';
 export const metadata = buildPageMetadata({
   title: 'Privacy Policy | JelTech',
   description:
-    'Learn how JelTech collects, uses, protects, and handles your personal information and project data.',
+    'Review how JelTech collects, uses, and safeguards your personal and project information across our software engineering services and digital products.',
   path: '/privacy-policy',
 });
 

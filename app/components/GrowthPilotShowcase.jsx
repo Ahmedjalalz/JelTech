@@ -448,7 +448,7 @@ export const GrowthPilotShowcase = () => {
               <div className="flex flex-wrap items-center gap-3">
                 <Button variant="hero" size="lg" asChild>
                   <a
-                    href="https://portal.jeltech.net/"
+                    href="https://growth.jeltech.net/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="gap-2"
@@ -500,7 +500,7 @@ export const GrowthPilotShowcase = () => {
                   <div className="w-3 h-3 rounded-full bg-rose-500/60" />
                   <div className="w-3 h-3 rounded-full bg-amber-500/60" />
                   <div className="w-3 h-3 rounded-full bg-emerald-500/60" />
-                  <span className="text-xs font-mono text-muted-foreground ml-2">portal.jeltech.net</span>
+                  <span className="text-xs font-mono text-muted-foreground ml-2">growth.jeltech.net</span>
                 </div>
                 <span className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded bg-primary/20 text-primary uppercase">
                   Prototype UI
@@ -582,7 +582,7 @@ export const GrowthPilotShowcase = () => {
                 <div className="p-3 rounded-xl bg-secondary/40 border border-border/50 text-[11px] text-muted-foreground leading-relaxed flex items-start gap-2">
                   <Clock className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-foreground">Development Transparency:</strong> The preview above illustrates our prototype interface at portal.jeltech.net. Live Meta Marketing &amp; WhatsApp Business API connectors and automated LLM reasoning are currently in active engineering.
+                    <strong className="text-foreground">Development Transparency:</strong> The preview above illustrates our prototype interface at growth.jeltech.net. Live Meta Marketing &amp; WhatsApp Business API connectors and automated LLM reasoning are currently in active engineering.
                   </div>
                 </div>
               </div>

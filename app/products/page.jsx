@@ -8,6 +8,19 @@ import { ProductJourneySection } from '@/components/ProductJourneySection';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Cpu, ArrowRight, Sparkles } from 'lucide-react';
+const productsPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'JelTech Software Products',
+  url: 'https://www.jeltech.net/products',
+  description:
+    'Explore JelTech’s proprietary software products, featuring GrowthPilot AI for marketing intelligence and People Power Hub for workforce analytics.',
+  publisher: {
+    '@type': 'Organization',
+    name: 'JelTech',
+    url: 'https://www.jeltech.net',
+  },
+};
 
 export default function ProductsPage() {
   useEffect(() => {
@@ -16,6 +29,12 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productsPageSchema),
+        }}
+      />
       <Navbar />
 
       <main className="flex-1 pt-24">
