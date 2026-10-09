@@ -13,6 +13,7 @@ import {
   Megaphone,
   Inbox,
   ArrowRight,
+  ArrowLeft,
   CheckCircle2,
   Clock,
   Layers,
@@ -23,8 +24,71 @@ import {
   Users,
   Terminal,
   Cpu,
-  ArrowLeft,
+  Award,
+  ArrowUpRight,
+  Calendar,
+  FileText,
+  Building2,
+  Code2,
+  CheckSquare,
+  Globe,
+  Database,
+  Network,
+  Sliders,
+  ShieldAlert,
 } from 'lucide-react';
+
+const pilotClients = [
+  {
+    name: 'Oblyvyon',
+    sector: 'Fashion & Lifestyle E-Commerce',
+    url: 'http://oblyvyon.com/',
+    useCase: 'Meta Ad Creative Scoring, Hook Evaluation & Catalog Scaling',
+    focus: 'Paid Acquisition & Landing Page Conversion',
+  },
+  {
+    name: 'Aspire Removals & Transport',
+    sector: 'UK Logistics & Transport',
+    url: 'https://aspireremovalsandtransport.co.uk/',
+    useCase: 'Custom Quote Form Builder & Omnichannel Inbound Lead Management',
+    focus: 'Structured Quotes & WhatsApp Inquiries',
+  },
+  {
+    name: 'Paul Movers',
+    sector: 'Moving & Storage Services (NZ)',
+    url: 'https://www.paulmovers.co.nz/',
+    useCase: 'Local SEO Audit, AI Content Injection & Automated Quote Triage',
+    focus: 'Organic Search & Fast Inbound Closing',
+  },
+  {
+    name: 'PaulAid',
+    sector: 'Charitable Foundation & Aid',
+    url: 'http://paulaid.org/',
+    useCase: 'Community Inquiries Hub & Organic Search Visibility',
+    focus: 'Multichannel Inquiries & Program SEO',
+  },
+  {
+    name: 'Education and Life Foundation',
+    sector: 'Nonprofit & Social Impact',
+    url: 'https://educationandlifefoundation.org/',
+    useCase: 'Program Application Forms & Automated Content Publishing',
+    focus: 'Form Builder & Content Gap Identification',
+  },
+  {
+    name: 'PackifyBoxes',
+    sector: 'Custom Packaging Manufacturing',
+    url: 'https://www.packifyboxes.com/',
+    useCase: 'B2B Custom Box Quote Pipeline & Meta Ad Scale Optimization',
+    focus: 'B2B Lead Pipeline & Paid Search Sync',
+  },
+  {
+    name: 'InfinityBuild',
+    sector: 'Construction & Renovation (Europe)',
+    url: 'https://www.infinitybuild.eu/',
+    useCase: 'Project Estimate Builder & WhatsApp/Web Omnichannel Inbox',
+    focus: 'Interactive Inquiries & Automated Budgeting',
+  },
+];
 
 export default function GrowthPilotPage() {
   useEffect(() => {
@@ -66,12 +130,12 @@ export default function GrowthPilotPage() {
             {/* Title & Mission */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
               GrowthPilot AI: <br className="hidden sm:inline" />
-              <span className="text-gradient-green">Marketing Intelligence for Small Businesses</span>
+              <span className="text-gradient-green">The Smart Marketing &amp; Growth Assistant</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl leading-relaxed mb-8">
-              A purposeful software platform in active development, engineered to turn fragmented marketing noise into
-              clear, prioritized next actions for business owners without dedicated analytics teams.
+              One AI-powered platform handling SEO, Meta advertising, and customer conversations across
+              WhatsApp, Instagram, and Facebook—so small and medium businesses can grow online without hiring a marketing team.
             </p>
 
             {/* Action Bar */}
@@ -88,32 +152,103 @@ export default function GrowthPilotPage() {
                 </a>
               </Button>
               <Button variant="heroOutline" size="xl" asChild>
-                <a href="#early-access">Join Early Access</a>
+                <a href="#early-access">Join Pilot Cohort</a>
               </Button>
             </div>
 
-            {/* Honest Disclosure Callout */}
-            <div className="mt-8 p-4 rounded-2xl bg-secondary/30 border border-border/80 text-xs text-muted-foreground flex items-start gap-3 max-w-3xl">
-              <ShieldCheck className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-              <div>
-                <strong className="text-foreground">Development Transparency:</strong> GrowthPilot AI is currently in
-                interactive prototype phase hosted at portal.jeltech.net. It is not yet a commercial SaaS with paying users.
-                Features described below reflect implemented prototype workflows and active engineering roadmap milestones.
+            {/* Commercial Traction & Development Transparency */}
+            <div className="mt-8 grid sm:grid-cols-2 gap-4 max-w-4xl">
+              <div className="p-4 rounded-2xl bg-primary/10 border border-primary/30 text-xs text-foreground flex items-start gap-3">
+                <Award className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-primary block font-bold mb-0.5">Pre-Validated Demand:</strong>
+                  Signed early access agreements secured with <strong>5–7 commercial pilot clients</strong> committed to purchasing and deploying upon completion.
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-secondary/30 border border-border/80 text-xs text-muted-foreground flex items-start gap-3">
+                <ShieldCheck className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-foreground block font-bold mb-0.5">Development Transparency:</strong>
+                  Interactive prototype workspace is live at portal.jeltech.net. Live Meta Marketing &amp; WhatsApp Business connectors are in active engineering.
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 1. The Core Problem */}
+        {/* 1. Commercial Market Validation Showcase */}
         <section className="py-20 border-b border-border/60 bg-secondary/10">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <div className="max-w-3xl mb-10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                  Commercial Validation
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/30">
+                  Signed Early Access
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight mb-3">
+                Signed Agreements from 5–7 Pilot Clients
+              </h2>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                Before writing backend production models, JelTech secured signed early-access adoption agreements
+                with 5–7 active commercial businesses across logistics, e-commerce, custom packaging, and construction.
+                These pilot partners are committed to adopting GrowthPilot AI to drive their traffic, Meta ad campaigns, and customer workflows:
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {pilotClients.map((client, idx) => (
+                <a
+                  key={idx}
+                  href={client.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 rounded-2xl bg-card border border-border hover:border-primary/50 hover:bg-card/80 transition-all group flex flex-col justify-between space-y-4"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <h3 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                        {client.name}
+                      </h3>
+                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <span className="text-xs text-muted-foreground block mb-2 font-medium">
+                      {client.sector}
+                    </span>
+                    <p className="text-xs text-muted-foreground/90 leading-relaxed">
+                      <strong>Focus:</strong> {client.useCase}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-border/60 flex items-center justify-between text-[11px]">
+                    <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Signed Early Adopter
+                    </span>
+                    <span className="text-muted-foreground underline group-hover:text-foreground">Visit Website</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 2. Problem Statement & Why GrowthPilot Is Needed */}
+        <section className="py-20 border-b border-border/60">
           <div className="container mx-auto px-6 max-w-5xl">
             <div className="max-w-2xl mb-12">
               <span className="text-xs font-bold uppercase tracking-wider text-amber-400 block mb-2">
                 Problem Discovery
               </span>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">
-                Why Small Business Marketing Is Broken
+                Three Jobs Small Businesses Were Never Built For
               </h2>
+              <p className="text-muted-foreground text-sm sm:text-base mt-2">
+                Every business going online today is expected to rank on Google, run profitable ads, and reply instantly
+                across WhatsApp, Instagram, and Facebook. Doing all three normally requires three separate specialists.
+              </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -121,9 +256,10 @@ export default function GrowthPilotPage() {
                 <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
                   01
                 </div>
-                <h3 className="text-lg font-bold text-foreground">Fragmented Tooling</h3>
+                <h3 className="text-lg font-bold text-foreground">Opaque SEO Without Implementation</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Business owners juggle Google Analytics, Meta Ads Manager, Google Search Console, and chaotic email spreadsheets. None of these tools communicate with each other.
+                  Business owners receive complex 40-page technical audit reports but lack the coding knowledge or time
+                  to write SEO-optimized articles and implement page-head tags.
                 </p>
               </div>
 
@@ -131,9 +267,10 @@ export default function GrowthPilotPage() {
                 <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
                   02
                 </div>
-                <h3 className="text-lg font-bold text-foreground">Analytics Paralysis</h3>
+                <h3 className="text-lg font-bold text-foreground">Wasted Meta Ad Budgets</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Traditional dashboards present CTR percentages, bounce rates, and indexing tables without answering the critical question: &quot;What concrete action should I take this week?&quot;
+                  Running Facebook &amp; Instagram ads without dedicated media buyers results in weak hooks, poor targeting,
+                  and unmonitored campaigns that burn through ad spend without generating sales.
                 </p>
               </div>
 
@@ -141,192 +278,181 @@ export default function GrowthPilotPage() {
                 <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
                   03
                 </div>
-                <h3 className="text-lg font-bold text-foreground">Message &amp; Lead Disconnect</h3>
+                <h3 className="text-lg font-bold text-foreground">Scattered Customer Conversations</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Paid advertising hooks rarely align with landing page promises, leading to high bounce rates and lost inquiries before customers ever convert.
+                  Inquiries arrive fragmented across WhatsApp Business, Instagram DMs, and Facebook Messenger, forcing
+                  the owner to toggle multiple apps, causing slow replies and lost revenue.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 2. Target Audience */}
-        <section className="py-20 border-b border-border/60">
-          <div className="container mx-auto px-6 max-w-5xl">
-            <div className="max-w-2xl mb-12">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-2">
-                Target Users
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">
-                Who We Are Building For
-              </h2>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: Users,
-                  title: "Local Service Businesses",
-                  description:
-                    "Movers, renovation contractors, and professional firms needing steady inquiry volume without hiring a £3,000/month digital marketing agency.",
-                },
-                {
-                  icon: Target,
-                  title: "Independent E-commerce Brands",
-                  description:
-                    "DTC stores and boutique product companies that need to test advertising creative hooks and audit product landing pages quickly.",
-                },
-                {
-                  icon: Cpu,
-                  title: "Solo Founders & Operators",
-                  description:
-                    "Operators who wear every hat—sales, fulfillment, finance—and require automated weekly marketing directives to stay competitive.",
-                },
-              ].map((item, idx) => {
-                const Icon = item.icon;
-                return (
-                  <div key={idx} className="p-6 rounded-2xl bg-card border border-border space-y-3">
-                    <div className="p-2.5 rounded-xl bg-primary/10 text-primary w-fit">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-base font-bold text-foreground">{item.title}</h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* 3. Product Architecture & Capabilities */}
+        {/* 3. Core Growth Engine (The 3 Foundation Modules) */}
         <section className="py-20 border-b border-border/60 bg-secondary/15">
           <div className="container mx-auto px-6 max-w-5xl">
             <div className="max-w-3xl mb-14">
               <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-2">
-                Core Capabilities
+                Core Growth Engine
               </span>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight mb-4">
-                How GrowthPilot AI Works
+                The Three Pillars of Automated Growth
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                GrowthPilot replaces confusing dashboards with an intelligent synthesis engine.
-                Data is ingested, structured, analyzed against proven heuristics, and converted into prioritized actions.
+                GrowthPilot AI operates in two synchronized layers. The Core Growth Engine mirrors the three biggest
+                growth bottlenecks: bringing search traffic, converting budget into customers, and unifying communication.
               </p>
             </div>
 
             <div className="space-y-8">
-              {/* Capability 1: SEO Intelligence */}
+              {/* Module 1: SEO Intelligence Engine */}
               <div className="p-8 rounded-3xl bg-card border border-border shadow-md grid md:grid-cols-12 gap-8 items-center">
                 <div className="md:col-span-7 space-y-4">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    Status: Interactive Prototype Ready
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+                      Module 01
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      Status: Prototype Ready
+                    </span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                    Automated Website SEO &amp; Health Auditing
+                    SEO Intelligence Engine
                   </h3>
                   <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    Crawls web pages to assess title tags, meta descriptions, structural headings, mobile responsiveness,
-                    and indexation health. Instead of generating a 40-page PDF audit, GrowthPilot prioritizes the top 3 high-impact
-                    updates needed to capture local search intent.
+                    A business owner submits their website URL and receives a plain-language picture of their search standing.
+                    Unlike passive auditing tools, GrowthPilot writes the content and handles the technical implementation.
                   </p>
-                  <ul className="space-y-2 text-xs text-muted-foreground">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      Instant Health Score calculated against standard web standards
+                  <ul className="space-y-2.5 text-xs text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>SEO Audit &amp; Plain-Language Report:</strong> Scans technical health, content gaps, meta tags, and indexing issues, presenting prioritized, high-impact fixes.</span>
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      Effort vs. impact matrix for non-technical website owners
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>AI Article Generator &amp; CMS Code Injection:</strong> Generates targeted articles to capture missing search intent. Owners can copy a ready-to-paste snippet or grant code access for automated publishing without a developer.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>Keyword Research &amp; Off-Page Authority:</strong> Identifies high-converting niche search queries and guides off-page authority and backlink strategies.</span>
                     </li>
                   </ul>
                 </div>
                 <div className="md:col-span-5 p-5 rounded-2xl bg-secondary/40 border border-border font-mono text-xs space-y-3">
-                  <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-sans font-bold">
-                    Sample Recommendation Card
+                  <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-sans font-bold flex items-center justify-between">
+                    <span>Automated Action Card</span>
+                    <Search className="w-3.5 h-3.5 text-primary" />
                   </div>
-                  <div className="p-3 rounded-xl bg-card border border-border text-foreground">
-                    <div className="text-amber-400 font-bold mb-1">Issue: Low Click-Through on /services</div>
-                    <div className="text-xs text-muted-foreground">Title tag missing geographic intent (&quot;Auckland&quot;). Projected lift: +18% organic visibility.</div>
+                  <div className="p-3 rounded-xl bg-card border border-border text-foreground space-y-2">
+                    <div className="text-emerald-400 font-bold">SEO Audit Score: 81 / 100</div>
+                    <div className="text-xs text-muted-foreground">Identified 2 high-volume content gaps in service radius.</div>
+                    <div className="text-[11px] text-primary font-semibold">Generated 1,200-word article ready for 1-click head snippet injection.</div>
                   </div>
                   <div className="text-[10px] text-muted-foreground text-right italic font-sans">
-                    Simulated logic in current prototype
+                    Live prototype workflow at portal.jeltech.net
                   </div>
                 </div>
               </div>
 
-              {/* Capability 2: Ad Creative & Hook Evaluator */}
+              {/* Module 2: Smart Ads Manager (Meta Ads) */}
               <div className="p-8 rounded-3xl bg-card border border-border shadow-md grid md:grid-cols-12 gap-8 items-center">
                 <div className="md:col-span-7 space-y-4">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                    <Clock className="w-3.5 h-3.5" />
-                    Status: Engineering Roadmap Milestone
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+                      Module 02
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                      <Clock className="w-3.5 h-3.5" />
+                      Status: In Active Engineering
+                    </span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                    Ad Creative &amp; Hook Strength Evaluator
+                    Smart Ads Manager (Meta Ads)
                   </h3>
                   <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    Pre-tests advertising headlines, copy angles, and hook concepts against target audience personas.
-                    Verifies that the promise made in advertising creatives matches the messaging on destination landing pages.
+                    Plans, launches, and continuously monitors Meta (Facebook &amp; Instagram) campaigns on the business&apos;s behalf,
+                    protecting budget and maximizing sales without requiring an external media buyer.
                   </p>
-                  <ul className="space-y-2 text-xs text-muted-foreground">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      Hook resonance scoring based on copy clarity and value proposition
+                  <ul className="space-y-2.5 text-xs text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>AI Creative Scoring:</strong> Rates images, video hooks, and copy (e.g. flagging a 3/10 hook vs. a 7/10 benchmark) with concrete advice to fix angles before spending ad budget.</span>
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      Continuity checks between social ad hooks and landing page copy
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>Automated Campaign Setup:</strong> Selects optimized interests, age ranges, geographic radii, and objective configurations focused on conversions rather than empty clicks.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>Continuous Budget Auto-Optimization:</strong> Reallocates budget to winning ad sets, auto-pauses underperformers, and duplicates successful variations to scale revenue hands-free.</span>
                     </li>
                   </ul>
                 </div>
                 <div className="md:col-span-5 p-5 rounded-2xl bg-secondary/40 border border-border font-mono text-xs space-y-3">
-                  <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-sans font-bold">
-                    Creative Hook Analysis Concept
+                  <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-sans font-bold flex items-center justify-between">
+                    <span>Creative Hook Evaluation</span>
+                    <Megaphone className="w-3.5 h-3.5 text-amber-400" />
                   </div>
                   <div className="p-3 rounded-xl bg-card border border-border space-y-2">
-                    <div className="text-emerald-400 font-bold">Hook Score: 8.8 / 10</div>
-                    <div className="text-xs text-muted-foreground">&quot;Transparent moving rates with zero hidden fees&quot;</div>
-                    <div className="text-[10px] text-muted-foreground">High resonance for cost-conscious movers.</div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-emerald-400 font-bold">Hook Score: 8.8 / 10</span>
+                      <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded">High Resonance</span>
+                    </div>
+                    <div className="text-xs text-muted-foreground">&quot;Transparent Auckland moving rates with zero hidden fees — instant quote&quot;</div>
+                    <div className="text-[11px] text-amber-400 font-semibold pt-1 border-t border-border/60">
+                      Recommendation: Scale budget +$150 on Variation #3
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Capability 3: Lead Management Hub */}
+              {/* Module 3: Unified Leads Management (Omnichannel) */}
               <div className="p-8 rounded-3xl bg-card border border-border shadow-md grid md:grid-cols-12 gap-8 items-center">
                 <div className="md:col-span-7 space-y-4">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    Status: Interactive Prototype Ready
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+                      Module 03
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      Status: Prototype Ready
+                    </span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                    Unified Inbound Lead Stream &amp; Triage
+                    Unified Leads Management (Omnichannel)
                   </h3>
                   <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    Centralizes customer inquiries from web forms, quote requests, and messaging channels into one inbox.
-                    Generates instant context summaries so operators can reply swiftly and close inquiries into booked jobs.
+                    Pulls customer conversations from WhatsApp Business, Instagram DMs, Facebook Messenger, and website forms
+                    into a single, consolidated portal so business owners never drop an inquiry.
                   </p>
-                  <ul className="space-y-2 text-xs text-muted-foreground">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      Origin attribution linking each lead to its campaign or search origin
+                  <ul className="space-y-2.5 text-xs text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>Single Shared Inbox:</strong> View, categorize, and reply to all customer inquiries from one dashboard instead of constantly juggling separate apps.</span>
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      Status management pipeline (New &rarr; Contacted &rarr; Booked)
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>Fast Response Times:</strong> Keeps inquiry response times under 15 minutes to dramatically boost booking and purchase conversion rates.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span><strong>Campaign Origin Attribution:</strong> Links each conversation back to the exact SEO article or Meta ad creative that generated the initial click.</span>
                     </li>
                   </ul>
                 </div>
                 <div className="md:col-span-5 p-5 rounded-2xl bg-secondary/40 border border-border font-mono text-xs space-y-3">
-                  <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-sans font-bold">
-                    Inbound Lead Architecture
+                  <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-sans font-bold flex items-center justify-between">
+                    <span>Unified Lead Influx</span>
+                    <Inbox className="w-3.5 h-3.5 text-primary" />
                   </div>
-                  <div className="p-3 rounded-xl bg-card border border-border space-y-1.5">
-                    <div className="text-foreground font-bold">3 New Inbound Inquiries</div>
-                    <div className="text-[11px] text-emerald-400">Avg. Response Time Target: &lt; 15 mins</div>
-                    <div className="text-[10px] text-muted-foreground">Integrated with standard webhook endpoints</div>
+                  <div className="p-3 rounded-xl bg-card border border-border space-y-2">
+                    <div className="text-foreground font-bold">19 Inbound Inquiries Today</div>
+                    <div className="grid grid-cols-3 gap-2 text-[10px] text-center pt-1">
+                      <div className="p-1.5 rounded bg-secondary/50">WhatsApp: <strong>11</strong></div>
+                      <div className="p-1.5 rounded bg-secondary/50">Instagram: <strong>5</strong></div>
+                      <div className="p-1.5 rounded bg-secondary/50">Website: <strong>3</strong></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -334,66 +460,215 @@ export default function GrowthPilotPage() {
           </div>
         </section>
 
-        {/* 4. Technical Architecture & Engineering Narrative */}
+        {/* 4. Plug-and-Play Business Feature Modules */}
         <section className="py-20 border-b border-border/60">
           <div className="container mx-auto px-6 max-w-5xl">
             <div className="max-w-3xl mb-12">
               <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-2">
-                Technical Architecture
+                Extensible Platform Architecture
               </span>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight mb-4">
-                Structured Engineering, Grounded AI
+                Plug-and-Play Business Feature Modules
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                Rather than deploying generic conversational chatbots that hallucinate metrics, GrowthPilot is designed
-                around deterministic data extraction pipelines coupled with structured LLM reasoning.
+                Businesses can switch on ready-made operational modules tailored to their specific model instead
+                of purchasing disconnected third-party software. Because the same platform drives traffic and ads,
+                all bookings, quotes, and listings feed directly into the growth engine.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="p-7 rounded-2xl bg-card border border-border space-y-4">
-                <div className="flex items-center gap-2 text-primary font-bold text-sm">
-                  <Terminal className="w-4 h-4" />
-                  Structured Ingestion &amp; Synthesis
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="p-6 rounded-2xl bg-card border border-border shadow-sm space-y-4">
+                <div className="p-3 rounded-xl bg-primary/10 text-primary w-fit">
+                  <Calendar className="w-5 h-5" />
                 </div>
+                <h3 className="text-lg font-bold text-foreground">
+                  Booking &amp; Appointment Engine
+                </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Web pages are crawled and serialized into clean JSON DOM schemas. Technical metrics (HTTP response,
-                  meta descriptions, Open Graph data, page speeds) are extracted deterministically before being passed
-                  to LLM reasoning prompts.
+                  For appointment-based businesses such as barbers, salons, clinics, tattoo artists, and consultants.
+                  Configure services, staff members, availability calendars, and booking durations.
                 </p>
-                <div className="p-3.5 rounded-xl bg-secondary/30 border border-border text-xs text-muted-foreground space-y-1">
-                  <div><strong>Frontend:</strong> Next.js 15, React, Tailwind CSS</div>
-                  <div><strong>Data Modeling:</strong> TypeScript / JSON Schema validation</div>
-                  <div><strong>Reasoning Models:</strong> Frontier LLMs (e.g., Anthropic Claude) via structured prompts</div>
+                <div className="text-xs text-primary font-semibold flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Direct integration with leads inbox
                 </div>
               </div>
 
-              <div className="p-7 rounded-2xl bg-card border border-border space-y-4">
-                <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-                  <ShieldCheck className="w-4 h-4" />
-                  Engineering Guardrails
+              <div className="p-6 rounded-2xl bg-card border border-border shadow-sm space-y-4">
+                <div className="p-3 rounded-xl bg-primary/10 text-primary w-fit">
+                  <FileText className="w-5 h-5" />
                 </div>
+                <h3 className="text-lg font-bold text-foreground">
+                  Custom Form &amp; Quote Builder
+                </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  To protect business operators from erroneous recommendations, all suggestions are validated against
-                  established SEO heuristics. If an ad creative cannot be evaluated with high confidence, the system flags it
-                  for human review instead of providing speculative advice.
+                  For institutions and service businesses requiring structured customer data—such as schools capturing
+                  admissions or contractors generating estimates. Build customizable forms that embed on any portal.
                 </p>
-                <div className="p-3.5 rounded-xl bg-secondary/30 border border-border text-xs text-muted-foreground space-y-1">
-                  <div><strong>No Foundation Model Claims:</strong> We leverage best-in-class third-party models</div>
-                  <div><strong>No Fabricated Metrics:</strong> Prototype clearly labeled as simulation</div>
-                  <div><strong>Privacy Respecting:</strong> Business customer data is not used for model training</div>
+                <div className="text-xs text-primary font-semibold flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Submissions flow to admin panel
+                </div>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card border border-border shadow-sm space-y-4">
+                <div className="p-3 rounded-xl bg-primary/10 text-primary w-fit">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground">
+                  Rental &amp; Listing Management
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  For businesses renting out residential or commercial properties, hotel rooms, or vehicles.
+                  List inventory, define custom rates, durations, and terms, allowing visitors to inquire or reserve directly.
+                </p>
+                <div className="text-xs text-primary font-semibold flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Eliminates separate rental SaaS
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 5. Development Roadmap */}
+        {/* 5. Developer API & Headless Integration */}
+        <section className="py-20 border-b border-border/60 bg-secondary/15">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <div className="p-8 sm:p-12 rounded-3xl bg-card border border-border shadow-xl grid md:grid-cols-12 gap-8 items-center">
+              <div className="md:col-span-7 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                  <Code2 className="w-3.5 h-3.5" />
+                  Headless Architecture
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground">
+                  Developer API &amp; Headless Website Integration
+                </h2>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Businesses that already have their own website do not need to abandon it. GrowthPilot AI exposes its
+                  feature modules—starting with the booking system, form builder, and rental manager—through a clean set of
+                  REST and GraphQL APIs.
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground pt-1">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Keep your existing custom frontend design while delegating business logic and database storage to GrowthPilot.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Every external booking or form submission flows straight into the GrowthPilot admin dashboard and unified inbox.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Secure API gateway with tenant authentication, webhook events, and rate-limiting.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="md:col-span-5 p-5 rounded-2xl bg-secondary/40 border border-border font-mono text-xs space-y-3">
+                <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-sans font-bold">
+                  API Integration Snippet
+                </div>
+                <div className="p-3 rounded-xl bg-card border border-border text-[11px] leading-relaxed overflow-x-auto text-emerald-400">
+                  <span className="text-sky-400">POST</span> /api/v1/bookings/create<br />
+                  <span className="text-muted-foreground">&#123;</span><br />
+                  &nbsp;&nbsp;&quot;serviceId&quot;: &quot;srv_moving_quote&quot;,<br />
+                  &nbsp;&nbsp;&quot;channel&quot;: &quot;external_web&quot;,<br />
+                  &nbsp;&nbsp;&quot;customerPhone&quot;: &quot;+64 21 000 000&quot;,<br />
+                  &nbsp;&nbsp;&quot;sourceAd&quot;: &quot;meta_hook_v3&quot;<br />
+                  <span className="text-muted-foreground">&#125;</span>
+                </div>
+                <div className="text-[10px] text-muted-foreground text-right italic font-sans">
+                  Headless REST/GraphQL endpoints
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. System Architecture & Technology Stack */}
+        <section className="py-20 border-b border-border/60">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <div className="max-w-3xl mb-12">
+              <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-2">
+                System Engineering
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight mb-4">
+                High-Level System Architecture &amp; Tech Stack
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                Rather than deploying generic conversational chatbots that hallucinate metrics, GrowthPilot connects
+                deterministic data pipelines directly with official marketing APIs and structured LLM evaluation schemas.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="p-6 rounded-2xl bg-card border border-border space-y-3">
+                <div className="flex items-center gap-2 text-primary font-bold text-sm">
+                  <Globe className="w-4 h-4" />
+                  Frontend &amp; Portal
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  React.js / Next.js responsive dashboard delivering intuitive SEO audits, creative hook scoring interfaces, and unified customer inbox ergonomics.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card border border-border space-y-3">
+                <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                  <Terminal className="w-4 h-4" />
+                  Backend &amp; API Layer
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Node.js and Python microservices exposing REST and GraphQL APIs for client portal actions, crawler ingestion, and headless integration.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card border border-border space-y-3">
+                <div className="flex items-center gap-2 text-sky-400 font-bold text-sm">
+                  <Cpu className="w-4 h-4" />
+                  AI Reasoning Engine
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Frontier LLMs (Anthropic Claude API) governed by strict JSON schemas for SEO gap synthesis, article writing, and ad hook resonance evaluation.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card border border-border space-y-3">
+                <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
+                  <Network className="w-4 h-4" />
+                  Marketing &amp; Messaging APIs
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Direct connectors for Meta Marketing API (ad campaign setup &amp; budget shifting) and Meta Graph / WhatsApp Business API (unified inbox).
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card border border-border space-y-3">
+                <div className="flex items-center gap-2 text-primary font-bold text-sm">
+                  <Database className="w-4 h-4" />
+                  Database &amp; Storage
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  PostgreSQL and MongoDB clusters for relational campaign metadata, user permissions, conversational history, and feature module storage.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-card border border-border space-y-3">
+                <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                  <ShieldCheck className="w-4 h-4" />
+                  Security &amp; Guardrails
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Tenant data isolation, API rate-limiting, and established heuristics ensuring recommendations are grounded before execution.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 7. Product Milestones & Roadmap */}
         <section className="py-20 border-b border-border/60 bg-secondary/10">
           <div className="container mx-auto px-6 max-w-5xl">
             <div className="max-w-2xl mb-12">
               <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-2">
-                Product Milestones
+                Engineering Roadmap
               </span>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">
                 Current Progress &amp; Planned Milestones
@@ -403,36 +678,44 @@ export default function GrowthPilotPage() {
             <div className="space-y-6">
               {[
                 {
-                  phase: "Milestone 1 · Completed",
-                  title: "UX Architecture & Interactive Prototype Workspace",
-                  status: "Live at portal.jeltech.net",
-                  color: "emerald",
+                  phase: 'Milestone 1 · Completed',
+                  title: 'UX Architecture & Interactive Prototype Workspace',
+                  status: 'Live at portal.jeltech.net',
+                  color: 'emerald',
                   details:
-                    "Designed full portal navigation, metric visualization components, sample business workflows, and interactive prototype ergonomics to validate usability.",
+                    'Designed complete portal navigation, metric visualization components, sample business workflows, and interactive prototype ergonomics to validate usability.',
                 },
                 {
-                  phase: "Milestone 2 · In Active Engineering",
-                  title: "Live Web Crawl & Technical Audit Pipeline",
-                  status: "In Development",
-                  color: "amber",
+                  phase: 'Milestone 2 · In Active Engineering',
+                  title: 'SEO Crawler & Automated CMS Snippet Injection',
+                  status: 'In Active Engineering',
+                  color: 'amber',
                   details:
-                    "Building server-side crawler microservices to extract DOM metadata, detect broken tags, evaluate page performance, and structure site health signals.",
+                    'Developing server-side crawler microservices to extract DOM metadata, detect content gaps, generate SEO articles, and inject page-head snippets automatically.',
                 },
                 {
-                  phase: "Milestone 3 · Planned Roadmap",
-                  title: "Structured LLM Reasoning & Ad Creative Evaluator",
-                  status: "Upcoming Milestone",
-                  color: "sky",
+                  phase: 'Milestone 3 · In Active Engineering',
+                  title: 'Meta Marketing API & AI Creative Hook Scoring Engine',
+                  status: 'In Active Engineering',
+                  color: 'amber',
                   details:
-                    "Integrating structured LLM prompts (via Anthropic Claude API) to synthesize audit signals into plain-English priority action cards and evaluate ad creative hooks.",
+                    'Connecting Meta Marketing APIs for automated ad set creation, creative hook scoring (1-10 benchmark ratings), and continuous performance budget rebalancing.',
                 },
                 {
-                  phase: "Milestone 4 · Planned Roadmap",
-                  title: "Closed Alpha Cohort Testing",
-                  status: "Planned Milestone",
-                  color: "sky",
+                  phase: 'Milestone 4 · Upcoming Milestone',
+                  title: 'Omnichannel WhatsApp & Instagram Leads Inbox',
+                  status: 'Upcoming Milestone',
+                  color: 'sky',
                   details:
-                    "Inviting an initial cohort of 10-15 small business operators to test live audits on their actual commercial websites and provide iterative qualitative feedback.",
+                    'Integrating WhatsApp Business and Instagram Direct APIs to route inquiries into a single unified shared dashboard with origin attribution.',
+                },
+                {
+                  phase: 'Milestone 5 · Commercial Deployment',
+                  title: 'Deployment with Signed Pilot Clients (5–7 Businesses)',
+                  status: 'Commercial Rollout',
+                  color: 'sky',
+                  details:
+                    'Deploying completed production build to our 5–7 signed pilot partners across e-commerce, logistics, manufacturing, and construction for full operational adoption.',
                 },
               ].map((m, idx) => (
                 <div
@@ -441,7 +724,7 @@ export default function GrowthPilotPage() {
                 >
                   <div className="space-y-1.5 max-w-2xl">
                     <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
-                      <span className={m.color === "emerald" ? "text-emerald-400" : m.color === "amber" ? "text-amber-400" : "text-sky-400"}>
+                      <span className={m.color === 'emerald' ? 'text-emerald-400' : m.color === 'amber' ? 'text-amber-400' : 'text-sky-400'}>
                         {m.phase}
                       </span>
                     </div>
@@ -453,11 +736,11 @@ export default function GrowthPilotPage() {
                   <div>
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
-                        m.color === "emerald"
-                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                          : m.color === "amber"
-                          ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-                          : "bg-sky-500/10 text-sky-400 border border-sky-500/20"
+                        m.color === 'emerald'
+                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                          : m.color === 'amber'
+                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                          : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
                       }`}
                     >
                       {m.status}
@@ -469,21 +752,21 @@ export default function GrowthPilotPage() {
           </div>
         </section>
 
-        {/* 6. Honest Early Access / Inquiry Form */}
+        {/* 8. Early Access / Inquiry Form */}
         <section id="early-access" className="py-24">
           <div className="container mx-auto px-6 max-w-3xl">
             <div className="p-8 sm:p-12 rounded-3xl bg-card border border-border shadow-2xl relative overflow-hidden">
               <div className="text-center max-w-xl mx-auto mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">
                   <Sparkles className="w-3.5 h-3.5" />
-                  Follow Development
+                  Follow Development &amp; Join Pilot Cohort
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">
                   Interested in GrowthPilot AI?
                 </h2>
                 <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
-                  We are actively building and testing with small business operators. Leave your details below
-                  to receive transparent engineering updates and be notified when closed alpha testing opens.
+                  Join our growing cohort of pilot businesses. Leave your details below to receive transparent engineering updates
+                  and early access onboarding as we roll out new modules.
                 </p>
               </div>
 
