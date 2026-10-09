@@ -1,6 +1,6 @@
 export const SITE_NAME = 'JelTech';
-export const SITE_TITLE = 'JelTech - Digital Canvas';
-export const SITE_DESCRIPTION = 'Transform your ideas into digital reality with our innovative web and mobile solutions.';
+export const SITE_TITLE = 'JelTech - Digital Canvas | Software & AI';
+export const SITE_DESCRIPTION = 'We build distinctive digital experiences for businesses and develop intelligent software designed to solve real-world problems.';
 
 const FALLBACK_SITE_URL = 'https://jeltech.net';
 

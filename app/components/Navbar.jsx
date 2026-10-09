@@ -3,15 +3,19 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMotionReady } from "../hooks/useMotionReady";
 
 const navLinks = [
-  { name: "Home", href: "/", isHash: false },
-  { name: "About", href: "/about", isHash: false },
-  { name: "Contact", href: "/contact", isHash: false },
+  { name: "Home", href: "/" },
+  { name: "Work", href: "/#work" },
+  { name: "Products", href: "/products" },
+  { name: "Services", href: "/#services" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export const Navbar = () => {
@@ -29,10 +33,10 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href, isHash) => {
+  const handleNavClick = (href) => {
     setIsMobileMenuOpen(false);
-    
-    if (isHash) {
+
+    if (href.includes("#") && pathname === "/") {
       const hash = href.split("#")[1];
       const element = document.getElementById(hash);
       if (element) {
@@ -41,7 +45,9 @@ export const Navbar = () => {
     }
   };
 
-  const isActive = (href) => {
+  const isLinkActive = (href) => {
+    if (href === "/") return pathname === "/";
+    if (href.startsWith("/#")) return false;
     return pathname === href;
   };
 
@@ -57,50 +63,50 @@ export const Navbar = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <img
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Image
             src="/assets/jt-logo-letters.png"
-            alt="Jeltech"
-            className="h-9 w-auto transition-transform duration-300 group-hover:scale-105"
+            alt="JelTech logo"
+            width={36}
+            height={36}
+            className="h-8 sm:h-9 w-auto transition-transform duration-300 group-hover:scale-105"
+            priority
           />
-          <span className="text-xl font-bold tracking-tight text-foreground">
-            Jel<span className="text-primary">Tech</span>
-          </span>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold tracking-tight text-foreground leading-none">
+              Jel<span className="text-primary">Tech</span>
+            </span>
+            <span className="text-[10px] tracking-widest text-muted-foreground uppercase font-medium">
+              Digital Canvas
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
-            link.isHash ? (
-              <button
-                key={link.name}
-                onClick={() => handleNavClick(link.href, link.isHash)}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </button>
-            ) : (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors relative group ${
-                  isActive(link.href)
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+            <Link
+              key={link.name}
+              href={link.href}
+              onClick={() => handleNavClick(link.href)}
+              className={`text-sm font-medium transition-colors relative py-1 group ${
+                isLinkActive(link.href)
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {link.name}
+              <span
+                className={`absolute -bottom-0.5 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  isLinkActive(link.href) ? "w-full" : "w-0 group-hover:w-full"
                 }`}
-              >
-                {link.name}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                  isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"
-                }`} />
-              </Link>
-            )
+              />
+            </Link>
           ))}
         </div>
 
         {/* CTA Button */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Button variant="hero" size="default" asChild>
             <Link href="/start-project">Start a Project</Link>
           </Button>
@@ -108,8 +114,9 @@ export const Navbar = () => {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-foreground p-2"
+          className="lg:hidden text-foreground p-2 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle navigation menu"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -122,38 +129,30 @@ export const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-strong mt-2 mx-4 rounded-xl overflow-hidden"
+            className="lg:hidden glass-strong mt-2 mx-4 rounded-xl overflow-hidden border border-border"
           >
-            <div className="flex flex-col p-6 gap-4">
+            <div className="flex flex-col p-6 gap-3">
               {navLinks.map((link) => (
-                link.isHash ? (
-                  <button
-                    key={link.name}
-                    onClick={() => handleNavClick(link.href, link.isHash)}
-                    className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2 text-left"
-                  >
-                    {link.name}
-                  </button>
-                ) : (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-base font-medium transition-colors py-2 ${
-                      isActive(link.href)
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                )
-              ))}
-              <Button variant="hero" size="lg" className="mt-2" asChild>
-                <Link href="/start-project" onClick={() => setIsMobileMenuOpen(false)}>
-                  Start a Project
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => handleNavClick(link.href)}
+                  className={`text-base font-medium transition-colors py-2 ${
+                    isLinkActive(link.href)
+                      ? "text-primary font-semibold"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {link.name}
                 </Link>
-              </Button>
+              ))}
+              <div className="pt-3 border-t border-border mt-2">
+                <Button variant="hero" size="lg" className="w-full" asChild>
+                  <Link href="/start-project" onClick={() => setIsMobileMenuOpen(false)}>
+                    Start a Project
+                  </Link>
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}

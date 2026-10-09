@@ -1,0 +1,205 @@
+'use client';
+
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Cpu, ExternalLink, Sparkles, CheckCircle2, Clock, Users, BarChart3, ShieldCheck } from "lucide-react";
+import { useMotionReady } from "../hooks/useMotionReady";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+
+export const products = [
+  {
+    name: "GrowthPilot AI",
+    category: "AI Marketing Assistant",
+    statusBadge: "IN DEVELOPMENT · INTERACTIVE PROTOTYPE",
+    statusVariant: "warning", // yellow/amber accent
+    targetAudience: "Small businesses, local service businesses & e-commerce brands",
+    description:
+      "An AI-powered marketing assistant in development, designed to bring marketing insights, campaign assistance, and lead workflows into one workspace.",
+    previewImage: "/assets/products/growthpilot_preview.svg",
+    previewAlt: "GrowthPilot AI interactive prototype workspace preview",
+    link: "https://portal.jeltech.net/",
+    ctaLabel: "Explore the Prototype",
+    disclaimer: "Prototype displays sample metrics & simulated workflows to test user experience. Real-time advertising sync & analytics are planned capabilities.",
+    plannedFeatures: [
+      "SEO intelligence and automated website health auditing (In Prototype)",
+      "Marketing recommendations and search keyword opportunity mapping (Planned)",
+      "Meta Ads creative evaluation and hook-strength assistance (Planned)",
+      "Lead management inbox across supported web & messaging channels (Prototype Workflow)",
+      "Optional business extensions including consultation booking & quote pipelines (Planned)",
+    ],
+  },
+  {
+    name: "People Power Hub",
+    category: "HR Technology / Workforce Intelligence",
+    statusBadge: "FINAL TESTING · LAUNCHING SOON",
+    statusVariant: "success", // green accent
+    targetAudience: "HR leaders, people operations teams & organizational managers",
+    description:
+      "An HR intelligence platform in its final testing phase, designed to help organizations explore workforce insights and simulate potential scenarios using AI-assisted analysis.",
+    previewImage: "/assets/products/people_power_hub_shot.png",
+    previewAlt: "People Power Hub live pre-launch application preview",
+    link: "https://people-power-hub.vercel.app/",
+    ctaLabel: "Preview the Platform",
+    disclaimer: "Currently in pre-launch testing. Predictive scenario simulations are being calibrated; not yet claimed as commercially validated attrition percentages.",
+    plannedFeatures: [
+      "Intuitive workforce ontology & headcount priority dashboards (Implemented & In Testing)",
+      "Role-based authentication & enterprise-grade security workspace (Implemented)",
+      "Scenario simulation models to explore organizational shifts (Calibration Phase)",
+      "Data-sync integrations with HRMS platforms & communication pipelines (Testing)",
+    ],
+  },
+];
+
+export const ProductsSection = () => {
+  const headerRef = useRef(null);
+  const isInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const motionReady = useMotionReady();
+  const motionKey = motionReady ? "motion" : "static";
+
+  return (
+    <section id="products" className="py-24 relative overflow-hidden bg-secondary/15 border-y border-border/60">
+      {/* Background accents */}
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-80 h-80 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          ref={headerRef}
+          key={`products-header-${motionKey}`}
+          initial={motionReady ? { opacity: 0, y: 30 } : false}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16 max-w-3xl mx-auto"
+        >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+            <Cpu className="w-3.5 h-3.5" />
+            JelTech Software Initiatives
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Our In-House <span className="text-gradient-green">Software Products</span>
+          </h2>
+
+          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            Alongside our client engineering services, we develop our own software products designed to solve real operational,
+            marketing, and workforce challenges.
+          </p>
+        </motion.div>
+
+        {/* Product Cards Grid */}
+        <div className="space-y-16 max-w-5xl mx-auto">
+          {products.map((product, index) => (
+            <motion.div
+              key={product.name}
+              initial={motionReady ? { opacity: 0, y: 40 } : false}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, delay: index * 0.15 }}
+              className="rounded-3xl bg-card border border-border/80 hover:border-primary/40 transition-all duration-300 overflow-hidden shadow-xl"
+            >
+              <div className="grid lg:grid-cols-12 gap-0 items-stretch">
+                {/* Visual Preview Side */}
+                <div className={`lg:col-span-6 p-6 sm:p-8 flex flex-col justify-center bg-secondary/30 border-b lg:border-b-0 ${
+                  index % 2 === 1 ? 'lg:order-2 lg:border-l' : 'lg:border-r'
+                } border-border`}>
+                  <div className="rounded-xl overflow-hidden border border-border shadow-md bg-background/50 relative group">
+                    <Image
+                      src={product.previewImage}
+                      alt={product.previewAlt}
+                      width={1200}
+                      height={750}
+                      className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-background/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                      <a
+                        href={product.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-lg bg-card text-foreground border border-border text-xs font-semibold flex items-center gap-2 shadow-lg"
+                      >
+                        Open Preview Link <ExternalLink className="w-3.5 h-3.5 text-primary" />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Status & Audience Footnote */}
+                  <div className="mt-4 pt-3 border-t border-border/50 text-[11px] text-muted-foreground flex flex-col gap-1">
+                    <div>
+                      <span className="font-semibold text-foreground/80">Intended Audience:</span> {product.targetAudience}
+                    </div>
+                    <div className="text-muted-foreground/80 italic">
+                      {product.disclaimer}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Details & Features Side */}
+                <div className={`lg:col-span-6 p-8 sm:p-10 flex flex-col justify-between ${
+                  index % 2 === 1 ? 'lg:order-1' : ''
+                }`}>
+                  <div>
+                    {/* Status Pill */}
+                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide border ${
+                        product.statusVariant === 'success'
+                          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                          : 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                      }`}>
+                        <Clock className="w-3.5 h-3.5" />
+                        {product.statusBadge}
+                      </span>
+                      <span className="text-xs text-muted-foreground font-medium">
+                        {product.category}
+                      </span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-3">
+                      {product.name}
+                    </h3>
+
+                    <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-6">
+                      {product.description}
+                    </p>
+
+                    {/* Capabilities breakdown */}
+                    <div className="space-y-2 mb-8 pt-4 border-t border-border/70">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-foreground/80 mb-3">
+                        Product Blueprint &amp; Feature Roadmap
+                      </h4>
+                      <ul className="space-y-2">
+                        {product.plannedFeatures.map((feat, fIdx) => (
+                          <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-muted-foreground">
+                            <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div>
+                    <Button variant="hero" size="lg" className="w-full sm:w-auto gap-2 group/btn" asChild>
+                      <a
+                        href={product.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${product.ctaLabel} for ${product.name}`}
+                      >
+                        {product.ctaLabel}
+                        <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};

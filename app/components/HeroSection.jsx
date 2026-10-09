@@ -66,7 +66,7 @@ export const HeroSection = () => {
 
       <div className="container mx-auto px-6 pt-24 pb-12 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
-          {/* Badge */}
+          {/* Eyebrow Badge */}
           <motion.div
             key={`hero-badge-${motionKey}`}
             initial={motionReady ? { opacity: 0, y: 20 } : false}
@@ -75,8 +75,8 @@ export const HeroSection = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 mb-8"
           >
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-muted-foreground">
-              Web Development Excellence
+            <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-foreground/90">
+              DIGITAL CANVAS · SOFTWARE &amp; AI
             </span>
           </motion.div>
 
@@ -88,11 +88,10 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6"
           >
-            We Build{" "}
-            <span className="text-gradient-green">Modern</span>,<br />
-            High-Performance{" "}
+            Technology that does{" "}
+            <br className="hidden sm:inline" />
             <span className="relative inline-block">
-              Web Experiences
+              <span className="text-gradient-green">more than look good</span>
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-primary rounded-full"
                 key={`hero-underline-${motionKey}`}
@@ -101,9 +100,10 @@ export const HeroSection = () => {
                 transition={{ duration: 0.8, delay: 0.8 }}
               />
             </span>
+            .
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Supporting Copy */}
           <motion.p
             key={`hero-subtitle-${motionKey}`}
             initial={motionReady ? { opacity: 0, y: 30 } : false}
@@ -111,9 +111,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Clean code. Exceptional performance. Scalable architecture.
-            <br className="hidden sm:block" />
-            We craft digital products that drive results.
+            We build distinctive digital experiences for businesses and develop intelligent software designed to solve real-world problems.
           </motion.p>
 
           {/* CTAs */}
@@ -125,35 +123,48 @@ export const HeroSection = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button variant="hero" size="xl" asChild>
-              <Link href="/start-project" className="group">
-                Start a Project
+              <Link href="/#work" className="group">
+                Explore Our Work
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button variant="heroOutline" size="xl" asChild>
-              <Link href="/#work">View Our Work</Link>
+              <Link href="/#products">Discover Our Products</Link>
             </Button>
           </motion.div>
 
-          {/* Stats */}
+          {/* Grounded Value Pillars (Replacing unverified numbers) */}
           <motion.div
-            key={`hero-stats-${motionKey}`}
+            key={`hero-pillars-${motionKey}`}
             initial={motionReady ? { opacity: 0, y: 40 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="grid grid-cols-3 gap-8 mt-20 max-w-lg mx-auto"
+            className="grid sm:grid-cols-3 gap-4 sm:gap-6 mt-16 max-w-3xl mx-auto text-left"
           >
             {[
-              { value: "50+", label: "Projects" },
-              { value: "100%", label: "Satisfaction" },
-              { value: "5★", label: "Reviews" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-2xl sm:text-3xl font-bold text-foreground">
-                  {stat.value}
+              {
+                title: "Interactive Web Experiences",
+                description: "Immersive, memorable websites designed around genuine user interactions.",
+              },
+              {
+                title: "Reliable Modern Code",
+                description: "Clean architecture, fast load times, and maintainable software standards.",
+              },
+              {
+                title: "In-House AI Software",
+                description: "Active product development solving real operational and marketing workflows.",
+              },
+            ].map((pillar, i) => (
+              <div
+                key={i}
+                className="p-4 sm:p-5 rounded-xl bg-card/60 border border-border/70 backdrop-blur-sm"
+              >
+                <div className="w-2 h-2 rounded-full bg-primary mb-3" />
+                <div className="text-sm font-semibold text-foreground mb-1">
+                  {pillar.title}
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  {stat.label}
+                <div className="text-xs text-muted-foreground leading-relaxed">
+                  {pillar.description}
                 </div>
               </div>
             ))}

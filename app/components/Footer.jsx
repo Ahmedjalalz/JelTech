@@ -1,21 +1,24 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { Instagram, Twitter, Linkedin, Mail, Phone } from "lucide-react";
 
 const footerLinks = {
   services: [
-    { name: "Web Development", href: "/#services", isHash: true },
-    { name: "Mobile Apps", href: "/#services", isHash: true },
-    { name: "Shopify Stores", href: "/#services", isHash: true },
-    { name: "UI/UX Design", href: "/#services", isHash: true },
-    { name: "SEO", href: "/#services", isHash: true },
+    { name: "Custom Websites", href: "/#services", isHash: true },
+    { name: "Interactive Web Experiences", href: "/#services", isHash: true },
+    { name: "Web Applications", href: "/#services", isHash: true },
+    { name: "E-Commerce & Shopify", href: "/#services", isHash: true },
+    { name: "UI/UX & Design Systems", href: "/#services", isHash: true },
+    { name: "AI Integration & Software", href: "/#services", isHash: true },
   ],
   company: [
     { name: "About", href: "/about", isHash: false },
     { name: "Work", href: "/#work", isHash: true },
+    { name: "Products", href: "/products", isHash: false },
     { name: "Contact", href: "/contact", isHash: false },
-    { name: "Get a Quote", href: "/start-project", isHash: false },
+    { name: "Start a Project", href: "/start-project", isHash: false },
   ],
 };
 
@@ -37,20 +40,30 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="border-t border-border py-16 relative">
+    <footer className="border-t border-border py-16 relative bg-card/20">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <img src="/assets/jt-logo-letters.png" alt="Jeltech" className="h-8 w-auto" />
-              <span className="text-xl font-bold text-foreground">
-                Jel<span className="text-primary">Tech</span>
-              </span>
+              <Image
+                src="/assets/jt-logo-letters.png"
+                alt="JelTech logo"
+                width={32}
+                height={32}
+                className="h-8 w-auto"
+              />
+              <div className="flex flex-col">
+                <span className="text-xl font-bold text-foreground leading-none">
+                  Jel<span className="text-primary">Tech</span>
+                </span>
+                <span className="text-[10px] tracking-widest text-muted-foreground uppercase font-medium">
+                  Digital Canvas
+                </span>
+              </div>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              Building modern, high-performance web & mobile experiences for businesses
-              that want to stand out.
+              We build distinctive digital experiences for businesses and develop intelligent software designed to solve real-world problems.
             </p>
             {/* Social Icons */}
             <div className="flex items-center gap-3">
@@ -72,7 +85,7 @@ export const Footer = () => {
           {/* Services */}
           <div>
             <h4 className="font-semibold text-foreground mb-4">Services</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -89,8 +102,8 @@ export const Footer = () => {
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Company</h4>
-            <ul className="space-y-3">
+            <h4 className="font-semibold text-foreground mb-4">Company &amp; Products</h4>
+            <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -114,7 +127,7 @@ export const Footer = () => {
                   href="mailto:Contact@jeltech.net"
                   className="text-muted-foreground text-sm hover:text-primary transition-colors flex items-center gap-2"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-4 h-4 text-primary" />
                   Contact@jeltech.net
                 </a>
               </li>
@@ -123,20 +136,20 @@ export const Footer = () => {
                   href="tel:+923143394966"
                   className="text-muted-foreground text-sm hover:text-primary transition-colors flex items-center gap-2"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-4 h-4 text-primary" />
                   +92 314 3394966
                 </a>
               </li>
             </ul>
             {/* Social Icons repeated for mobile */}
-            <div className="flex items-center gap-3 mt-4">
+            <div className="flex items-center gap-3 mt-4 lg:hidden">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-secondary/50 border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 lg:hidden"
+                  className="w-9 h-9 rounded-lg bg-secondary/50 border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
                   aria-label={link.name}
                 >
                   <link.icon className="w-4 h-4" />
@@ -163,7 +176,7 @@ export const Footer = () => {
               href="/terms-and-conditions"
               className="hover:text-primary transition-colors underline-offset-4 hover:underline"
             >
-              Terms & Conditions
+              Terms &amp; Conditions
             </Link>
           </div>
         </div>

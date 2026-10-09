@@ -202,7 +202,7 @@ export default function StartProject() {
                       name="projectType"
                       value={formData.projectType}
                       onChange={handleChange}
-                      placeholder="Website, Mobile App, E-commerce..."
+                      placeholder="Custom Website, Web Application, E-commerce, Software Tool..."
                       required
                     />
                   </div>

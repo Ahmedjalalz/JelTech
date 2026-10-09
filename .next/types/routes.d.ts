@@ -4,7 +4,7 @@
 type AppRoutes = never
 type AppRouteHandlerRoutes = "/api/start-project"
 type PageRoutes = never
-type LayoutRoutes = "/" | "/about" | "/contact" | "/privacy-policy" | "/start-project" | "/terms-and-conditions"
+type LayoutRoutes = "/" | "/about" | "/contact" | "/privacy-policy" | "/products" | "/start-project" | "/terms-and-conditions"
 type RedirectRoutes = "/privacy" | "/terms" | "/terms-of-service"
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes | AppRouteHandlerRoutes
@@ -17,6 +17,7 @@ interface ParamMap {
   "/contact": {}
   "/privacy": {}
   "/privacy-policy": {}
+  "/products": {}
   "/start-project": {}
   "/terms": {}
   "/terms-and-conditions": {}
@@ -31,6 +32,7 @@ interface LayoutSlotMap {
   "/about": never
   "/contact": never
   "/privacy-policy": never
+  "/products": never
   "/start-project": never
   "/terms-and-conditions": never
 }

@@ -1,9 +1,9 @@
 import { buildPageMetadata } from '@/lib/seo';
 
 export const metadata = buildPageMetadata({
-  title: 'About JelTech',
+  title: 'About JelTech | Digital Canvas & Software',
   description:
-    'Learn about JelTech, our team, and how we build modern digital products that drive business growth.',
+    'Learn about JelTech, our engineering philosophy, our team, and how we craft distinctive digital experiences and intelligent software products.',
   path: '/about',
 });
 

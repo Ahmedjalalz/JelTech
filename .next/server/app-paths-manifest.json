@@ -1,13 +1,7 @@
 {
-  "/sitemap.xml/route": "app/sitemap.xml/route.js",
   "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
-  "/robots.txt/route": "app/robots.txt/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/start-project/route": "app/api/start-project/route.js",
   "/page": "app/page.js",
-  "/terms-and-conditions/page": "app/terms-and-conditions/page.js",
-  "/privacy-policy/page": "app/privacy-policy/page.js",
-  "/contact/page": "app/contact/page.js",
+  "/products/page": "app/products/page.js",
   "/about/page": "app/about/page.js",
-  "/start-project/page": "app/start-project/page.js"
+  "/contact/page": "app/contact/page.js"
 }

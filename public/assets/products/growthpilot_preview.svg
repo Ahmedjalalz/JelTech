@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a2024" />
+      <stop offset="100%" stop-color="#14181a" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#45BE43" />
+      <stop offset="100%" stop-color="#349b32" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#24292d" />
+      <stop offset="100%" stop-color="#1c2124" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="750" fill="url(#bg)" />
+
+  <!-- Window Chrome Header -->
+  <rect width="1200" height="56" fill="#181d20" />
+  <circle cx="30" cy="28" r="6" fill="#ef4444" opacity="0.8" />
+  <circle cx="50" cy="28" r="6" fill="#f59e0b" opacity="0.8" />
+  <circle cx="70" cy="28" r="6" fill="#45BE43" opacity="0.8" />
+  
+  <rect x="360" y="14" width="480" height="28" rx="6" fill="#24292d" />
+  <text x="600" y="32" font-family="Inter, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">
+    portal.jeltech.net — GrowthPilot AI (Interactive Prototype)
+  </text>
+
+  <!-- Sidebar -->
+  <rect x="0" y="56" width="220" height="694" fill="#161a1d" border="1" />
+  <rect x="20" y="80" width="32" height="32" rx="8" fill="#45BE43" fill-opacity="0.2" />
+  <text x="36" y="101" font-family="Inter, sans-serif" font-size="16" font-weight="bold" fill="#45BE43" text-anchor="middle">G</text>
+  <text x="64" y="96" font-family="Inter, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">GrowthPilot</text>
+  <text x="64" y="110" font-family="Inter, sans-serif" font-size="10" fill="#64748b">AI Marketing Assistant</text>
+
+  <!-- Navigation items -->
+  <rect x="14" y="140" width="192" height="36" rx="6" fill="#45BE43" fill-opacity="0.15" />
+  <text x="30" y="163" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#45BE43">⚡ Overview &amp; Health</text>
+
+  <rect x="14" y="186" width="192" height="36" rx="6" fill="transparent" />
+  <text x="30" y="209" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">🔍 SEO Intelligence</text>
+
+  <rect x="14" y="232" width="192" height="36" rx="6" fill="transparent" />
+  <text x="30" y="255" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">📊 Meta Ads Evaluator</text>
+
+  <rect x="14" y="278" width="192" height="36" rx="6" fill="transparent" />
+  <text x="30" y="301" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">📥 Lead Pipeline</text>
+
+  <rect x="14" y="324" width="192" height="36" rx="6" fill="transparent" />
+  <text x="30" y="347" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">⚙️ Channels &amp; Setup</text>
+
+  <!-- Status pill in sidebar -->
+  <rect x="16" y="660" width="188" height="60" rx="8" fill="#20262a" stroke="#334155" stroke-width="1" />
+  <text x="28" y="682" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="#45BE43">PROTOTYPE STAGE</text>
+  <text x="28" y="702" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">UI preview · Demo data</text>
+
+  <!-- Main Content Area -->
+  <!-- Top bar in main area -->
+  <text x="250" y="98" font-family="Inter, sans-serif" font-size="20" font-weight="bold" fill="#f8fafc">Marketing Overview</text>
+  <text x="250" y="118" font-family="Inter, sans-serif" font-size="12" fill="#64748b">AI-driven insights &amp; campaign workflow draft</text>
+
+  <rect x="940" y="80" width="220" height="32" rx="16" fill="#20262a" stroke="#45BE43" stroke-width="1" stroke-opacity="0.4" />
+  <circle cx="956" cy="96" r="4" fill="#45BE43" />
+  <text x="968" y="100" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#45BE43">
+    IN DEVELOPMENT · PROTOTYPE
+  </text>
+
+  <!-- KPI Cards -->
+  <g transform="translate(250, 140)">
+    <!-- Card 1: SEO Analysis -->
+    <rect width="280" height="120" rx="10" fill="url(#cardGrad)" stroke="#2f373c" stroke-width="1" />
+    <text x="20" y="30" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#94a3b8" letter-spacing="0.5">SEO HEALTH AUDIT (SAMPLE)</text>
+    <text x="20" y="65" font-family="Inter, sans-serif" font-size="28" font-weight="bold" fill="#f8fafc">84<tspan font-size="16" fill="#64748b">/100</tspan></text>
+    <rect x="20" y="80" width="240" height="6" rx="3" fill="#1e2428" />
+    <rect x="20" y="80" width="200" height="6" rx="3" fill="#45BE43" />
+    <text x="20" y="105" font-family="Inter, sans-serif" font-size="11" fill="#45BE43">✓ 6 High-priority optimizations identified</text>
+
+    <!-- Card 2: Keyword Opportunities -->
+    <rect x="310" width="280" height="120" rx="10" fill="url(#cardGrad)" stroke="#2f373c" stroke-width="1" />
+    <text x="330" y="30" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#94a3b8" letter-spacing="0.5">KEYWORD OPPORTUNITIES</text>
+    <text x="330" y="65" font-family="Inter, sans-serif" font-size="28" font-weight="bold" fill="#f8fafc">18<tspan font-size="14" font-weight="normal" fill="#94a3b8"> Recommended</tspan></text>
+    <text x="330" y="105" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Targeting local service commercial intent</text>
+
+    <!-- Card 3: Meta Ad Evaluation -->
+    <rect x="620" width="280" height="120" rx="10" fill="url(#cardGrad)" stroke="#2f373c" stroke-width="1" />
+    <text x="640" y="30" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#94a3b8" letter-spacing="0.5">CREATIVE EVALUATOR</text>
+    <text x="640" y="65" font-family="Inter, sans-serif" font-size="24" font-weight="bold" fill="#f8fafc">Ready for Analysis</text>
+    <text x="640" y="105" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Hook strength &amp; CTA clarity scanner</text>
+  </g>
+
+  <!-- Big Central Section: Two Workspaces -->
+  <!-- Left column: Marketing Recommendations -->
+  <g transform="translate(250, 280)">
+    <rect width="440" height="430" rx="12" fill="url(#cardGrad)" stroke="#2f373c" stroke-width="1" />
+    <text x="24" y="36" font-family="Inter, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">AI Marketing Recommendations</text>
+    <text x="24" y="56" font-family="Inter, sans-serif" font-size="11" fill="#64748b">Generated based on prototype evaluation models</text>
+
+    <!-- Item 1 -->
+    <rect x="20" y="74" width="400" height="96" rx="8" fill="#1b2023" stroke="#2c3338" stroke-width="1" />
+    <rect x="36" y="88" width="60" height="18" rx="4" fill="#45BE43" fill-opacity="0.15" />
+    <text x="66" y="101" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="#45BE43" text-anchor="middle">SEO STEP</text>
+    <text x="106" y="102" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f1f5f9">Restructure landing page headings (H1/H2)</text>
+    <text x="36" y="130" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Align high-intent search queries with primary service categories to boost discovery.</text>
+    <text x="36" y="152" font-family="Inter, sans-serif" font-size="10" fill="#64748b">Estimated lift: +14% crawl relevance (Prototype Model)</text>
+
+    <!-- Item 2 -->
+    <rect x="20" y="184" width="400" height="96" rx="8" fill="#1b2023" stroke="#2c3338" stroke-width="1" />
+    <rect x="36" y="198" width="80" height="18" rx="4" fill="#38bdf8" fill-opacity="0.15" />
+    <text x="76" y="211" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">CAMPAIGN</text>
+    <text x="126" y="212" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f1f5f9">Refine ad creative hook in first 3 seconds</text>
+    <text x="36" y="240" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Creative evaluation detects copy disconnect between video teaser and quote form.</text>
+    <text x="36" y="262" font-family="Inter, sans-serif" font-size="10" fill="#64748b">Action: Draft alternate hook angles in assistant</text>
+
+    <!-- Item 3 -->
+    <rect x="20" y="294" width="400" height="96" rx="8" fill="#1b2023" stroke="#2c3338" stroke-width="1" />
+    <rect x="36" y="308" width="60" height="18" rx="4" fill="#eab308" fill-opacity="0.15" />
+    <text x="66" y="321" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="#eab308" text-anchor="middle">LEADS</text>
+    <text x="106" y="322" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f1f5f9">Activate instant email + WhatsApp follow-up</text>
+    <text x="36" y="350" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Route incoming web inquiries into streamlined multi-channel response triggers.</text>
+    <text x="36" y="372" font-family="Inter, sans-serif" font-size="10" fill="#64748b">Planned integration: WhatsApp Business API &amp; Resend</text>
+  </g>
+
+  <!-- Right column: Unified Lead Management Pipeline -->
+  <g transform="translate(710, 280)">
+    <rect width="440" height="430" rx="12" fill="url(#cardGrad)" stroke="#2f373c" stroke-width="1" />
+    <text x="24" y="36" font-family="Inter, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">Multi-Channel Lead Inbox (Mock Workflow)</text>
+    <text x="24" y="56" font-family="Inter, sans-serif" font-size="11" fill="#64748b">Prototype design for incoming web &amp; campaign inquiries</text>
+
+    <!-- Lead row 1 -->
+    <rect x="20" y="74" width="400" height="68" rx="8" fill="#1b2023" stroke="#2c3338" stroke-width="1" />
+    <circle cx="44" cy="108" r="14" fill="#45BE43" fill-opacity="0.2" />
+    <text x="44" y="113" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#45BE43" text-anchor="middle">NL</text>
+    <text x="70" y="103" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Northstar Logistics</text>
+    <text x="70" y="120" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Quote request · Moving services package</text>
+    <rect x="330" y="98" width="76" height="20" rx="10" fill="#45BE43" fill-opacity="0.2" />
+    <text x="368" y="112" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#45BE43" text-anchor="middle">NEW LEAD</text>
+
+    <!-- Lead row 2 -->
+    <rect x="20" y="152" width="400" height="68" rx="8" fill="#1b2023" stroke="#2c3338" stroke-width="1" />
+    <circle cx="44" cy="186" r="14" fill="#38bdf8" fill-opacity="0.2" />
+    <text x="44" y="191" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">AP</text>
+    <text x="70" y="181" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Apex Retail Packaging</text>
+    <text x="70" y="198" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Custom mailer boxes consultation</text>
+    <rect x="330" y="176" width="76" height="20" rx="10" fill="#38bdf8" fill-opacity="0.2" />
+    <text x="368" y="190" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#38bdf8" text-anchor="middle">FOLLOW-UP</text>
+
+    <!-- Lead row 3 -->
+    <rect x="20" y="230" width="400" height="68" rx="8" fill="#1b2023" stroke="#2c3338" stroke-width="1" />
+    <circle cx="44" cy="264" r="14" fill="#a855f7" fill-opacity="0.2" />
+    <text x="44" y="269" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#a855f7" text-anchor="middle">BC</text>
+    <text x="70" y="259" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Beacon Consulting</text>
+    <text x="70" y="276" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">Website redesign inquiry</text>
+    <rect x="330" y="254" width="76" height="20" rx="10" fill="#a855f7" fill-opacity="0.2" />
+    <text x="368" y="268" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#a855f7" text-anchor="middle">QUALIFIED</text>
+
+    <!-- Bottom note in panel -->
+    <rect x="20" y="320" width="400" height="70" rx="8" fill="#171b1e" stroke="#2a3237" stroke-width="1" stroke-dasharray="4" />
+    <text x="40" y="348" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">Planned Assistant Capabilities:</text>
+    <text x="40" y="368" font-family="Inter, sans-serif" font-size="11" fill="#64748b">Automated quote draft generation, booking sync, and response tracking.</text>
+  </g>
+</svg>
