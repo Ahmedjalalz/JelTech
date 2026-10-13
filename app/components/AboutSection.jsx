@@ -4,10 +4,10 @@ import { useRef } from "react";
 import { CheckCircle2 } from "lucide-react";
 
 const values = [
-  "Clean, maintainable code that scales",
-  "Performance-first development approach",
-  "Transparent communication throughout",
-  "Long-term partnership mindset",
+  "Signature interaction hooks that make your brand unforgettable",
+  "Tactile UI design that creates deep user engagement",
+  "Custom web & digital solutions built for your exact operations",
+  "Practical AI solutions and workflow automation (e.g. GrowthPilot)",
 ];
 
 export const AboutSection = () => {
@@ -32,21 +32,15 @@ export const AboutSection = () => {
               About Us
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              We&apos;re Passionate About
+              We Craft Websites That
               <br />
-              <span className="text-gradient-green">Building Great Software</span>
+              <span className="text-gradient-green">Refuse to Be Forgotten</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              At JelTech, we believe that exceptional software is built on a
-              foundation of clean code, thoughtful design, and genuine
-              partnership with our clients. We&apos;re not just developers—we&apos;re
-              problem solvers who care deeply about the success of every project
-              we touch.
+              At JelTech, our main focus is building custom websites and tailored digital solutions that hook visitors from their very first interaction. When prospects browse 100 competitor sites, they blend together—our mission is to ensure yours is the single one they remember and trust.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Our team brings years of experience across startups and
-              enterprises, combining technical excellence with a pragmatic
-              approach to deliver results that matter.
+              From memorable signature elements (like the hanging telephone and rotary dial on KyteLine) to smart AI solutions like our in-house GrowthPilot platform, we engineer digital experiences that drive genuine connection and real business results.
             </p>
 
             {/* Values list */}

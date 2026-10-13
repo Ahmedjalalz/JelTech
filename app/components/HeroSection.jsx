@@ -76,7 +76,7 @@ export const HeroSection = () => {
           >
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-muted-foreground">
-              Web Development Excellence
+              Websites Built to Hook & Convert
             </span>
           </motion.div>
 
@@ -89,10 +89,10 @@ export const HeroSection = () => {
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6"
           >
             We Build{" "}
-            <span className="text-gradient-green">Modern</span>,<br />
-            High-Performance{" "}
+            <span className="text-gradient-green">Custom Websites</span>,<br />
+            That Keep Visitors{" "}
             <span className="relative inline-block">
-              Web Experiences
+              Hooked
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-primary rounded-full"
                 key={`hero-underline-${motionKey}`}
@@ -109,11 +109,10 @@ export const HeroSection = () => {
             initial={motionReady ? { opacity: 0, y: 30 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
-            Clean code. Exceptional performance. Scalable architecture.
-            <br className="hidden sm:block" />
-            We craft digital products that drive results.
+            If a user visits 100 websites in your niche, they might forget 99 others—they will remember the one we built.
+            Bespoke web experiences, custom digital solutions, and practical AI products.
           </motion.p>
 
           {/* CTAs */}

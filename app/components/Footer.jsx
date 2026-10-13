@@ -5,11 +5,11 @@ import { Instagram, Twitter, Linkedin, Mail, Phone } from "lucide-react";
 
 const footerLinks = {
   services: [
-    { name: "Web Development", href: "/#services", isHash: true },
-    { name: "Mobile Apps", href: "/#services", isHash: true },
-    { name: "Shopify Stores", href: "/#services", isHash: true },
-    { name: "UI/UX Design", href: "/#services", isHash: true },
-    { name: "SEO", href: "/#services", isHash: true },
+    { name: "Custom Websites", href: "/#services", isHash: true },
+    { name: "Digital Solutions", href: "/#services", isHash: true },
+    { name: "AI Solutions", href: "/#services", isHash: true },
+    { name: "GrowthPilot AI", href: "https://growth.jeltech.net", isHash: false },
+    { name: "KyteLine Showcase", href: "http://kyteline.com/", isHash: false },
   ],
   company: [
     { name: "About", href: "/about", isHash: false },
@@ -49,8 +49,7 @@ export const Footer = () => {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              Building modern, high-performance web & mobile experiences for businesses
-              that want to stand out.
+              Building custom websites, tailored digital solutions, and AI products engineered to hook visitors and make brands unforgettable.
             </p>
             {/* Social Icons */}
             <div className="flex items-center gap-3">
