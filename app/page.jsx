@@ -2,9 +2,10 @@
 
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
-import { ServicesSection } from './components/ServicesSection';
-import { ProcessSection } from './components/ProcessSection';
 import { ProjectsSection } from './components/ProjectsSection';
+import { ProcessSection } from './components/ProcessSection';
+import { ServicesSection } from './components/ServicesSection';
+import { GrowthPilotSection } from './components/GrowthPilotSection';
 import { Footer } from './components/Footer';
 
 export default function Home() {
@@ -13,9 +14,10 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
-        <ServicesSection />
-        <ProcessSection />
         <ProjectsSection />
+        <ProcessSection />
+        <ServicesSection />
+        <GrowthPilotSection />
       </main>
       <Footer />
     </div>
