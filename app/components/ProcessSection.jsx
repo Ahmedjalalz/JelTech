@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import {
   Sparkles,
   PhoneCall,
@@ -118,13 +116,10 @@ const ProcessStep = ({ step, index, isLast, motionReady }) => {
 };
 
 export const ProcessSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-20 sm:py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/[0.02] to-background" />
       <div className="absolute left-1/2 top-1/4 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
@@ -132,10 +127,9 @@ export const ProcessSection = () => {
       <div className="container mx-auto px-6 relative">
         {/* Section Header */}
         <motion.div
-          ref={ref}
-          key={`process-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={motionReady ? { opacity: 0, y: 25 } : false}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -207,7 +201,7 @@ export const ProcessSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4">
           {steps.map((step, index) => (
             <ProcessStep
-              key={`${motionKey}-${step.number}`}
+              key={step.number}
               step={step}
               index={index}
               isLast={index === steps.length - 1}

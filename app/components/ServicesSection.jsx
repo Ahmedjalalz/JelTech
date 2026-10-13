@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { useMotionReady } from "../hooks/useMotionReady";
 import {
   Globe,
@@ -59,22 +57,18 @@ const coreServices = [
 ];
 
 export const ServicesSection = () => {
-  const headerRef = useRef(null);
-  const isInView = useInView(headerRef, { once: true, margin: "-100px" });
   const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden">
+    <section id="services" className="py-20 sm:py-24 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
-          ref={headerRef}
-          key={`services-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={motionReady ? { opacity: 0, y: 25 } : false}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -96,7 +90,7 @@ export const ServicesSection = () => {
             const Icon = service.icon;
             return (
               <motion.div
-                key={`${motionKey}-${service.title}`}
+                key={service.title}
                 initial={motionReady ? { opacity: 0, y: 30 } : false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

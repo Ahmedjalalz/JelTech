@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { ArrowUpRight, Sparkles, PhoneCall, Compass, ExternalLink } from "lucide-react";
 import { useMotionReady } from "../hooks/useMotionReady";
 
@@ -80,14 +78,11 @@ const otherProjects = [
 ];
 
 const FlagshipCard = ({ project, motionReady }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <motion.div
-      ref={ref}
-      initial={motionReady ? { opacity: 0, y: 40 } : false}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={motionReady ? { opacity: 0, y: 35 } : false}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.7 }}
       className="relative rounded-3xl overflow-hidden bg-card border-2 border-primary/30 shadow-2xl hover:border-primary/60 transition-all duration-500 mb-12 group"
     >
@@ -185,17 +180,14 @@ const FlagshipCard = ({ project, motionReady }) => {
 };
 
 const ProjectCard = ({ project, index, motionReady }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <motion.a
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      ref={ref}
-      initial={motionReady ? { opacity: 0, y: 40 } : false}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={motionReady ? { opacity: 0, y: 30 } : false}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group relative rounded-2xl overflow-hidden bg-card border border-border hover:border-primary/40 hover-glow cursor-pointer block flex flex-col justify-between"
     >
@@ -249,19 +241,15 @@ const ProjectCard = ({ project, index, motionReady }) => {
 };
 
 export const ProjectsSection = () => {
-  const headerRef = useRef(null);
-  const isInView = useInView(headerRef, { once: true, margin: "-100px" });
   const motionReady = useMotionReady();
-  const motionKey = motionReady ? "motion" : "static";
 
   return (
-    <section id="work" className="py-24 relative">
+    <section id="work" className="py-20 sm:py-24 relative">
       <div className="container mx-auto px-6">
         <motion.div
-          ref={headerRef}
-          key={`projects-header-${motionKey}`}
-          initial={motionReady ? { opacity: 0, y: 30 } : false}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={motionReady ? { opacity: 0, y: 25 } : false}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -284,7 +272,7 @@ export const ProjectsSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {otherProjects.map((project, index) => (
             <ProjectCard
-              key={`${motionKey}-${project.title}`}
+              key={project.title}
               project={project}
               index={index}
               motionReady={motionReady}
