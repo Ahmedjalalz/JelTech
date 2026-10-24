@@ -40,6 +40,9 @@ const websiteSchema = {
 
 export const metadata = {
   metadataBase: siteUrlObject,
+  other: {
+    'google-adsense-account': 'ca-pub-2375838426049215',
+  },
   title: {
     default: SITE_TITLE,
     template: `%s | ${SITE_NAME}`,
@@ -84,6 +87,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2375838426049215"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <script
           type="application/ld+json"
