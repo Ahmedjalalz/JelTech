@@ -14,6 +14,13 @@ dist-ssr
 .next
 .bun
 
+# Database and Uploads
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/resumes/*
+!data/resumes/.gitkeep
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

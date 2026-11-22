@@ -11,6 +11,7 @@ import { useMotionReady } from "../hooks/useMotionReady";
 const navLinks = [
   { name: "Home", href: "/", isHash: false },
   { name: "About", href: "/about", isHash: false },
+  { name: "Careers", href: "/careers", isHash: false },
   { name: "Contact", href: "/contact", isHash: false },
 ];
 

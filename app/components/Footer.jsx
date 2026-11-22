@@ -13,6 +13,7 @@ const footerLinks = {
   ],
   company: [
     { name: "About", href: "/about", isHash: false },
+    { name: "Careers", href: "/careers", isHash: false },
     { name: "Work", href: "/#work", isHash: true },
     { name: "Contact", href: "/contact", isHash: false },
     { name: "Get a Quote", href: "/start-project", isHash: false },
