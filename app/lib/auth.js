@@ -2,9 +2,9 @@ import crypto from 'node:crypto';
 import { getDb } from './db.js';
 import { getSupabaseAdmin, isSupabaseConfigured } from './supabase.js';
 
-const ADMIN_USERNAME = process.env.CAREERS_ADMIN_USERNAME || 'admin';
-const ADMIN_PASSWORD = process.env.CAREERS_ADMIN_PASSWORD || 'JelTechAdmin2026!';
-const ADMIN_EMAIL = process.env.CAREERS_ADMIN_EMAIL || 'admin@jeltech.net';
+const ADMIN_USERNAME = (process.env.CAREERS_ADMIN_USERNAME || 'admin').trim().toLowerCase();
+const ADMIN_PASSWORD = process.env.CAREERS_ADMIN_PASSWORD ? process.env.CAREERS_ADMIN_PASSWORD.trim() : null;
+const ADMIN_EMAIL = process.env.CAREERS_ADMIN_EMAIL ? process.env.CAREERS_ADMIN_EMAIL.trim().toLowerCase() : null;
 const SESSION_COOKIE_NAME = 'jeltech_careers_session';
 const SESSION_DURATION_DAYS = 7;
 
@@ -12,13 +12,12 @@ export async function verifyAdminCredentials(username, password) {
   if (!username || !password) return false;
 
   const trimmedUser = username.trim().toLowerCase();
-  const configuredUser = (process.env.CAREERS_ADMIN_USERNAME || ADMIN_USERNAME).trim().toLowerCase();
-  const configuredEmail = (process.env.CAREERS_ADMIN_EMAIL || ADMIN_EMAIL).trim().toLowerCase();
-  const configuredPass = process.env.CAREERS_ADMIN_PASSWORD || ADMIN_PASSWORD;
 
-  // 1. Direct env credentials check (Username or Admin Email)
-  if ((trimmedUser === configuredUser || trimmedUser === configuredEmail) && password === configuredPass) {
-    return true;
+  // 1. Environment credentials check (strictly requires CAREERS_ADMIN_PASSWORD to be defined in env)
+  if (ADMIN_PASSWORD && password === ADMIN_PASSWORD) {
+    if (trimmedUser === ADMIN_USERNAME || (ADMIN_EMAIL && trimmedUser === ADMIN_EMAIL)) {
+      return true;
+    }
   }
 
   // 2. Check Supabase Auth if Supabase is connected
@@ -26,14 +25,16 @@ export async function verifyAdminCredentials(username, password) {
     try {
       const supabase = getSupabaseAdmin();
       if (supabase) {
-        const emailToCheck = username.includes('@') ? username.trim() : configuredEmail;
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: emailToCheck,
-          password: password,
-        });
+        const emailToCheck = username.includes('@') ? username.trim() : ADMIN_EMAIL;
+        if (emailToCheck) {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: emailToCheck,
+            password: password,
+          });
 
-        if (!error && data?.user) {
-          return true;
+          if (!error && data?.user) {
+            return true;
+          }
         }
       }
     } catch (err) {
