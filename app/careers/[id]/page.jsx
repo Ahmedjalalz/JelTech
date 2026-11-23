@@ -50,6 +50,8 @@ export default function JobDetailPage() {
     }
   }, [params.id]);
 
+  const isExpired = Boolean(job?.is_expired || (job?.application_deadline && new Date(job.application_deadline).getTime() <= Date.now()));
+
   const handleShare = () => {
     if (typeof window !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
@@ -146,9 +148,10 @@ export default function JobDetailPage() {
                   </span>
                   <Button
                     onClick={() => setIsApplyOpen(true)}
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold px-6"
+                    disabled={isExpired}
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold px-6 disabled:opacity-50"
                   >
-                    Apply Now <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                    {isExpired ? 'Deadline Passed' : 'Apply Now'} {!isExpired && <ArrowRight className="w-3.5 h-3.5 ml-1" />}
                   </Button>
                 </div>
               </div>
@@ -243,9 +246,10 @@ export default function JobDetailPage() {
                 </div>
                 <Button
                   onClick={() => setIsApplyOpen(true)}
-                  className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold px-6"
+                  disabled={isExpired}
+                  className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold px-6 disabled:opacity-50"
                 >
-                  Submit Application <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  {isExpired ? 'Applications Closed' : 'Submit Application'} {!isExpired && <ArrowRight className="w-3.5 h-3.5 ml-1" />}
                 </Button>
               </div>
             </div>

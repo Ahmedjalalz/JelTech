@@ -162,21 +162,33 @@ ALTER TABLE public.application_notes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.application_activity ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_sessions ENABLE ROW LEVEL SECURITY;
 
--- Public can read published openings
+-- Public can read published openings that are not expired
 DROP POLICY IF EXISTS "Public read published job openings" ON public.job_openings;
 CREATE POLICY "Public read published job openings"
 ON public.job_openings
 FOR SELECT
 TO anon, authenticated
-USING (publication_status = 'Published' AND recruitment_status = 'Open');
+USING (
+  publication_status = 'Published'
+  AND recruitment_status = 'Open'
+  AND application_deadline > now()
+);
 
--- Public can insert new applications
+-- Public can insert new applications only for active, unexpired job openings
 DROP POLICY IF EXISTS "Public insert applications" ON public.applications;
 CREATE POLICY "Public insert applications"
 ON public.applications
 FOR INSERT
 TO anon, authenticated
-WITH CHECK (true);
+WITH CHECK (
+  EXISTS (
+    SELECT 1 FROM public.job_openings j
+    WHERE j.id = job_opening_id
+      AND j.publication_status = 'Published'
+      AND j.recruitment_status = 'Open'
+      AND j.application_deadline > now()
+  )
+);
 
 -- Public can insert resume metadata
 DROP POLICY IF EXISTS "Public insert uploaded resumes" ON public.uploaded_resumes;

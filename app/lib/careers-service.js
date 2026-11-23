@@ -94,6 +94,8 @@ function slugify(title) {
 // ==========================================
 
 export async function getPublishedOpenings() {
+  const nowIso = new Date().toISOString();
+
   if (isSupabaseConfigured()) {
     try {
       const supabase = getSupabaseAdmin() || getSupabaseClient();
@@ -103,12 +105,13 @@ export async function getPublishedOpenings() {
           .select('*')
           .eq('publication_status', 'Published')
           .eq('recruitment_status', 'Open')
+          .gt('application_deadline', nowIso)
           .order('created_at', { ascending: false });
 
         if (!error && data) {
           return data
             .map(parseOpeningRow)
-            .filter((job) => !job.is_expired);
+            .filter((job) => !job.is_expired && !isDeadlinePassed(job.application_deadline));
         }
       }
     } catch (err) {
@@ -127,7 +130,7 @@ export async function getPublishedOpenings() {
 
   return rows
     .map(parseOpeningRow)
-    .filter((job) => !job.is_expired);
+    .filter((job) => !job.is_expired && !isDeadlinePassed(job.application_deadline));
 }
 
 export async function getOpeningByIdOrSlug(idOrSlug, isAdmin = false) {
@@ -145,7 +148,12 @@ export async function getOpeningByIdOrSlug(idOrSlug, isAdmin = false) {
         if (row) {
           const parsed = parseOpeningRow(row);
           if (!isAdmin) {
-            if (parsed.publication_status !== 'Published' || parsed.recruitment_status !== 'Open' || parsed.is_expired) {
+            if (
+              parsed.publication_status !== 'Published' ||
+              parsed.recruitment_status !== 'Open' ||
+              parsed.is_expired ||
+              isDeadlinePassed(parsed.application_deadline)
+            ) {
               return null;
             }
           }
@@ -168,7 +176,12 @@ export async function getOpeningByIdOrSlug(idOrSlug, isAdmin = false) {
   const parsed = parseOpeningRow(row);
 
   if (!isAdmin) {
-    if (parsed.publication_status !== 'Published' || parsed.recruitment_status !== 'Open' || parsed.is_expired) {
+    if (
+      parsed.publication_status !== 'Published' ||
+      parsed.recruitment_status !== 'Open' ||
+      parsed.is_expired ||
+      isDeadlinePassed(parsed.application_deadline)
+    ) {
       return null;
     }
   }
@@ -751,8 +764,8 @@ export async function getResumeFile(id) {
 
 export async function submitApplication(data, resumeFile = null) {
   const opening = await getOpeningByIdOrSlug(data.job_opening_id, false);
-  if (!opening) {
-    throw new Error('This job opening is no longer active or could not be found.');
+  if (!opening || opening.is_expired || isDeadlinePassed(opening.application_deadline)) {
+    throw new Error('This position has expired or is no longer accepting applications.');
   }
 
   let resumeFileId = null;

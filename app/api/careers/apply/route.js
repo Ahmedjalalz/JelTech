@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { submitApplication } from '@/app/lib/careers-service';
+import { submitApplication, getOpeningByIdOrSlug, isDeadlinePassed } from '@/app/lib/careers-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -89,6 +89,15 @@ export async function POST(request) {
     if (!phoneRegex.test(data.phone.trim())) {
       return NextResponse.json(
         { ok: false, error: 'Please enter a valid phone or WhatsApp number.' },
+        { status: 400 }
+      );
+    }
+
+    // Independent backend check: verify job opening exists and deadline has not passed
+    const opening = await getOpeningByIdOrSlug(data.job_opening_id, false);
+    if (!opening || opening.is_expired || isDeadlinePassed(opening.application_deadline)) {
+      return NextResponse.json(
+        { ok: false, error: 'The application deadline for this position has passed. Applications are no longer accepted.' },
         { status: 400 }
       );
     }

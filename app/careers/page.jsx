@@ -69,9 +69,15 @@ export default function CareersPage() {
       const res = await fetch('/api/careers/openings');
       const data = await res.json();
       if (data.ok && Array.isArray(data.data)) {
-        setOpenings(data.data);
-        if (data.data.length > 0) {
-          setSelectedJob(data.data[0]);
+        // Enforce active and deadline > now()
+        const now = Date.now();
+        const active = data.data.filter((j) => {
+          const deadlinePassed = j.application_deadline ? new Date(j.application_deadline).getTime() <= now : false;
+          return !j.is_expired && !deadlinePassed;
+        });
+        setOpenings(active);
+        if (active.length > 0) {
+          setSelectedJob(active[0]);
         }
       }
     } catch (err) {
@@ -90,9 +96,13 @@ export default function CareersPage() {
     return ['All', ...new Set(openings.map((j) => j.work_mode).filter(Boolean))];
   }, [openings]);
 
-  // Filtered list
+  // Filtered list (strictly enforces deadline > now())
   const filteredOpenings = useMemo(() => {
+    const now = Date.now();
     return openings.filter((job) => {
+      const deadlinePassed = job.application_deadline ? new Date(job.application_deadline).getTime() <= now : false;
+      if (job.is_expired || deadlinePassed) return false;
+
       const matchesDept =
         selectedDepartment === 'All' || job.department === selectedDepartment;
       const matchesMode =
