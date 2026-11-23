@@ -5,7 +5,7 @@ import { Lock, User, ArrowRight, Loader2, AlertCircle, ShieldCheck } from 'lucid
 import { Button } from '@/components/ui/button';
 
 export function AdminLogin({ onLoginSuccess }) {
-  const [username, setUsername] = useState('admin');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -46,7 +46,7 @@ export function AdminLogin({ onLoginSuccess }) {
             Careers Admin
           </h1>
           <p className="text-xs text-muted-foreground">
-            Sign in to manage openings and applications
+            Sign in with your admin account to manage openings &amp; applications
           </p>
         </div>
 
@@ -59,7 +59,7 @@ export function AdminLogin({ onLoginSuccess }) {
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div className="space-y-1">
-            <label className="font-medium text-foreground">Username</label>
+            <label className="font-medium text-foreground">Email / Username</label>
             <div className="relative">
               <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
@@ -68,7 +68,7 @@ export function AdminLogin({ onLoginSuccess }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 rounded-lg bg-secondary/50 border border-border text-foreground text-xs focus:outline-none focus:border-primary transition"
-                placeholder="Username"
+                placeholder="admin@jeltech.net"
               />
             </div>
           </div>

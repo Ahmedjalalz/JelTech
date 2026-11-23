@@ -2,50 +2,67 @@ import crypto from 'node:crypto';
 import { getDb } from './db.js';
 import { getSupabaseAdmin, isSupabaseConfigured } from './supabase.js';
 
-const ADMIN_USERNAME = (process.env.CAREERS_ADMIN_USERNAME || 'admin').trim().toLowerCase();
+const ADMIN_USERNAME = process.env.CAREERS_ADMIN_USERNAME ? process.env.CAREERS_ADMIN_USERNAME.trim().toLowerCase() : null;
 const ADMIN_PASSWORD = process.env.CAREERS_ADMIN_PASSWORD ? process.env.CAREERS_ADMIN_PASSWORD.trim() : null;
 const ADMIN_EMAIL = process.env.CAREERS_ADMIN_EMAIL ? process.env.CAREERS_ADMIN_EMAIL.trim().toLowerCase() : null;
 const SESSION_COOKIE_NAME = 'jeltech_careers_session';
 const SESSION_DURATION_DAYS = 7;
 
-export async function verifyAdminCredentials(username, password) {
-  if (!username || !password) return false;
+export async function verifyAdminCredentials(identifier, password) {
+  if (!identifier || !password) {
+    return { valid: false, error: 'Please enter your email/username and password.' };
+  }
 
-  const trimmedUser = username.trim().toLowerCase();
+  const trimmed = identifier.trim();
+  const trimmedLower = trimmed.toLowerCase();
 
-  // 1. Environment credentials check (strictly requires CAREERS_ADMIN_PASSWORD to be defined in env)
+  // 1. Direct env credentials check (optional legacy fallback if set in env)
   if (ADMIN_PASSWORD && password === ADMIN_PASSWORD) {
-    if (trimmedUser === ADMIN_USERNAME || (ADMIN_EMAIL && trimmedUser === ADMIN_EMAIL)) {
-      return true;
+    if ((ADMIN_USERNAME && trimmedLower === ADMIN_USERNAME) || (ADMIN_EMAIL && trimmedLower === ADMIN_EMAIL)) {
+      return { valid: true, username: ADMIN_USERNAME || trimmed };
     }
   }
 
-  // 2. Check Supabase Auth if Supabase is connected
+  // 2. Pure Supabase Auth check
   if (isSupabaseConfigured()) {
     try {
       const supabase = getSupabaseAdmin();
       if (supabase) {
-        const emailToCheck = username.includes('@') ? username.trim() : ADMIN_EMAIL;
-        if (emailToCheck) {
+        const emailToTest = trimmed.includes('@') ? trimmed : ADMIN_EMAIL;
+        if (emailToTest) {
           const { data, error } = await supabase.auth.signInWithPassword({
-            email: emailToCheck,
+            email: emailToTest,
             password: password,
           });
 
           if (!error && data?.user) {
-            return true;
+            return {
+              valid: true,
+              username: data.user.email || trimmed,
+              userId: data.user.id,
+            };
           }
+
+          if (error) {
+            return { valid: false, error: error.message };
+          }
+        } else {
+          return {
+            valid: false,
+            error: 'Please enter the email address of your Supabase admin user.',
+          };
         }
       }
     } catch (err) {
-      console.warn('Supabase Auth verification check skipped:', err?.message || err);
+      console.warn('Supabase Auth error:', err?.message || err);
+      return { valid: false, error: err?.message || 'Authentication error.' };
     }
   }
 
-  return false;
+  return { valid: false, error: 'Invalid login credentials.' };
 }
 
-export async function createAdminSession(username = ADMIN_USERNAME) {
+export async function createAdminSession(username = 'admin') {
   const token = crypto.randomBytes(32).toString('hex');
   const expiresAt = new Date(Date.now() + SESSION_DURATION_DAYS * 24 * 60 * 60 * 1000).toISOString();
   const createdAt = new Date().toISOString();
