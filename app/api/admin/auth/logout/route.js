@@ -10,7 +10,7 @@ export async function POST(request) {
     const token = cookies[SESSION_COOKIE_NAME];
 
     if (token) {
-      deleteAdminSession(token);
+      await deleteAdminSession(token);
     }
 
     const response = NextResponse.json({ ok: true, message: 'Logged out successfully.' });

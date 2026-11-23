@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
-    const opening = getOpeningByIdOrSlug(id, false);
+    const opening = await getOpeningByIdOrSlug(id, false);
 
     if (!opening) {
       return NextResponse.json(

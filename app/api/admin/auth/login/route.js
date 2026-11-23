@@ -8,14 +8,15 @@ export async function POST(request) {
     const body = await request.json();
     const { username, password } = body;
 
-    if (!verifyAdminCredentials(username, password)) {
+    const isValid = await verifyAdminCredentials(username, password);
+    if (!isValid) {
       return NextResponse.json(
         { ok: false, error: 'Invalid admin username or password.' },
         { status: 401 }
       );
     }
 
-    const session = createAdminSession(username);
+    const session = await createAdminSession(username);
 
     const response = NextResponse.json({
       ok: true,

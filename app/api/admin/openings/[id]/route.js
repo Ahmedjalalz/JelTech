@@ -5,14 +5,14 @@ import { getOpeningByIdOrSlug, updateOpening, deleteOpening } from '@/app/lib/ca
 export const dynamic = 'force-dynamic';
 
 export async function GET(request, { params }) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
     const { id } = await params;
-    const opening = getOpeningByIdOrSlug(id, true);
+    const opening = await getOpeningByIdOrSlug(id, true);
     if (!opening) {
       return NextResponse.json({ ok: false, error: 'Opening not found' }, { status: 404 });
     }
@@ -23,7 +23,7 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
@@ -31,7 +31,7 @@ export async function PUT(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
-    const updated = updateOpening(id, body);
+    const updated = await updateOpening(id, body);
     if (!updated) {
       return NextResponse.json({ ok: false, error: 'Opening not found' }, { status: 404 });
     }
@@ -42,14 +42,14 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
     const { id } = await params;
-    deleteOpening(id);
+    await deleteOpening(id);
     return NextResponse.json({ ok: true, message: 'Opening deleted successfully' });
   } catch (error) {
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 });

@@ -5,7 +5,7 @@ import { addApplicationNote } from '@/app/lib/careers-service';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request, { params }) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
@@ -17,7 +17,7 @@ export async function POST(request, { params }) {
       return NextResponse.json({ ok: false, error: 'Note content cannot be empty' }, { status: 400 });
     }
 
-    const note = addApplicationNote(id, {
+    const note = await addApplicationNote(id, {
       note_type: body.note_type || 'internal',
       content: body.content,
       author: auth.username || 'Admin',

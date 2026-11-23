@@ -5,14 +5,14 @@ import { getResumeFile } from '@/app/lib/careers-service';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request, { params }) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized: Admin authentication required.' }, { status: 401 });
   }
 
   try {
     const { id } = await params;
-    const file = getResumeFile(id);
+    const file = await getResumeFile(id);
 
     if (!file) {
       return NextResponse.json({ ok: false, error: 'Resume file not found.' }, { status: 404 });

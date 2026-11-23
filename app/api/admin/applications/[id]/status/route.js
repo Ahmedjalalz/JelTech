@@ -5,7 +5,7 @@ import { updateApplicationStatus } from '@/app/lib/careers-service';
 export const dynamic = 'force-dynamic';
 
 export async function PATCH(request, { params }) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
@@ -17,7 +17,7 @@ export async function PATCH(request, { params }) {
       return NextResponse.json({ ok: false, error: 'Status is required' }, { status: 400 });
     }
 
-    const updated = updateApplicationStatus(id, body.status, auth.username || 'Admin');
+    const updated = await updateApplicationStatus(id, body.status, auth.username || 'Admin');
     return NextResponse.json({ ok: true, data: updated });
   } catch (error) {
     console.error('Error updating application status:', error);

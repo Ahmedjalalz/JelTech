@@ -5,7 +5,7 @@ import { getApplications } from '@/app/lib/careers-service';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
@@ -17,7 +17,7 @@ export async function GET(request) {
     const search = searchParams.get('search') || undefined;
     const sort = searchParams.get('sort') || 'newest';
 
-    const applications = getApplications({ jobId, status, search, sort });
+    const applications = await getApplications({ jobId, status, search, sort });
     return NextResponse.json({ ok: true, data: applications });
   } catch (error) {
     console.error('Error fetching applications:', error);

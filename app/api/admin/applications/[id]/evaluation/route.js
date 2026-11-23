@@ -5,7 +5,7 @@ import { saveCandidateEvaluation } from '@/app/lib/careers-service';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request, { params }) {
-  const auth = verifyAdminSession(request);
+  const auth = await verifyAdminSession(request);
   if (!auth.authenticated) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
@@ -13,7 +13,7 @@ export async function POST(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
-    const evaluation = saveCandidateEvaluation(id, body, auth.username || 'Admin');
+    const evaluation = await saveCandidateEvaluation(id, body, auth.username || 'Admin');
     return NextResponse.json({ ok: true, data: evaluation });
   } catch (error) {
     console.error('Error saving candidate evaluation:', error);

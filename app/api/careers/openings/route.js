@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const openings = getPublishedOpenings();
+    const openings = await getPublishedOpenings();
     return NextResponse.json({ ok: true, data: openings });
   } catch (error) {
     console.error('Error fetching published openings:', error);
