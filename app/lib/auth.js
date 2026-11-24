@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import { getDb } from './db.js';
-import { getSupabaseAdmin, isSupabaseConfigured } from './supabase.js';
+import { getSupabaseAdmin, getSupabaseClient, isSupabaseConfigured } from './supabase.js';
 
 const ADMIN_USERNAME = process.env.CAREERS_ADMIN_USERNAME ? process.env.CAREERS_ADMIN_USERNAME.trim().toLowerCase() : null;
 const ADMIN_PASSWORD = process.env.CAREERS_ADMIN_PASSWORD ? process.env.CAREERS_ADMIN_PASSWORD.trim() : null;
@@ -26,7 +26,7 @@ export async function verifyAdminCredentials(identifier, password) {
   // 2. Pure Supabase Auth check
   if (isSupabaseConfigured()) {
     try {
-      const supabase = getSupabaseAdmin();
+      const supabase = getSupabaseClient() || getSupabaseAdmin();
       if (supabase) {
         const emailToTest = trimmed.includes('@') ? trimmed : ADMIN_EMAIL;
         if (emailToTest) {

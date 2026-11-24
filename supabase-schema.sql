@@ -160,7 +160,8 @@ ALTER TABLE public.uploaded_resumes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.candidate_evaluations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.application_notes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.application_activity ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.admin_sessions ENABLE ROW LEVEL SECURITY;
+-- Note: admin_sessions has RLS disabled because it is an internal token table accessed solely by our server backend
+ALTER TABLE public.admin_sessions DISABLE ROW LEVEL SECURITY;
 
 -- Public can read published openings that are not expired
 DROP POLICY IF EXISTS "Public read published job openings" ON public.job_openings;
@@ -205,6 +206,71 @@ ON storage.objects
 FOR INSERT
 TO anon, authenticated
 WITH CHECK (bucket_id = 'resumes');
+
+-- Storage bucket access for admin resume downloads
+DROP POLICY IF EXISTS "Admin read resumes from bucket" ON storage.objects;
+CREATE POLICY "Admin read resumes from bucket"
+ON storage.objects
+FOR SELECT
+TO authenticated
+USING (bucket_id = 'resumes');
+
+-- Admin full control policies for authenticated users
+DROP POLICY IF EXISTS "Admin manage job_openings" ON public.job_openings;
+CREATE POLICY "Admin manage job_openings"
+ON public.job_openings
+FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin manage applications" ON public.applications;
+CREATE POLICY "Admin manage applications"
+ON public.applications
+FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin manage uploaded_resumes" ON public.uploaded_resumes;
+CREATE POLICY "Admin manage uploaded_resumes"
+ON public.uploaded_resumes
+FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin manage candidate_evaluations" ON public.candidate_evaluations;
+CREATE POLICY "Admin manage candidate_evaluations"
+ON public.candidate_evaluations
+FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin manage application_notes" ON public.application_notes;
+CREATE POLICY "Admin manage application_notes"
+ON public.application_notes
+FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin manage application_activity" ON public.application_activity;
+CREATE POLICY "Admin manage application_activity"
+ON public.application_activity
+FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin manage job_templates" ON public.job_templates;
+CREATE POLICY "Admin manage job_templates"
+ON public.job_templates
+FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
 
 -- Service role has full permissions on all tables and storage
 -- (Note: service_role key automatically bypasses RLS in Supabase)

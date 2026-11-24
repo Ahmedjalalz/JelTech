@@ -27,7 +27,7 @@ export function AdminLogin({ onLoginSuccess }) {
         throw new Error(data.error || 'Invalid credentials.');
       }
 
-      onLoginSuccess(data.username);
+      onLoginSuccess(data.username, data.token);
     } catch (err) {
       setError(err.message);
     } finally {

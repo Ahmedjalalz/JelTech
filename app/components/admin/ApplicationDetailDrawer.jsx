@@ -49,6 +49,15 @@ export function ApplicationDetailDrawer({ applicationId, isOpen, onClose, onStat
   });
   const [savingEval, setSavingEval] = useState(false);
 
+  function getAuthHeaders(extra = {}) {
+    const headers = { ...extra };
+    if (typeof window !== 'undefined') {
+      const token = sessionStorage.getItem('jeltech_admin_token');
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+  }
+
   useEffect(() => {
     if (applicationId && isOpen) {
       loadApplicationDetails();
@@ -58,7 +67,9 @@ export function ApplicationDetailDrawer({ applicationId, isOpen, onClose, onStat
   const loadApplicationDetails = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/admin/applications/${applicationId}`);
+      const res = await fetch(`/api/admin/applications/${applicationId}`, {
+        headers: getAuthHeaders(),
+      });
       const json = await res.json();
       if (!res.ok || !json.ok) {
         throw new Error(json.error || 'Failed to load details.');
@@ -85,7 +96,7 @@ export function ApplicationDetailDrawer({ applicationId, isOpen, onClose, onStat
     try {
       const res = await fetch(`/api/admin/applications/${applicationId}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ status: newStatus }),
       });
       const json = await res.json();
@@ -108,7 +119,7 @@ export function ApplicationDetailDrawer({ applicationId, isOpen, onClose, onStat
       setSavingNote(true);
       const res = await fetch(`/api/admin/applications/${applicationId}/notes`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ note_type: 'internal', content: noteContent }),
       });
       const json = await res.json();
@@ -130,7 +141,7 @@ export function ApplicationDetailDrawer({ applicationId, isOpen, onClose, onStat
       setSavingEval(true);
       const res = await fetch(`/api/admin/applications/${applicationId}/evaluation`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(evaluation),
       });
       const json = await res.json();

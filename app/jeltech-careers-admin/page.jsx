@@ -49,6 +49,17 @@ export default function CareersAdminDashboard() {
   const [selectedAppId, setSelectedAppId] = useState(null);
   const [isAppDrawerOpen, setIsAppDrawerOpen] = useState(false);
 
+  function getAuthHeaders(extra = {}) {
+    const headers = { ...extra };
+    if (typeof window !== 'undefined') {
+      const token = sessionStorage.getItem('jeltech_admin_token');
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+    }
+    return headers;
+  }
+
   useEffect(() => {
     checkAuthSession();
   }, []);
@@ -56,7 +67,9 @@ export default function CareersAdminDashboard() {
   const checkAuthSession = async () => {
     try {
       setCheckingAuth(true);
-      const res = await fetch('/api/admin/auth/check');
+      const res = await fetch('/api/admin/auth/check', {
+        headers: getAuthHeaders(),
+      });
       const data = await res.json();
       if (res.ok && data.authenticated) {
         setIsAuthenticated(true);
@@ -74,7 +87,10 @@ export default function CareersAdminDashboard() {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/admin/auth/logout', { method: 'POST' });
+      await fetch('/api/admin/auth/logout', { method: 'POST', headers: getAuthHeaders() });
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('jeltech_admin_token');
+      }
       setIsAuthenticated(false);
       toast.success('Signed out.');
     } catch (err) {
@@ -85,12 +101,22 @@ export default function CareersAdminDashboard() {
   const fetchAllDashboardData = async () => {
     try {
       setLoadingData(true);
+      const headers = getAuthHeaders();
       const [statsRes, openingsRes, appsRes, tmplRes] = await Promise.all([
-        fetch('/api/admin/stats'),
-        fetch('/api/admin/openings'),
-        fetch(`/api/admin/applications?jobId=${appJobFilter}&status=${appStatusFilter}&search=${encodeURIComponent(appSearch)}`),
-        fetch('/api/admin/templates'),
+        fetch('/api/admin/stats', { headers }),
+        fetch('/api/admin/openings', { headers }),
+        fetch(`/api/admin/applications?jobId=${appJobFilter}&status=${appStatusFilter}&search=${encodeURIComponent(appSearch)}`, { headers }),
+        fetch('/api/admin/templates', { headers }),
       ]);
+
+      if (openingsRes.status === 401 || appsRes.status === 401 || statsRes.status === 401) {
+        setIsAuthenticated(false);
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem('jeltech_admin_token');
+        }
+        toast.error('Admin session expired or unauthorized. Please sign in again.');
+        return;
+      }
 
       const [statsData, openingsData, appsData, tmplData] = await Promise.all([
         statsRes.json(),
@@ -101,10 +127,15 @@ export default function CareersAdminDashboard() {
 
       if (statsData.ok) setStats(statsData.data);
       if (openingsData.ok) setOpenings(openingsData.data || []);
+      else toast.error(openingsData.error || 'Failed to load openings');
+
       if (appsData.ok) setApplications(appsData.data || []);
+      else toast.error(appsData.error || 'Failed to load applications');
+
       if (tmplData.ok) setTemplates(tmplData.data || []);
     } catch (err) {
       console.error('Failed to load data:', err);
+      toast.error('Failed to load admin dashboard data');
     } finally {
       setLoadingData(false);
     }
@@ -119,8 +150,16 @@ export default function CareersAdminDashboard() {
   const fetchFilteredApplications = async () => {
     try {
       const res = await fetch(
-        `/api/admin/applications?jobId=${appJobFilter}&status=${appStatusFilter}&search=${encodeURIComponent(appSearch)}`
+        `/api/admin/applications?jobId=${appJobFilter}&status=${appStatusFilter}&search=${encodeURIComponent(appSearch)}`,
+        { headers: getAuthHeaders() }
       );
+      if (res.status === 401) {
+        setIsAuthenticated(false);
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem('jeltech_admin_token');
+        }
+        return;
+      }
       const data = await res.json();
       if (data.ok) {
         setApplications(data.data || []);
@@ -132,7 +171,10 @@ export default function CareersAdminDashboard() {
 
   const handleDuplicateOpening = async (openingId) => {
     try {
-      const res = await fetch(`/api/admin/openings/${openingId}/duplicate`, { method: 'POST' });
+      const res = await fetch(`/api/admin/openings/${openingId}/duplicate`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+      });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to duplicate');
 
@@ -154,7 +196,7 @@ export default function CareersAdminDashboard() {
 
       const res = await fetch(`/api/admin/openings/${openingId}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(payload),
       });
 
@@ -172,7 +214,10 @@ export default function CareersAdminDashboard() {
     if (!confirm(`Permanently delete "${title}" and all its applications?`)) return;
 
     try {
-      const res = await fetch(`/api/admin/openings/${openingId}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/openings/${openingId}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+      });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to delete');
 
@@ -186,7 +231,10 @@ export default function CareersAdminDashboard() {
   const handleDeleteTemplate = async (tmplId) => {
     if (!confirm('Delete this template?')) return;
     try {
-      const res = await fetch(`/api/admin/templates/${tmplId}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/templates/${tmplId}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+      });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to delete template');
 
@@ -209,7 +257,10 @@ export default function CareersAdminDashboard() {
   if (!isAuthenticated) {
     return (
       <AdminLogin
-        onLoginSuccess={(user) => {
+        onLoginSuccess={(user, token) => {
+          if (token && typeof window !== 'undefined') {
+            sessionStorage.setItem('jeltech_admin_token', token);
+          }
           setIsAuthenticated(true);
           setAdminUsername(user);
           fetchAllDashboardData();

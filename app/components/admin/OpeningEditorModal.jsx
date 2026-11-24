@@ -37,6 +37,15 @@ export function OpeningEditorModal({
   // Custom question state
   const [newQuestionText, setNewQuestionText] = useState('');
 
+  function getAuthHeaders(extra = {}) {
+    const headers = { ...extra };
+    if (typeof window !== 'undefined') {
+      const token = sessionStorage.getItem('jeltech_admin_token');
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+  }
+
   function getDefaultState() {
     const now = new Date();
     const futureDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
@@ -251,7 +260,7 @@ export function OpeningEditorModal({
 
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(payload),
       });
 
@@ -285,7 +294,7 @@ export function OpeningEditorModal({
 
       const res = await fetch('/api/admin/templates', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({
           name: templateName,
           department: formData.department,

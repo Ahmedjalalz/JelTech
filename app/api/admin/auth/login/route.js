@@ -23,6 +23,7 @@ export async function POST(request) {
       ok: true,
       message: 'Authentication successful.',
       username: sessionUsername,
+      token: session.token,
     });
 
     // Set secure HttpOnly cookie

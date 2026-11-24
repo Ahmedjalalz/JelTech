@@ -2,7 +2,11 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseServiceKey =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  process.env.SUPABASE_SERVICE_KEY ||
+  process.env.SUPABASE_SECRET_KEY ||
+  process.env.SERVICE_ROLE_KEY;
 
 /**
  * Checks whether Supabase credentials have been properly configured
@@ -26,6 +30,10 @@ export function isSupabaseConfigured() {
   return true;
 }
 
+export function isServiceRoleConfigured() {
+  return Boolean(supabaseServiceKey && supabaseServiceKey.trim().length > 20);
+}
+
 let adminClient = null;
 let publicClient = null;
 
@@ -37,6 +45,11 @@ let publicClient = null;
 export function getSupabaseAdmin() {
   if (!isSupabaseConfigured()) return null;
   if (!adminClient) {
+    if (!supabaseServiceKey) {
+      console.warn(
+        '⚠️ [Supabase Warning]: SUPABASE_SERVICE_ROLE_KEY is not defined in environment variables. Falling back to anon key. Admin ATS updates and private application views will be blocked by Postgres Row Level Security (RLS) unless SUPABASE_SERVICE_ROLE_KEY is configured in Vercel/env.'
+      );
+    }
     const key = supabaseServiceKey?.trim() || supabaseAnonKey?.trim();
     adminClient = createClient(supabaseUrl.trim(), key, {
       auth: {
