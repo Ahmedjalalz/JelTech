@@ -37,6 +37,8 @@ export default function CareersAdminDashboard() {
   const [applications, setApplications] = useState([]);
   const [templates, setTemplates] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
+  const [filteringApps, setFilteringApps] = useState(false);
+  const [mutatingId, setMutatingId] = useState(null);
 
   // Application filters
   const [appJobFilter, setAppJobFilter] = useState('all');
@@ -149,6 +151,7 @@ export default function CareersAdminDashboard() {
 
   const fetchFilteredApplications = async () => {
     try {
+      setFilteringApps(true);
       const res = await fetch(
         `/api/admin/applications?jobId=${appJobFilter}&status=${appStatusFilter}&search=${encodeURIComponent(appSearch)}`,
         { headers: getAuthHeaders() }
@@ -166,11 +169,14 @@ export default function CareersAdminDashboard() {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setFilteringApps(false);
     }
   };
 
   const handleDuplicateOpening = async (openingId) => {
     try {
+      setMutatingId(openingId);
       const res = await fetch(`/api/admin/openings/${openingId}/duplicate`, {
         method: 'POST',
         headers: getAuthHeaders(),
@@ -179,14 +185,17 @@ export default function CareersAdminDashboard() {
       if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to duplicate');
 
       toast.success('Opening duplicated as Draft.');
-      fetchAllDashboardData();
+      await fetchAllDashboardData();
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setMutatingId(null);
     }
   };
 
   const handleToggleStatus = async (openingId, currentStatus, type) => {
     try {
+      setMutatingId(`${openingId}-${type}`);
       const payload = {};
       if (type === 'recruitment') {
         payload.recruitment_status = currentStatus === 'Open' ? 'Closed' : 'Open';
@@ -204,9 +213,11 @@ export default function CareersAdminDashboard() {
       if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to update status');
 
       toast.success('Status updated.');
-      fetchAllDashboardData();
+      await fetchAllDashboardData();
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setMutatingId(null);
     }
   };
 
@@ -214,6 +225,7 @@ export default function CareersAdminDashboard() {
     if (!confirm(`Permanently delete "${title}" and all its applications?`)) return;
 
     try {
+      setMutatingId(openingId);
       const res = await fetch(`/api/admin/openings/${openingId}`, {
         method: 'DELETE',
         headers: getAuthHeaders(),
@@ -222,15 +234,18 @@ export default function CareersAdminDashboard() {
       if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to delete');
 
       toast.success('Deleted.');
-      fetchAllDashboardData();
+      await fetchAllDashboardData();
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setMutatingId(null);
     }
   };
 
   const handleDeleteTemplate = async (tmplId) => {
     if (!confirm('Delete this template?')) return;
     try {
+      setMutatingId(tmplId);
       const res = await fetch(`/api/admin/templates/${tmplId}`, {
         method: 'DELETE',
         headers: getAuthHeaders(),
@@ -239,9 +254,11 @@ export default function CareersAdminDashboard() {
       if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to delete template');
 
       toast.success('Template deleted.');
-      fetchAllDashboardData();
+      await fetchAllDashboardData();
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setMutatingId(null);
     }
   };
 
@@ -287,6 +304,13 @@ export default function CareersAdminDashboard() {
           </div>
 
           <div className="flex items-center gap-3 text-xs">
+            {loadingData && (
+              <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-medium">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                <span>Loading...</span>
+              </div>
+            )}
+
             <Link
               href="/careers"
               target="_blank"
@@ -298,10 +322,14 @@ export default function CareersAdminDashboard() {
 
             <button
               onClick={fetchAllDashboardData}
-              className="p-1.5 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-secondary transition"
+              disabled={loadingData}
+              className="flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-secondary transition disabled:opacity-60"
               title="Refresh"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${loadingData ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${loadingData ? 'animate-spin text-primary' : ''}`} />
+              <span className="hidden sm:inline text-[11px]">
+                {loadingData ? 'Refreshing...' : 'Refresh'}
+              </span>
             </button>
 
             <div className="flex items-center gap-2 pl-2 border-l border-border">
@@ -316,6 +344,13 @@ export default function CareersAdminDashboard() {
             </div>
           </div>
         </div>
+
+        {/* Top Loading Progress Line */}
+        {loadingData && (
+          <div className="w-full h-0.5 bg-primary/20 overflow-hidden">
+            <div className="w-full h-full bg-primary animate-pulse" />
+          </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="container mx-auto px-6 flex gap-6 text-xs font-medium border-t border-border">
@@ -343,39 +378,39 @@ export default function CareersAdminDashboard() {
       <main className="flex-1 container mx-auto px-6 py-6 space-y-6">
         {/* Quick Stats Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-          <div className="p-3.5 rounded-xl bg-card border border-border">
-            <span className="text-[11px] text-muted-foreground block">Open Roles</span>
-            <span className="text-xl font-bold text-primary">{stats?.openings?.open ?? 0}</span>
-          </div>
-          <div className="p-3.5 rounded-xl bg-card border border-border">
-            <span className="text-[11px] text-muted-foreground block">Draft Roles</span>
-            <span className="text-xl font-bold text-foreground">{stats?.openings?.draft ?? 0}</span>
-          </div>
-          <div className="p-3.5 rounded-xl bg-card border border-border">
-            <span className="text-[11px] text-muted-foreground block">Total Candidates</span>
-            <span className="text-xl font-bold text-foreground">{stats?.applications?.total ?? 0}</span>
-          </div>
-          <div className="p-3.5 rounded-xl bg-card border border-border">
-            <span className="text-[11px] text-muted-foreground block">New Submissions</span>
-            <span className="text-xl font-bold text-primary">{stats?.applications?.new ?? 0}</span>
-          </div>
-          <div className="p-3.5 rounded-xl bg-card border border-border">
-            <span className="text-[11px] text-muted-foreground block">Under Review</span>
-            <span className="text-xl font-bold text-foreground">{stats?.applications?.under_review ?? 0}</span>
-          </div>
-          <div className="p-3.5 rounded-xl bg-card border border-border">
-            <span className="text-[11px] text-muted-foreground block">Shortlisted</span>
-            <span className="text-xl font-bold text-primary">{stats?.applications?.shortlisted ?? 0}</span>
-          </div>
+          {[
+            { label: 'Open Roles', value: stats?.openings?.open, color: 'text-primary' },
+            { label: 'Draft Roles', value: stats?.openings?.draft, color: 'text-foreground' },
+            { label: 'Total Candidates', value: stats?.applications?.total, color: 'text-foreground' },
+            { label: 'New Submissions', value: stats?.applications?.new, color: 'text-primary' },
+            { label: 'Under Review', value: stats?.applications?.under_review, color: 'text-foreground' },
+            { label: 'Shortlisted', value: stats?.applications?.shortlisted, color: 'text-primary' },
+          ].map((stat, i) => (
+            <div key={i} className="p-3.5 rounded-xl bg-card border border-border">
+              <span className="text-[11px] text-muted-foreground block">{stat.label}</span>
+              {loadingData && !stats ? (
+                <div className="h-6 w-12 bg-secondary/80 rounded animate-pulse mt-1" />
+              ) : (
+                <span className={`text-xl font-bold ${stat.color}`}>{stat.value ?? 0}</span>
+              )}
+            </div>
+          ))}
         </div>
 
         {activeTab === 'openings' ? (
           /* TAB 1: JOB OPENINGS */
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-bold text-foreground">Recruitment Positions</h2>
-                <p className="text-xs text-muted-foreground">Manage active, draft, and closed positions</p>
+              <div className="flex items-center gap-2">
+                <div>
+                  <h2 className="text-lg font-bold text-foreground">Recruitment Positions</h2>
+                  <p className="text-xs text-muted-foreground">Manage active, draft, and closed positions</p>
+                </div>
+                {loadingData && openings.length > 0 && (
+                  <span className="inline-flex items-center gap-1 text-[11px] text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20 animate-pulse">
+                    <Loader2 className="w-3 h-3 animate-spin" /> Syncing
+                  </span>
+                )}
               </div>
 
               <Button
@@ -390,102 +425,167 @@ export default function CareersAdminDashboard() {
               </Button>
             </div>
 
-            <div className="space-y-2.5">
-              {openings.map((job) => (
-                <div
-                  key={job.id}
-                  className="p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
-                >
-                  <div className="space-y-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-bold text-sm text-foreground">{job.title}</span>
-                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                        {job.department}
-                      </span>
-                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">
-                        {job.employment_type}
-                      </span>
-                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">
-                        {job.work_mode}
-                      </span>
+            {loadingData && openings.length === 0 ? (
+              <div className="space-y-3">
+                {[1, 2, 3].map((n) => (
+                  <div key={n} className="p-4 rounded-xl bg-card border border-border space-y-2 animate-pulse">
+                    <div className="flex justify-between items-center">
+                      <div className="h-4 bg-secondary rounded w-1/3" />
+                      <div className="h-6 bg-secondary rounded w-24" />
                     </div>
-
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground">
-                      <span>{job.location}</span>
-                      <span>{job.working_hours}</span>
-                      <span>Deadline: {job.formatted_deadline}</span>
-                      <span>{job.application_count} candidates</span>
+                    <div className="flex gap-3">
+                      <div className="h-3 bg-secondary rounded w-20" />
+                      <div className="h-3 bg-secondary rounded w-24" />
+                      <div className="h-3 bg-secondary rounded w-32" />
                     </div>
                   </div>
-
-                  {/* Actions & Status Toggles */}
-                  <div className="flex items-center gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-border">
-                    <button
-                      onClick={() => handleToggleStatus(job.id, job.recruitment_status, 'recruitment')}
-                      className={`px-2 py-1 rounded text-[11px] font-semibold border transition ${
-                        job.recruitment_status === 'Open'
-                          ? 'bg-primary/10 text-primary border-primary/30'
-                          : 'bg-secondary text-muted-foreground border-border'
-                      }`}
-                      title="Toggle Open/Closed"
-                    >
-                      {job.recruitment_status}
-                    </button>
-
-                    <button
-                      onClick={() => handleToggleStatus(job.id, job.publication_status, 'publication')}
-                      className={`px-2 py-1 rounded text-[11px] font-semibold border transition ${
-                        job.publication_status === 'Published'
-                          ? 'bg-primary/20 text-primary border-primary/40'
-                          : 'bg-secondary text-muted-foreground border-border'
-                      }`}
-                      title="Toggle Published/Unpublished"
-                    >
-                      {job.publication_status}
-                    </button>
-
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        setEditorOpening(job);
-                        setIsEditorOpen(true);
-                      }}
-                      className="text-xs h-7"
-                    >
-                      <Edit className="w-3 h-3 mr-1" /> Edit
-                    </Button>
-
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleDuplicateOpening(job.id)}
-                      className="text-xs h-7"
-                      title="Duplicate opening"
-                    >
-                      <Copy className="w-3 h-3 mr-1" /> Copy
-                    </Button>
-
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => handleDeleteOpening(job.id, job.title)}
-                      className="text-xs h-7 text-muted-foreground hover:text-destructive p-1"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </Button>
-                  </div>
+                ))}
+                <div className="p-8 text-center flex flex-col items-center justify-center space-y-2 text-muted-foreground">
+                  <Loader2 className="w-5 h-5 animate-spin text-primary" />
+                  <p className="text-xs font-medium text-foreground">Loading recruitment positions...</p>
+                  <p className="text-[11px]">Fetching job openings from Supabase</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ) : openings.length === 0 ? (
+              <div className="p-12 text-center rounded-xl bg-card border border-dashed border-border space-y-3">
+                <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mx-auto text-muted-foreground">
+                  <Briefcase className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm text-foreground">No openings found</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">Get started by creating your first recruitment position.</p>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    setEditorOpening(null);
+                    setIsEditorOpen(true);
+                  }}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold"
+                >
+                  <Plus className="w-3.5 h-3.5 mr-1" /> Create Opening
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-2.5">
+                {openings.map((job) => (
+                  <div
+                    key={job.id}
+                    className="p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-bold text-sm text-foreground">{job.title}</span>
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                          {job.department}
+                        </span>
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">
+                          {job.employment_type}
+                        </span>
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">
+                          {job.work_mode}
+                        </span>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground">
+                        <span>{job.location}</span>
+                        <span>{job.working_hours}</span>
+                        <span>Deadline: {job.formatted_deadline}</span>
+                        <span>{job.application_count} candidates</span>
+                      </div>
+                    </div>
+
+                    {/* Actions & Status Toggles */}
+                    <div className="flex items-center gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-border">
+                      <button
+                        onClick={() => handleToggleStatus(job.id, job.recruitment_status, 'recruitment')}
+                        disabled={mutatingId === `${job.id}-recruitment`}
+                        className={`px-2 py-1 rounded text-[11px] font-semibold border transition flex items-center gap-1 ${
+                          job.recruitment_status === 'Open'
+                            ? 'bg-primary/10 text-primary border-primary/30'
+                            : 'bg-secondary text-muted-foreground border-border'
+                        } disabled:opacity-50`}
+                        title="Toggle Open/Closed"
+                      >
+                        {mutatingId === `${job.id}-recruitment` && <Loader2 className="w-3 h-3 animate-spin" />}
+                        {job.recruitment_status}
+                      </button>
+
+                      <button
+                        onClick={() => handleToggleStatus(job.id, job.publication_status, 'publication')}
+                        disabled={mutatingId === `${job.id}-publication`}
+                        className={`px-2 py-1 rounded text-[11px] font-semibold border transition flex items-center gap-1 ${
+                          job.publication_status === 'Published'
+                            ? 'bg-primary/20 text-primary border-primary/40'
+                            : 'bg-secondary text-muted-foreground border-border'
+                        } disabled:opacity-50`}
+                        title="Toggle Published/Unpublished"
+                      >
+                        {mutatingId === `${job.id}-publication` && <Loader2 className="w-3 h-3 animate-spin" />}
+                        {job.publication_status}
+                      </button>
+
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setEditorOpening(job);
+                          setIsEditorOpen(true);
+                        }}
+                        className="text-xs h-7"
+                      >
+                        <Edit className="w-3 h-3 mr-1" /> Edit
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={mutatingId === job.id}
+                        onClick={() => handleDuplicateOpening(job.id)}
+                        className="text-xs h-7"
+                        title="Duplicate opening"
+                      >
+                        {mutatingId === job.id ? (
+                          <Loader2 className="w-3 h-3 animate-spin mr-1" />
+                        ) : (
+                          <Copy className="w-3 h-3 mr-1" />
+                        )}
+                        Copy
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        disabled={mutatingId === job.id}
+                        onClick={() => handleDeleteOpening(job.id, job.title)}
+                        className="text-xs h-7 text-muted-foreground hover:text-destructive p-1 disabled:opacity-50"
+                      >
+                        {mutatingId === job.id ? (
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        ) : (
+                          <Trash2 className="w-3.5 h-3.5" />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         ) : activeTab === 'applications' ? (
           /* TAB 2: APPLICATIONS */
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <h2 className="text-lg font-bold text-foreground">Candidate Submissions</h2>
-                <p className="text-xs text-muted-foreground">Review portfolios, internal notes, and scores</p>
+              <div className="flex items-center gap-2">
+                <div>
+                  <h2 className="text-lg font-bold text-foreground">Candidate Submissions</h2>
+                  <p className="text-xs text-muted-foreground">Review portfolios, internal notes, and scores</p>
+                </div>
+                {(loadingData || filteringApps) && applications.length > 0 && (
+                  <span className="inline-flex items-center gap-1 text-[11px] text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20 animate-pulse">
+                    <Loader2 className="w-3 h-3 animate-spin" /> Updating
+                  </span>
+                )}
               </div>
 
               {/* Filters */}
@@ -545,7 +645,26 @@ export default function CareersAdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {applications.length > 0 ? (
+                  {loadingData && applications.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="p-14 text-center">
+                        <div className="flex flex-col items-center justify-center space-y-2 text-muted-foreground">
+                          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                          <p className="text-xs font-semibold text-foreground">Loading candidate submissions...</p>
+                          <p className="text-[11px]">Fetching applications from database</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : filteringApps ? (
+                    <tr>
+                      <td colSpan={6} className="p-10 text-center">
+                        <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                          <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                          <span>Filtering applications...</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : applications.length > 0 ? (
                     applications.map((app) => (
                       <tr
                         key={app.id}
@@ -564,7 +683,7 @@ export default function CareersAdminDashboard() {
                         <td className="p-3 text-foreground">{app.job_title}</td>
                         <td className="p-3 text-muted-foreground">
                           {app.education_status}
-                          {app.qualification ? ` &bull; ${app.qualification}` : ''}
+                          {app.qualification ? ` • ${app.qualification}` : ''}
                         </td>
                         <td className="p-3 text-muted-foreground">{app.formatted_created_at}</td>
                         <td className="p-3">
@@ -587,8 +706,10 @@ export default function CareersAdminDashboard() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6} className="p-6 text-center text-muted-foreground italic">
-                        No applications found.
+                      <td colSpan={6} className="p-12 text-center text-muted-foreground">
+                        <Users className="w-8 h-8 mx-auto text-muted-foreground/40 mb-2" />
+                        <p className="font-semibold text-xs text-foreground">No applications found</p>
+                        <p className="text-[11px] mt-0.5">Applications submitted by candidates on /careers will appear here.</p>
                       </td>
                     </tr>
                   )}
@@ -604,60 +725,88 @@ export default function CareersAdminDashboard() {
               <p className="text-xs text-muted-foreground">Pre-configured role structures to generate new openings in seconds</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              {templates.map((tmpl) => (
-                <div key={tmpl.id} className="p-5 rounded-xl bg-card border border-border space-y-3 flex flex-col justify-between text-xs">
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-primary">{tmpl.department}</span>
-                      <button
-                        onClick={() => handleDeleteTemplate(tmpl.id)}
-                        className="text-muted-foreground hover:text-destructive"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+            {loadingData && templates.length === 0 ? (
+              <div className="grid md:grid-cols-2 gap-4">
+                {[1, 2].map((n) => (
+                  <div key={n} className="p-5 rounded-xl bg-card border border-border space-y-3 animate-pulse">
+                    <div className="h-4 bg-secondary rounded w-1/4" />
+                    <div className="h-5 bg-secondary rounded w-1/2" />
+                    <div className="h-3 bg-secondary rounded w-3/4" />
+                    <div className="pt-2 border-t border-border flex justify-between">
+                      <div className="h-3 bg-secondary rounded w-20" />
+                      <div className="h-7 bg-secondary rounded w-24" />
                     </div>
-                    <h3 className="font-bold text-sm text-foreground">{tmpl.name}</h3>
-                    <p className="text-muted-foreground line-clamp-2 leading-relaxed">{tmpl.role_description}</p>
                   </div>
+                ))}
+              </div>
+            ) : templates.length === 0 ? (
+              <div className="p-12 text-center rounded-xl bg-card border border-dashed border-border space-y-2 text-muted-foreground">
+                <Bookmark className="w-8 h-8 mx-auto text-muted-foreground/40 mb-1" />
+                <h3 className="font-semibold text-sm text-foreground">No templates saved yet</h3>
+                <p className="text-xs">Save any position as a template to rapidly create standardized job openings in the future.</p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-4">
+                {templates.map((tmpl) => (
+                  <div key={tmpl.id} className="p-5 rounded-xl bg-card border border-border space-y-3 flex flex-col justify-between text-xs">
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-semibold text-primary">{tmpl.department}</span>
+                        <button
+                          onClick={() => handleDeleteTemplate(tmpl.id)}
+                          disabled={mutatingId === tmpl.id}
+                          className="text-muted-foreground hover:text-destructive transition disabled:opacity-50"
+                          title="Delete template"
+                        >
+                          {mutatingId === tmpl.id ? (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          ) : (
+                            <Trash2 className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+                      </div>
+                      <h3 className="font-bold text-sm text-foreground">{tmpl.name}</h3>
+                      <p className="text-muted-foreground line-clamp-2 leading-relaxed">{tmpl.role_description}</p>
+                    </div>
 
-                  <div className="pt-2 border-t border-border flex items-center justify-between">
-                    <span className="text-[11px] text-muted-foreground">
-                      {tmpl.kpis?.length || 0} KPIs &bull; {tmpl.responsibilities?.length || 0} responsibilities
-                    </span>
-                    <Button
-                      size="sm"
-                      onClick={() => {
-                        setEditorOpening({
-                          title: tmpl.name.replace(/ Template$/i, ''),
-                          department: tmpl.department,
-                          full_description: tmpl.role_description || '',
-                          short_description: tmpl.role_description ? tmpl.role_description.slice(0, 150) + '...' : '',
-                          responsibilities: tmpl.responsibilities || [],
-                          required_qualifications: tmpl.qualifications || [],
-                          candidate_benefits: tmpl.benefits || [],
-                          kpis: tmpl.kpis || [],
-                          custom_questions: tmpl.custom_questions || [],
-                          employment_type: tmpl.working_arrangements?.employmentType || 'Internship',
-                          work_mode: tmpl.working_arrangements?.workMode || 'Hybrid',
-                          location: tmpl.working_arrangements?.location || 'Karachi, Pakistan / Remote',
-                          duration: tmpl.working_arrangements?.duration || '3 months',
-                          working_hours: tmpl.working_arrangements?.workingHours || '4 hours per day',
-                          is_paid: tmpl.working_arrangements?.isPaid ?? false,
-                          stipend_amount: tmpl.working_arrangements?.stipendAmount || '',
-                          recruitment_status: 'Draft',
-                          publication_status: 'Unpublished',
-                        });
-                        setIsEditorOpen(true);
-                      }}
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold"
-                    >
-                      Use Template
-                    </Button>
+                    <div className="pt-2 border-t border-border flex items-center justify-between">
+                      <span className="text-[11px] text-muted-foreground">
+                        {tmpl.kpis?.length || 0} KPIs &bull; {tmpl.responsibilities?.length || 0} responsibilities
+                      </span>
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          setEditorOpening({
+                            title: tmpl.name.replace(/ Template$/i, ''),
+                            department: tmpl.department,
+                            full_description: tmpl.role_description || '',
+                            short_description: tmpl.role_description ? tmpl.role_description.slice(0, 150) + '...' : '',
+                            responsibilities: tmpl.responsibilities || [],
+                            required_qualifications: tmpl.qualifications || [],
+                            candidate_benefits: tmpl.benefits || [],
+                            kpis: tmpl.kpis || [],
+                            custom_questions: tmpl.custom_questions || [],
+                            employment_type: tmpl.working_arrangements?.employmentType || 'Internship',
+                            work_mode: tmpl.working_arrangements?.workMode || 'Hybrid',
+                            location: tmpl.working_arrangements?.location || 'Karachi, Pakistan / Remote',
+                            duration: tmpl.working_arrangements?.duration || '3 months',
+                            working_hours: tmpl.working_arrangements?.workingHours || '4 hours per day',
+                            is_paid: tmpl.working_arrangements?.isPaid ?? false,
+                            stipend_amount: tmpl.working_arrangements?.stipendAmount || '',
+                            recruitment_status: 'Draft',
+                            publication_status: 'Unpublished',
+                          });
+                          setIsEditorOpen(true);
+                        }}
+                        className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold"
+                      >
+                        Use Template
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>
